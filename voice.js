@@ -8,7 +8,7 @@ if (!fs.existsSync(AUDIO_DIR)) {
     fs.mkdirSync(AUDIO_DIR, { recursive: true });
 }
 
-// 1. Mandatory Gemini 3.8 Flash TTS via Google Gemini Interactions API
+// 1. Mandatory Gemini Flash TTS via Google Gemini Interactions API (Dual Model Quota)
 async function generateGeminiTTS(cleanText) {
     const apiKey = process.env.GEMINI_API_KEY;
     const timestamp = Date.now();
@@ -16,27 +16,38 @@ async function generateGeminiTTS(cleanText) {
     const wavPath = path.join(AUDIO_DIR, `temp_${timestamp}_${rand}.wav`);
     const finalOggPath = path.join(AUDIO_DIR, `voice_${timestamp}_${rand}.ogg`);
 
-    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'x-goog-api-key': apiKey
-        },
-        signal: AbortSignal.timeout(10000), // 10s timeout
-        body: JSON.stringify({
-            model: 'gemini-3.8-flash-tts',
-            input: cleanText,
-            response_format: { type: 'audio' }
-        })
-    });
+    const models = ['gemini-3.8-flash-tts', 'gemini-3.8-flash-lite-tts'];
+    let b64 = null;
 
-    if (!res.ok) {
-        throw new Error(`Gemini TTS API returned HTTP ${res.status}`);
+    for (const model of models) {
+        try {
+            const res = await fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': apiKey
+                },
+                signal: AbortSignal.timeout(10000), // 10s timeout
+                body: JSON.stringify({
+                    model: model,
+                    input: cleanText,
+                    response_format: { type: 'audio' }
+                })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                b64 = data.steps?.[0]?.content?.[0]?.data;
+                if (b64) break;
+            } else {
+                console.warn(`TTS Model ${model} returned HTTP ${res.status}`);
+            }
+        } catch (e) {
+            console.warn(`TTS Model ${model} error:`, e.message);
+        }
     }
 
-    const data = await res.json();
-    const b64 = data.steps?.[0]?.content?.[0]?.data;
-    if (!b64) throw new Error('No audio data in Gemini TTS response');
+    if (!b64) throw new Error('No audio data in Gemini Flash TTS responses');
 
     fs.writeFileSync(wavPath, Buffer.from(b64, 'base64'));
 
