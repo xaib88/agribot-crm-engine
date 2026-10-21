@@ -122,9 +122,9 @@ function buildGeminiContents(chatId, currentQueryText, inlineAudio = null) {
     return contents;
 }
 
-// Unified Gemini 3.5 Flash Lite Caller
-async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3.5-flash-lite', maxTokens = 350) {
-    const modelsToTry = [modelName, 'gemini-3.5-flash-lite', 'gemini-3.8-flash'];
+// Unified Gemini Flash Caller with strict 6s timeout & anti-hang protection
+async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3.8-flash', maxTokens = 350) {
+    const modelsToTry = [modelName, 'gemini-3.5-flash-lite'];
     
     for (const model of modelsToTry) {
         try {
@@ -132,6 +132,7 @@ async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3.
             const response = await fetch(url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
+                signal: AbortSignal.timeout(6000), // 6-second strict timeout
                 body: JSON.stringify({
                     system_instruction: { parts: [{ text: systemPrompt }] },
                     contents: contents,
@@ -141,6 +142,11 @@ async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3.
                     }
                 })
             });
+
+            if (!response.ok) {
+                console.warn(`Gemini (${model}) returned HTTP ${response.status}`);
+                continue;
+            }
 
             const data = await response.json();
             if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts[0].text) {
@@ -160,7 +166,7 @@ async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3.
     return null;
 }
 
-// Groq API Caller
+// Groq API Caller with strict 5s timeout
 async function callGroq(systemPrompt, contents, apiKey, model = 'llama-3.3-70b-versatile', maxTokens = 350) {
     try {
         const url = "https://api.groq.com/openai/v1/chat/completions";
@@ -179,6 +185,7 @@ async function callGroq(systemPrompt, contents, apiKey, model = 'llama-3.3-70b-v
                 "Authorization": `Bearer ${apiKey}`,
                 "Content-Type": "application/json"
             },
+            signal: AbortSignal.timeout(5000), // 5-second strict timeout
             body: JSON.stringify({
                 model: model,
                 messages: messages,
@@ -186,6 +193,11 @@ async function callGroq(systemPrompt, contents, apiKey, model = 'llama-3.3-70b-v
                 temperature: 0.2
             })
         });
+
+        if (!response.ok) {
+            console.warn(`Groq returned HTTP ${response.status}`);
+            return null;
+        }
 
         const data = await response.json();
         if (data.choices && data.choices[0] && data.choices[0].message) {
@@ -244,21 +256,31 @@ function bossQualityGate(userQuery, botReply, chatId, currentMode) {
     return text;
 }
 
-// Master LLM Dispatcher
+// Master LLM Dispatcher with Zero-Hang Failover
 async function dispatchLLM(systemPrompt, contents, config, maxTokens = 350) {
     if (config.llmProvider === 'groq' && config.groqApiKey) {
         const groqReply = await callGroq(systemPrompt, contents, config.groqApiKey, config.groqModel || 'llama-3.3-70b-versatile', maxTokens);
         if (groqReply) return groqReply;
-        console.warn("Groq failed, falling back to Gemini 3.5 Flash Lite...");
+        console.warn("Groq failed, falling back to Gemini...");
     }
 
-    return await callGemini(
+    const geminiReply = await callGemini(
         systemPrompt, 
         contents, 
         config.geminiApiKey, 
-        config.geminiModel || 'gemini-3.5-flash-lite', 
+        config.geminiModel || 'gemini-3.8-flash', 
         maxTokens
     );
+    if (geminiReply) return geminiReply;
+
+    // Instant fallback to Groq LLaMA 3.3 70B if Gemini timed out or spiked
+    if (config.groqApiKey) {
+        console.log("⚡ Gemini timed out or spiked. Switching instantly to Groq LLaMA 3.3 70B (<1s)...");
+        const groqFallback = await callGroq(systemPrompt, contents, config.groqApiKey, 'llama-3.3-70b-versatile', maxTokens);
+        if (groqFallback) return groqFallback;
+    }
+
+    return "محترم کاشتکار بھائی! میں آپ کے زرعی سوال کا جائزہ لے رہا ہوں۔ براہِ کرم اپنا سوال دوبارہ لکھیں یا وائس نوٹ بھیجیں تاکہ میں فوری اور درست رہنمائی کر سکوں۔ 🌿";
 }
 
 // Main Text Responder: 100% Routed through LLM with RAG and Anti-Hallucination
@@ -403,6 +425,7 @@ async function transcribeWithGroqWhisper(audioBuffer, filename = 'voice.ogg') {
                 'Content-Type': `multipart/form-data; boundary=${boundary}`,
                 'Content-Length': fullBody.length
             },
+            signal: AbortSignal.timeout(8000), // 8s timeout for STT
             body: fullBody
         });
 
