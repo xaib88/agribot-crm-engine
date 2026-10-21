@@ -12,6 +12,10 @@ try {
 
 let chatsData = {};
 try {
+    const seedFile = path.join(__dirname, 'data', 'chats.json');
+    if (!fs.existsSync(CHATS_FILE) && fs.existsSync(seedFile)) {
+        try { fs.copyFileSync(seedFile, CHATS_FILE); } catch (e) {}
+    }
     if (fs.existsSync(CHATS_FILE)) {
         chatsData = JSON.parse(fs.readFileSync(CHATS_FILE, 'utf-8'));
     }
@@ -137,16 +141,39 @@ function setChatMode(jid, mode) {
     persist();
 }
 
+function hasMessage(msgId) {
+    if (!msgId) return false;
+    for (const jid in chatsData) {
+        if (Array.isArray(chatsData[jid]?.messages)) {
+            if (chatsData[jid].messages.some(m => m.id === msgId)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function getChatMode(jid) {
     if (!jid || !chatsData[jid]) return 'agri';
     return chatsData[jid].mode || 'agri';
 }
 
+// YouTube Link Gate: STRICTLY ONCE PER FARMER EVER (Never repeated)
 function shouldSendYtLink(jid) {
     if (!jid) return false;
-    const lastSent = chatsData[jid]?.lastYtSentTimestamp || 0;
-    const hoursSinceLast = (Date.now() - lastSent) / (1000 * 60 * 60);
-    return hoursSinceLast >= 24;
+    // 1. Check persistent ytLinkSent flag or previous timestamp
+    if (chatsData[jid]?.ytLinkSent || chatsData[jid]?.lastYtSentTimestamp) {
+        return false;
+    }
+    // 2. Check if any message in farmer history already contains the YouTube link
+    if (Array.isArray(chatsData[jid]?.messages)) {
+        const alreadyHasLink = chatsData[jid].messages.some(m => m.text && m.text.includes('youtube.com/@AgricultureGuidance'));
+        if (alreadyHasLink) {
+            chatsData[jid].ytLinkSent = true;
+            return false;
+        }
+    }
+    return true;
 }
 
 function markYtLinkSent(jid) {
@@ -158,10 +185,12 @@ function markYtLinkSent(jid) {
             name: cleanPhone(jid),
             lastMessage: '',
             lastTime: new Date().toISOString(),
+            ytLinkSent: true,
             lastYtSentTimestamp: Date.now(),
             messages: []
         };
     } else {
+        chatsData[jid].ytLinkSent = true;
         chatsData[jid].lastYtSentTimestamp = Date.now();
     }
     persist();
@@ -232,5 +261,6 @@ module.exports = {
     shouldSendYtLink,
     markYtLinkSent,
     checkDailyLimit,
-    setAdmin
+    setAdmin,
+    hasMessage
 };

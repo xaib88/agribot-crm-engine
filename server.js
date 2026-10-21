@@ -38,11 +38,8 @@ app.post('/api/webhook', async (req, res) => {
     try {
         const event = req.body;
         console.log(`📡 [HTTP WEBHOOK] Received event: "${event?.event}" for session: "${event?.session}"`);
-        if (event && event.event) {
-            // Trigger processing asynchronously so webhook responds with 200 OK immediately
-            waha.processWahaEvent(event).catch(err => {
-                console.error('Webhook async event error:', err.message);
-            });
+        if (event && event.event === 'message.any') {
+            await waha.processWahaEvent(event);
         }
         res.status(200).json({ status: 'OK', received: true });
     } catch (err) {

@@ -71,19 +71,26 @@ async function generateGeminiTTS(cleanText) {
     fs.writeFileSync(wavPath, Buffer.from(b64, 'base64'));
 
     // Convert WAV to WhatsApp-compliant Ogg Opus using ffmpeg
-    execSync(`${ffmpegPath} -y -i "${wavPath}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
-        stdio: 'ignore',
-        timeout: 20000
-    });
-
-    if (fs.existsSync(wavPath)) {
-        try { fs.unlinkSync(wavPath); } catch (e) {}
+    try {
+        execSync(`${ffmpegPath} -y -i "${wavPath}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
+            stdio: 'ignore',
+            timeout: 20000
+        });
+    } catch (ffmpegErr) {
+        console.warn('FFmpeg transcode error, falling back to direct WAV delivery:', ffmpegErr.message);
     }
 
     if (fs.existsSync(finalOggPath) && fs.statSync(finalOggPath).size > 0) {
+        if (fs.existsSync(wavPath)) {
+            try { fs.unlinkSync(wavPath); } catch (e) {}
+        }
         return finalOggPath;
     }
-    throw new Error('FFmpeg failed to produce valid OGG Opus file');
+
+    if (fs.existsSync(wavPath) && fs.statSync(wavPath).size > 0) {
+        return wavPath;
+    }
+    throw new Error('Both FFmpeg Opus transcode and WAV creation failed');
 }
 
 // 2. Edge TTS Fallback

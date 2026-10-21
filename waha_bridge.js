@@ -9,16 +9,46 @@ const WAHA_BASE_URL = process.env.WAHA_BASE_URL || 'https://waha-whatsapp-server
 const WAHA_API_KEY = process.env.WAHA_API_KEY || 'agri_secret_123';
 const WAHA_WS_URL = process.env.WAHA_WS_URL || `wss://${new URL(WAHA_BASE_URL).hostname}/ws?x-api-key=${WAHA_API_KEY}`;
 
-// Deduplication
+const LOCK_DIR = process.env.VERCEL ? path.join('/tmp', 'locks') : path.join(__dirname, 'locks');
+try {
+    if (!fs.existsSync(LOCK_DIR)) fs.mkdirSync(LOCK_DIR, { recursive: true });
+} catch (e) {}
+
+// Triple-Barrier Deduplication Engine (Eliminates double responses)
 const processedMsgIds = new Set();
 function isDuplicate(id) {
     if (!id) return false;
-    if (processedMsgIds.has(id)) return true;
+
+    // Barrier 1: In-memory LRU Set (microsecond check)
+    if (processedMsgIds.has(id)) {
+        console.log(`🧹 [DEDUP BARRIER 1] In-memory drop for duplicate msg: ${id}`);
+        return true;
+    }
     processedMsgIds.add(id);
     if (processedMsgIds.size > 2000) {
         const first = processedMsgIds.values().next().value;
         processedMsgIds.delete(first);
     }
+
+    // Barrier 2: Atomic OS File Lock (eliminates parallel serverless race conditions)
+    try {
+        const cleanId = id.replace(/[^a-zA-Z0-9_-]/g, '_');
+        const lockPath = path.join(LOCK_DIR, `lock_${cleanId}`);
+        // Flag 'wx' exclusively creates file; throws EEXIST if file already exists
+        fs.writeFileSync(lockPath, String(Date.now()), { flag: 'wx' });
+    } catch (e) {
+        if (e.code === 'EEXIST') {
+            console.warn(`🧹 [DEDUP BARRIER 2] Atomic lock drop for duplicate msg: ${id}`);
+            return true;
+        }
+    }
+
+    // Barrier 3: Persistent Database history check
+    if (db.hasMessage(id)) {
+        console.warn(`🧹 [DEDUP BARRIER 3] Database history drop for msg: ${id}`);
+        return true;
+    }
+
     return false;
 }
 
@@ -126,22 +156,23 @@ async function sendTextMessage(session, chatId, text) {
     });
 }
 
-// Send Voice Note
-async function sendVoiceNote(session, chatId, oggPath) {
+// Send Voice Note (Gemini Charon Studio Audio)
+async function sendVoiceNote(session, chatId, audioPath) {
     try {
-        if (!fs.existsSync(oggPath)) return;
-        const audioBuffer = fs.readFileSync(oggPath);
+        if (!fs.existsSync(audioPath)) return;
+        const audioBuffer = fs.readFileSync(audioPath);
         const base64Data = audioBuffer.toString('base64');
+        const isWav = audioPath.toLowerCase().endsWith('.wav');
 
         return await wahaRequest('POST', '/api/sendVoice', {
             session,
             chatId,
             file: {
-                mimetype: 'audio/ogg; codecs=opus',
-                filename: 'voice-note.ogg',
+                mimetype: isWav ? 'audio/wav' : 'audio/ogg; codecs=opus',
+                filename: isWav ? 'voice-note.wav' : 'voice-note.ogg',
                 data: base64Data
             },
-            convert: false
+            convert: isWav ? true : false
         });
     } catch (e) {
         console.error('Error sending voice note:', e.message);
