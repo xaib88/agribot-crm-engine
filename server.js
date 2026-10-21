@@ -14,13 +14,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/audio', express.static(path.join(__dirname, 'audio_out')));
 
 // Health check endpoint for 24/7 Anti-Sleep Keepalive Cron
-app.get('/health', (req, res) => {
+app.get(['/health', '/api/health'], (req, res) => {
     res.json({
         status: 'OK',
         service: 'AgriBot CRM Engine',
         uptime: process.uptime(),
         timestamp: new Date().toISOString()
     });
+});
+
+// Diagnostic debug endpoint
+app.get('/api/debug', async (req, res) => {
+    try {
+        const debugHandler = require('./api/debug');
+        await debugHandler(req, res);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
 });
 
 // Universal WAHA Webhook Endpoint (Supports Vercel & Cloud Serverless)
