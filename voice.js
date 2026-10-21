@@ -11,10 +11,12 @@ try {
     }
 } catch (e) {}
 
-const AUDIO_DIR = path.join(__dirname, 'audio_out');
-if (!fs.existsSync(AUDIO_DIR)) {
-    fs.mkdirSync(AUDIO_DIR, { recursive: true });
-}
+const AUDIO_DIR = process.env.VERCEL ? path.join('/tmp', 'audio_out') : path.join(__dirname, 'audio_out');
+try {
+    if (!fs.existsSync(AUDIO_DIR)) {
+        fs.mkdirSync(AUDIO_DIR, { recursive: true });
+    }
+} catch (e) {}
 
 // 1. Mandatory Gemini Flash TTS via Google Gemini Interactions API (Dual Model Quota)
 async function generateGeminiTTS(cleanText) {

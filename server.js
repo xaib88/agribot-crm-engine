@@ -300,10 +300,10 @@ function startServer() {
     });
 }
 
-module.exports = {
-    startServer,
-    setBotSocket
-};
+app.startServer = startServer;
+app.setBotSocket = setBotSocket;
+
+module.exports = app;
 
 if (require.main === module) {
     startServer();
