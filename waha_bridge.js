@@ -22,37 +22,33 @@ function isDuplicate(id) {
     return false;
 }
 
-// REST helper
+// REST helper using modern resilient fetch with 8s strict timeout
 async function wahaRequest(method, endpoint, body = null) {
-    return new Promise((resolve, reject) => {
-        const url = new URL(endpoint, WAHA_BASE_URL);
+    try {
+        const fullUrl = new URL(endpoint, WAHA_BASE_URL).toString();
         const options = {
             method,
-            hostname: url.hostname,
-            port: 443,
-            path: url.pathname + url.search,
             headers: {
                 'X-Api-Key': WAHA_API_KEY,
                 'Content-Type': 'application/json'
-            }
+            },
+            signal: AbortSignal.timeout(8000)
         };
-
-        const req = https.request(options, (res) => {
-            let data = '';
-            res.on('data', chunk => data += chunk);
-            res.on('end', () => {
-                try {
-                    resolve({ status: res.statusCode, data: JSON.parse(data) });
-                } catch {
-                    resolve({ status: res.statusCode, raw: data });
-                }
-            });
-        });
-
-        req.on('error', reject);
-        if (body) req.write(JSON.stringify(body));
-        req.end();
-    });
+        if (body && method !== 'GET') {
+            options.body = JSON.stringify(body);
+        }
+        const res = await fetch(fullUrl, options);
+        let data = null;
+        try {
+            data = await res.json();
+        } catch {
+            data = await res.text();
+        }
+        return { status: res.status, data };
+    } catch (e) {
+        console.error(`wahaRequest error (${method} ${endpoint}):`, e.message);
+        return { status: 500, error: e.message };
+    }
 }
 
 // Download media files (voice notes) from WAHA
