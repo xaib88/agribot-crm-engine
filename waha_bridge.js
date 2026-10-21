@@ -112,8 +112,17 @@ async function sendSeen(session, chatId) {
     }
 }
 
+const botSentTexts = new Set();
+
 // Send Text message
 async function sendTextMessage(session, chatId, text) {
+    if (text) {
+        botSentTexts.add(text.trim());
+        if (botSentTexts.size > 200) {
+            const first = botSentTexts.values().next().value;
+            botSentTexts.delete(first);
+        }
+    }
     return await wahaRequest('POST', '/api/sendText', {
         session,
         chatId,
@@ -145,6 +154,8 @@ async function sendVoiceNote(session, chatId, oggPath) {
 
 // Active session cache
 let activeSessionName = 'default';
+let activeSessionPhone = '923317824038@c.us';
+let activeSessionLid = '';
 
 async function updateActiveSession() {
     try {
@@ -153,7 +164,9 @@ async function updateActiveSession() {
             const working = res.data.find(s => s.status === 'WORKING');
             if (working) {
                 activeSessionName = working.name;
-                console.log(`📡 WAHA Active Working Session: ${activeSessionName} (${working.me?.pushName || working.me?.id})`);
+                activeSessionPhone = working.me?.id || '923317824038@c.us';
+                activeSessionLid = working.me?.lid || '';
+                console.log(`📡 WAHA Active Working Session: ${activeSessionName} (${working.me?.pushName || activeSessionPhone})`);
             } else {
                 activeSessionName = res.data[0].name;
                 console.log(`📡 WAHA Current Session: ${activeSessionName} (Status: ${res.data[0].status})`);
@@ -187,6 +200,8 @@ function connectWebSocket() {
             const eventType = event.event;
             const session = event.session || activeSessionName;
 
+            console.log(`\n⚡ [RAW WS EVENT] Event: "${eventType}" | Session: "${session}" | FromMe: ${event.payload?.fromMe} | From: "${event.payload?.from}" | Body: "${event.payload?.body}"`);
+
             // ========================================================
             // 📞 INCOMING CALL REJECTION & AUTO-DISPATCH (NO CALLS ALLOWED)
             // ========================================================
@@ -215,13 +230,27 @@ function connectWebSocket() {
 
             if (eventType === 'message' || eventType === 'message.any') {
                 const payload = event.payload;
-                if (!payload || payload.fromMe) return;
+                if (!payload) return;
 
                 const msgId = payload.id;
                 if (isDuplicate(msgId)) return;
 
                 const chatId = payload.from;
                 if (!chatId || chatId.endsWith('@broadcast')) return;
+
+                const userQuery = payload.body ? payload.body.trim() : '';
+
+                // Prevent infinite loop: ignore messages that were sent by the bot itself
+                if (userQuery && botSentTexts.has(userQuery)) {
+                    botSentTexts.delete(userQuery);
+                    return;
+                }
+
+                // Self-Chat Testing: If owner is testing the bot by sending a message to themselves
+                const isSelfChat = (chatId && (chatId.includes('923317824038') || (activeSessionPhone && chatId === activeSessionPhone)));
+                if (payload.fromMe && !isSelfChat) {
+                    return; // Ignore normal outgoing messages sent to third-party contacts
+                }
 
                 // Handle missed call or call log notification from WhatsApp
                 if (payload.type === 'call_log' || payload.type === 'missed_call') {
@@ -233,7 +262,6 @@ function connectWebSocket() {
 
                 const isGroup = chatId.endsWith('@g.us');
                 const pushName = payload._data?.pushName || payload._data?.notifyName || '';
-                const userQuery = payload.body ? payload.body.trim() : '';
                 const hasMedia = payload.hasMedia && payload.media?.url;
                 const isAudio = hasMedia && (payload.media?.mimetype?.includes('audio') || payload.media?.mimetype?.includes('ogg') || payload.media?.mimetype?.includes('opus'));
 
