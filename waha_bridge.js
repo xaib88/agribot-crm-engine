@@ -231,12 +231,26 @@ function connectWebSocket() {
                     return;
                 }
 
+                const isGroup = chatId.endsWith('@g.us');
                 const pushName = payload._data?.pushName || payload._data?.notifyName || '';
                 const userQuery = payload.body ? payload.body.trim() : '';
                 const hasMedia = payload.hasMedia && payload.media?.url;
                 const isAudio = hasMedia && (payload.media?.mimetype?.includes('audio') || payload.media?.mimetype?.includes('ogg') || payload.media?.mimetype?.includes('opus'));
 
-                console.log(`\n📩 Incoming WhatsApp from ${chatId} (${pushName}): ${isAudio ? '[🎙️ Voice Note]' : `"${userQuery}"`}`);
+                // 1. Ignore empty status updates, reactions, or non-actionable events
+                if (!userQuery && !isAudio && !hasMedia) {
+                    return;
+                }
+
+                // 2. Group Chat Protection: Only reply in WhatsApp groups if explicitly mentioned
+                if (isGroup) {
+                    const mentionsBasheer = userQuery && (userQuery.toLowerCase().includes('بشیر') || userQuery.toLowerCase().includes('basheer'));
+                    if (!mentionsBasheer) {
+                        return; // Silent in groups unless tagged
+                    }
+                }
+
+                console.log(`\n📩 Incoming WhatsApp from ${chatId} (${pushName}): ${isAudio ? '[🎙️ Voice Note]' : (userQuery ? `"${userQuery}"` : '[📷 Media]')}`);
 
                 // Check Admin Godmode Passkey (@adminzeb)
                 let isAdminPasskey = userQuery && userQuery.toLowerCase().includes('@adminzeb');
@@ -324,9 +338,12 @@ function connectWebSocket() {
                             userMessageText = '[🎙️ وائس نوٹ]: (آواز واضح نہیں تھی)';
                             replyText = 'کاشتکار بھائی! آپ کی آواز صاف نہیں مل سکی۔ براہِ کرم اپنا سوال دوبارہ ریکارڈ کر کے بھیجیں یا لکھ کر بتائیں۔ 🌾';
                         }
+                    } else if (hasMedia && !cleanUserQuery) {
+                        userMessageText = '[📷 تصویر / فوٹو]';
+                        replyText = 'محترم کاشتکار بھائی! میں نے آپ کی فصل کی تصویر موصول کر لی ہے۔ براہِ کرم اس کے ساتھ اپنی فصل کا نام اور مسئلہ (مثلاً پتے پیلے ہو رہے ہیں، سوراخ ہیں یا کیڑے کا حملہ ہے) بھی لکھ کر یا بول کر بتائیں تاکہ میں فوری اور درست حل تجویز کر سکوں۔ 🌿';
                     } else {
                         console.log(`🧠 Calling AI LLM for query: "${cleanUserQuery}" [ChatId: ${chatId}]...`);
-                        replyText = await agent.getQuickTextAnswer(cleanUserQuery || 'زرعی رہنمائی', chatId);
+                        replyText = await agent.getQuickTextAnswer(cleanUserQuery, chatId);
                     }
                 } catch (agentErr) {
                     console.error('Agent generation error:', agentErr.message);
