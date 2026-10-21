@@ -21,6 +21,7 @@ async function generateGeminiTTS(cleanText) {
 
     for (const model of models) {
         try {
+            console.log(`🎙️ Generating Google Gemini Studio Voice (${model} - Charon)...`);
             const res = await fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
                 method: 'POST',
                 headers: {
@@ -31,19 +32,27 @@ async function generateGeminiTTS(cleanText) {
                 body: JSON.stringify({
                     model: model,
                     input: cleanText,
-                    response_format: { type: 'audio' }
+                    response_format: { type: 'audio' },
+                    generation_config: {
+                        speech_config: [
+                            { voice: 'Charon' }
+                        ]
+                    }
                 })
             });
 
             if (res.ok) {
                 const data = await res.json();
                 b64 = data.steps?.[0]?.content?.[0]?.data;
-                if (b64) break;
+                if (b64) {
+                    console.log(`✅ Google Gemini Studio Voice (Charon) generated successfully via ${model}`);
+                    break;
+                }
             } else {
-                console.warn(`TTS Model ${model} returned HTTP ${res.status}`);
+                console.warn(`TTS Model ${model} [Charon] returned HTTP ${res.status}`);
             }
         } catch (e) {
-            console.warn(`TTS Model ${model} error:`, e.message);
+            console.warn(`TTS Model ${model} [Charon] error:`, e.message);
         }
     }
 
