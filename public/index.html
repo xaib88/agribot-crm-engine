@@ -1008,67 +1008,93 @@
 
     </main>
 
-    <!-- CREATE BOT MODAL WITH VOICE OPTIONS (GROQ VS GEMINI) -->
+    <!-- CREATE BOT MODAL WITH RICH KNOWLEDGE & VOICE OPTIONS -->
     <div class="modal-overlay" id="create-bot-modal">
-        <div class="modal-card">
+        <div class="modal-card" style="max-width: 650px; max-height: 90vh; overflow-y: auto;">
             <div class="modal-header">
-                <span>Create New Enterprise AgriBot</span>
+                <span>🏭 Create New Enterprise AgriBot Factory Instance</span>
                 <button onclick="closeCreateBotModal()" style="background: transparent; border: none; color: #ffffff; font-size: 18px; cursor: pointer;">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>Company / Brand Name:</label>
-                    <input type="text" id="new-company-name" placeholder="e.g. Syngenta Pakistan, FMC, Bayer CropScience">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label>Company / Brand Name:</label>
+                        <input type="text" id="new-company-name" placeholder="e.g. FMC Pakistan, Bayer, Tara Group, Engro">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bot Persona Name:</label>
+                        <input type="text" id="new-bot-name" placeholder="e.g. Kisan Rehbar, Zarkhez Dost, Basheer">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Bot Persona Name:</label>
-                    <input type="text" id="new-bot-name" placeholder="e.g. Basheer, Kissan Dost, Zarkhez">
-                </div>
-
-                <!-- THE NEW VOICE PROVIDER OPTION (GROQ VS GEMINI) -->
-                <div class="form-group">
-                    <label>🎙️ Voice STT Engine (Speech-to-Text):</label>
-                    <select id="new-voice-provider">
-                        <option value="groq" selected>Groq Whisper Large-v3 (Ultra-Fast ~700ms - Recommended)</option>
-                        <option value="gemini">Google Gemini Voice (Multimodal Interactions API)</option>
-                    </select>
-                </div>
-
-                <!-- VOICE TTS SYNTHESIS OPTION -->
-                <div class="form-group">
-                    <label>🗣️ Voice TTS Engine (Urdu Speech Synthesis):</label>
-                    <select id="new-tts-provider">
-                        <option value="edge" selected>Microsoft Edge Neural (ur-PK-AsadNeural Male - 24kHz Native Opus)</option>
-                        <option value="gemini-tts">Google Gemini 3.8 Flash TTS</option>
-                    </select>
-                </div>
-
-                <!-- LLM REASONING BRAIN -->
-                <div class="form-group">
-                    <label>🧠 Core LLM Reasoning Engine:</label>
-                    <select id="new-llm-provider">
-                        <option value="gemini" selected>Google Gemini 3.5 Flash Lite (0.2 Low Temp - Anti-Hallucination)</option>
-                        <option value="groq">Groq Llama 3.3 70B Versatile</option>
-                    </select>
+                    <label>🌱 Focus Crops & Key Specialties:</label>
+                    <input type="text" id="new-focus-crops" placeholder="e.g. Cotton, Wheat, Rice, Sugarcane, Citrus, Mango, Vegetables">
                 </div>
 
                 <div class="form-group">
-                    <label>Daily Rate Limit per Farmer:</label>
-                    <input type="number" id="new-rate-limit" value="20" placeholder="e.g. 20">
+                    <label>📦 Custom Product Catalog & Approved Dosages (RAG Knowledge):</label>
+                    <textarea id="new-products-knowledge" rows="3" placeholder="Enter products, active ingredients, and approved dosages per acre (e.g. Coragen 50ml/acre for cotton bollworm; Talstar 250ml/acre for whitefly)..." style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-family: inherit;"></textarea>
+                    <small style="color: #64748b; font-size: 11px;">The AI will strictly ground its advice on these products and recommend them to farmers.</small>
                 </div>
 
                 <div class="form-group">
-                    <label>YouTube Channel Link Policy:</label>
-                    <select id="new-yt-policy">
-                        <option value="once_24h" selected>Strictly Once per 24 Hours</option>
-                        <option value="disabled">Disabled (No Links)</option>
-                    </select>
+                    <label>🎯 Custom System Prompt / Brand Directives:</label>
+                    <textarea id="new-custom-prompt" rows="2" placeholder="e.g. Always emphasize our bio-stimulants first; speak with courteous Urdu honorifics; never mention rival brands..." style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-family: inherit;"></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label>🎙️ Voice STT Engine:</label>
+                        <select id="new-voice-provider">
+                            <option value="groq" selected>Groq Whisper Large-v3 (~700ms)</option>
+                            <option value="gemini">Google Gemini Voice</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>🗣️ Voice TTS Engine:</label>
+                        <select id="new-tts-provider">
+                            <option value="gemini-tts" selected>Gemini Studio Voice (Charon)</option>
+                            <option value="edge">Edge Neural (ur-PK-AsadNeural)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label>🧠 Core LLM Engine:</label>
+                        <select id="new-llm-provider">
+                            <option value="gemini" selected>Google Gemini 3.5 Flash Lite</option>
+                            <option value="groq">Groq Llama 3.3 70B</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>🛡️ Competitor Brand Shield:</label>
+                        <select id="new-competitor-block">
+                            <option value="active" selected>Active (Shield against rivals)</option>
+                            <option value="disabled">Disabled (Open General)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label>Daily Limit per Farmer:</label>
+                        <input type="number" id="new-rate-limit" value="20" placeholder="e.g. 20">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Company Helpline / Support Phone:</label>
+                        <input type="text" id="new-helpline" placeholder="e.g. 0800-12345 or +92 300 1234567">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="chip-btn" onclick="closeCreateBotModal()">Cancel</button>
-                <button class="btn-send-wa" onclick="submitCreateBot()">Deploy AgriBot</button>
+                <button class="btn-send-wa" onclick="submitCreateBot()">Deploy Enterprise AgriBot</button>
             </div>
         </div>
     </div>
@@ -1403,12 +1429,19 @@
                     const card = document.createElement('div');
                     card.className = 'company-card';
                     card.innerHTML = `
-                        <h3>${co.companyName} (${co.botName})</h3>
-                        <p>Enterprise AgriBot</p>
-                        <div class="card-spec-row"><span>Status:</span> <span class="badge-pill badge-blue">Ready to Deploy</span></div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <h3 style="margin-top: 2px;">${co.companyName || co.name} (${co.botName})</h3>
+                                <p style="font-size: 12px; color: #64748b;">Enterprise AgriBot Instance</p>
+                            </div>
+                            <span class="badge-pill badge-blue">${co.status || 'Ready to Deploy'}</span>
+                        </div>
+                        <div class="card-spec-row" style="margin-top: 10px;"><span>Focus Crops:</span> <b>${co.focusCrops || 'All Crops (General)'}</b></div>
+                        <div class="card-spec-row"><span>RAG Knowledge:</span> <b>${co.productsKnowledge ? (co.productsKnowledge.slice(0, 45) + '...') : (co.topProducts || '50+ Verified Products')}</b></div>
                         <div class="card-spec-row"><span>Voice STT:</span> <b>${co.voiceProvider === 'gemini' ? 'Google Gemini Voice' : 'Groq Whisper Large-v3'}</b></div>
-                        <div class="card-spec-row"><span>Voice TTS:</span> <b>${co.ttsProvider || 'Edge Neural (Asad)'}</b></div>
-                        <div class="card-spec-row"><span>LLM Brain:</span> <b>${co.llmProvider === 'groq' ? 'Groq Llama 3.3 70B' : 'Gemini 3.5 Flash Lite'}</b></div>
+                        <div class="card-spec-row"><span>Voice TTS:</span> <b>${co.ttsProvider === 'gemini-tts' ? 'Gemini Studio (Charon)' : 'Edge Neural (Asad)'}</b></div>
+                        <div class="card-spec-row"><span>Competitor Shield:</span> <b>${co.competitorBlock === 'active' || co.competitorBlock === true ? '🛡️ Active' : 'Off'}</b></div>
+                        ${co.helpline ? `<div class="card-spec-row"><span>Helpline:</span> <b style="color: #0284c7;">${co.helpline}</b></div>` : ''}
                     `;
                     container.appendChild(card);
                 });
@@ -1421,21 +1454,47 @@
         async function submitCreateBot() {
             const companyName = document.getElementById('new-company-name').value.trim();
             const botName = document.getElementById('new-bot-name').value.trim();
+            const focusCrops = document.getElementById('new-focus-crops').value.trim();
+            const productsKnowledge = document.getElementById('new-products-knowledge').value.trim();
+            const customPrompt = document.getElementById('new-custom-prompt').value.trim();
             const voiceProvider = document.getElementById('new-voice-provider').value;
             const ttsProvider = document.getElementById('new-tts-provider').value;
             const llmProvider = document.getElementById('new-llm-provider').value;
+            const competitorBlock = document.getElementById('new-competitor-block').value;
+            const rateLimit = document.getElementById('new-rate-limit').value || '20';
+            const helpline = document.getElementById('new-helpline').value.trim();
 
-            if (!companyName || !botName) return alert('Enter company and bot name');
+            if (!companyName || !botName) return alert('Enter company name and bot persona name');
 
-            await fetch('/api/companies', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ companyName, botName, voiceProvider, ttsProvider, llmProvider })
-            });
+            try {
+                const res = await fetch('/api/companies', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        companyName,
+                        botName,
+                        focusCrops,
+                        productsKnowledge,
+                        customPrompt,
+                        voiceProvider,
+                        ttsProvider,
+                        llmProvider,
+                        competitorBlock,
+                        rateLimit,
+                        helpline
+                    })
+                });
 
-            closeCreateBotModal();
-            loadCompanies();
-            alert(`🎉 AgriBot for ${companyName} created with ${voiceProvider.toUpperCase()} Voice engine!`);
+                if (res.ok) {
+                    closeCreateBotModal();
+                    loadCompanies();
+                    alert(`🎉 Enterprise AgriBot for ${companyName} (${botName}) created with Custom RAG Knowledge!`);
+                } else {
+                    alert('Error creating bot: HTTP ' + res.status);
+                }
+            } catch (err) {
+                alert('Failed to create bot: ' + err.message);
+            }
         }
 
         // Syngenta Catalog

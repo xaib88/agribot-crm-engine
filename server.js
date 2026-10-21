@@ -249,9 +249,18 @@ app.post('/api/config', (req, res) => {
     }
 });
 
-const COMPANIES_FILE = path.join(__dirname, 'data', 'companies.json');
+const COMPANIES_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(__dirname, 'data');
+const COMPANIES_FILE = path.join(COMPANIES_DIR, 'companies.json');
 
-// Companies API
+try {
+    if (!fs.existsSync(COMPANIES_DIR)) fs.mkdirSync(COMPANIES_DIR, { recursive: true });
+    const seedCompanies = path.join(__dirname, 'data', 'companies.json');
+    if (!fs.existsSync(COMPANIES_FILE) && fs.existsSync(seedCompanies)) {
+        try { fs.copyFileSync(seedCompanies, COMPANIES_FILE); } catch (e) {}
+    }
+} catch (e) {}
+
+// Companies API (Factory for New AgriBots)
 app.get('/api/companies', (req, res) => {
     try {
         if (!fs.existsSync(COMPANIES_FILE)) return res.json([]);
