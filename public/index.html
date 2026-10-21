@@ -1343,15 +1343,25 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ phoneNumber: phone })
                 });
-                const data = await res.json();
+                
+                const text = await res.text();
+                let data = null;
+                try {
+                    data = JSON.parse(text);
+                } catch {
+                    return alert('Gateway Notice: If you are seeing this on a Vercel Preview domain, please use the main Production domain https://agribot-crm-engine-gpl2.vercel.app');
+                }
+
                 if (data.code) {
                     document.getElementById('pair-code-result').style.display = 'block';
                     document.getElementById('pair-code-display').innerText = data.code;
+                } else if (data.message && data.message.includes('WORKING')) {
+                    alert('✅ WhatsApp Cloud Session is ALREADY ACTIVE and WORKING on this number! No pairing needed.');
                 } else {
-                    alert('Pairing response: ' + JSON.stringify(data));
+                    alert('Pairing status: ' + (data.message || JSON.stringify(data)));
                 }
             } catch (e) {
-                alert('Failed to request pairing code: ' + e.message);
+                alert('Pairing notice: ' + e.message);
             }
         }
 

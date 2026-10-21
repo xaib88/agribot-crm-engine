@@ -398,31 +398,32 @@ async function processWahaEvent(event) {
                 msgId: 'bot_' + Date.now()
             });
 
-            // 7. Synthesize & Send Voice Note asynchronously (Charon Voice)
+            // 7. Synthesize & Send Voice Note (Charon Voice)
             const config = agent.loadConfig();
             if (config.features?.voiceNotes !== false) {
-                (async () => {
-                    try {
-                        console.log(`🎙️ Synthesizing Urdu voice note for ${chatId}...`);
-                        const oggPath = await agent.generateUrduVoice(replyText);
-                        if (oggPath && fs.existsSync(oggPath)) {
-                            console.log(`🎙️ Delivering native voice note to ${chatId}...`);
-                            await sendVoiceNote(session, chatId, oggPath);
-                            console.log(`✅ Voice note delivered to ${chatId}`);
+                try {
+                    console.log(`🎙️ Synthesizing Urdu voice note for ${chatId}...`);
+                    const oggPath = await Promise.race([
+                        agent.generateUrduVoice(replyText),
+                        new Promise((_, reject) => setTimeout(() => reject(new Error('Voice synthesis timeout (7s)')), 7000))
+                    ]);
+                    if (oggPath && fs.existsSync(oggPath)) {
+                        console.log(`🎙️ Delivering native voice note to ${chatId}...`);
+                        await sendVoiceNote(session, chatId, oggPath);
+                        console.log(`✅ Voice note delivered to ${chatId}`);
 
-                            db.saveMessage({
-                                jid: chatId,
-                                role: 'bot',
-                                text: '[🎙️ وائس نوٹ بھیجا گیا]',
-                                audioUrl: '/audio/' + path.basename(oggPath),
-                                pushName,
-                                msgId: 'bot_voice_' + Date.now()
-                            });
-                        }
-                    } catch (voiceErr) {
-                        console.error('Voice note error:', voiceErr.message);
+                        db.saveMessage({
+                            jid: chatId,
+                            role: 'bot',
+                            text: '[🎙️ وائس نوٹ بھیجا گیا]',
+                            audioUrl: '/audio/' + path.basename(oggPath),
+                            pushName,
+                            msgId: 'bot_voice_' + Date.now()
+                        });
                     }
-                })();
+                } catch (voiceErr) {
+                    console.error('Voice note error:', voiceErr.message);
+                }
             }
         }
     } catch (err) {
