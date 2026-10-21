@@ -197,243 +197,9 @@ function connectWebSocket() {
     wsClient.on('message', async (data) => {
         try {
             const event = JSON.parse(data.toString());
-            const eventType = event.event;
-            const session = event.session || activeSessionName;
-
-            console.log(`\n⚡ [RAW WS EVENT] Event: "${eventType}" | Session: "${session}" | FromMe: ${event.payload?.fromMe} | From: "${event.payload?.from}" | Body: "${event.payload?.body}"`);
-
-            // ========================================================
-            // 📞 INCOMING CALL REJECTION & AUTO-DISPATCH (NO CALLS ALLOWED)
-            // ========================================================
-            if (eventType && (eventType.startsWith('call') || eventType === 'call.received')) {
-                const callerId = event.payload?.from || event.payload?.caller;
-                console.log(`\n📞 [NO CALLS ALLOWED] Incoming WhatsApp Call detected from ${callerId}!`);
-                if (callerId) {
-                    // Try WAHA reject call API
-                    wahaRequest('POST', '/api/rejectCall', {
-                        session,
-                        callId: event.payload?.id
-                    }).catch(() => {});
-
-                    const noCallMsg = "محترم کاشتکار بھائی! اس نمبر پر براہِ راست فون یا واٹس ایپ کال کی سہولت موجود نہیں ہے۔ 📵\n\nبراہِ کرم اپنا زرعی سوال یہاں لکھ کر بھیجیں یا وائس نوٹ (Voice Note) ریکارڈ کر کے بھیجیں، میں فوری رہنمائی کروں گا۔ شکریہ! 🌾";
-                    await sendTextMessage(session, callerId, noCallMsg);
-
-                    db.saveMessage({
-                        jid: callerId,
-                        role: 'bot',
-                        text: '[📵 کال مسترد - خودکار الرٹ]: ' + noCallMsg,
-                        msgId: 'call_reject_' + Date.now()
-                    });
-                }
-                return;
-            }
-
-            if (eventType === 'message' || eventType === 'message.any') {
-                const payload = event.payload;
-                if (!payload) return;
-
-                const msgId = payload.id;
-                if (isDuplicate(msgId)) return;
-
-                const chatId = payload.from;
-                if (!chatId || chatId.endsWith('@broadcast')) return;
-
-                const userQuery = payload.body ? payload.body.trim() : '';
-
-                // Prevent infinite loop: ignore messages that were sent by the bot itself
-                if (userQuery && botSentTexts.has(userQuery)) {
-                    botSentTexts.delete(userQuery);
-                    return;
-                }
-
-                // Self-Chat Testing: If owner is testing the bot by sending a message to themselves
-                const isSelfChat = (chatId && (chatId.includes('923317824038') || (activeSessionPhone && chatId === activeSessionPhone)));
-                if (payload.fromMe && !isSelfChat) {
-                    return; // Ignore normal outgoing messages sent to third-party contacts
-                }
-
-                // Handle missed call or call log notification from WhatsApp
-                if (payload.type === 'call_log' || payload.type === 'missed_call') {
-                    console.log(`\n📞 [MISSED CALL LOG] Call log detected from ${chatId}`);
-                    const noCallMsg = "محترم کاشتکار بھائی! اس نمبر پر براہِ راست فون یا واٹس ایپ کال کی سہولت موجود نہیں ہے۔ 📵\n\nبراہِ کرم اپنا زرعی سوال یہاں لکھ کر بھیجیں یا وائس نوٹ (Voice Note) ریکارڈ کر کے بھیجیں، میں فوری رہنمائی کروں گا۔ شکریہ! 🌾";
-                    await sendTextMessage(session, chatId, noCallMsg);
-                    return;
-                }
-
-                const isGroup = chatId.endsWith('@g.us');
-                const pushName = payload._data?.pushName || payload._data?.notifyName || '';
-                const hasMedia = payload.hasMedia && payload.media?.url;
-                const isAudio = hasMedia && (payload.media?.mimetype?.includes('audio') || payload.media?.mimetype?.includes('ogg') || payload.media?.mimetype?.includes('opus'));
-
-                // 1. Ignore empty status updates, reactions, or non-actionable events
-                if (!userQuery && !isAudio && !hasMedia) {
-                    return;
-                }
-
-                // 2. Group Chat Protection: Only reply in WhatsApp groups if explicitly mentioned
-                if (isGroup) {
-                    const mentionsBasheer = userQuery && (userQuery.toLowerCase().includes('بشیر') || userQuery.toLowerCase().includes('basheer'));
-                    if (!mentionsBasheer) {
-                        return; // Silent in groups unless tagged
-                    }
-                }
-
-                console.log(`\n📩 Incoming WhatsApp from ${chatId} (${pushName}): ${isAudio ? '[🎙️ Voice Note]' : (userQuery ? `"${userQuery}"` : '[📷 Media]')}`);
-
-                // Check Admin Godmode Passkey (@adminzeb)
-                let isAdminPasskey = userQuery && userQuery.toLowerCase().includes('@adminzeb');
-                if (isAdminPasskey) {
-                    db.setAdmin(chatId, true);
-                    console.log(`👑 Admin Godmode activated for ${chatId}! Unlimited access granted.`);
-                }
-
-                // 1. Instantly react with 💭 (thinking cloud) & mark seen
-                await reactToMessage(session, msgId, '💭');
-                sendSeen(session, chatId).catch(() => {});
-
-                // If user just sent @adminzeb to unlock themselves
-                if (userQuery && userQuery.trim().toLowerCase() === '@adminzeb') {
-                    const unlockReply = "👑 ایڈمن موڈ فعال ہو گیا ہے! آپ کے لیے تمام روزانہ حدود ختم کر دی گئی ہیں، اب آپ لامحدود میسجز اور سوالات کر سکتے ہیں۔ 🚀";
-                    await sendTextMessage(session, chatId, unlockReply);
-                    await reactToMessage(session, msgId, '👑');
-                    db.saveMessage({ jid: chatId, role: 'user', text: userQuery, pushName, msgId });
-                    db.saveMessage({ jid: chatId, role: 'bot', text: unlockReply, pushName, msgId: 'bot_' + Date.now() });
-                    return;
-                }
-
-                // 2. Daily Rate Limiter Check (20 msgs per user, 12h cool-off, bypassed by @adminzeb)
-                const limitCheck = db.checkDailyLimit(chatId, 20);
-                if (!limitCheck.allowed) {
-                    console.log(`⏳ Daily message limit reached for ${chatId} (${limitCheck.count}/20 msgs).`);
-                    const limitReply = limitCheck.message;
-
-                    await reactToMessage(session, msgId, '⏳');
-
-                    db.saveMessage({
-                        jid: chatId,
-                        role: 'user',
-                        text: isAudio ? '[🎙️ وائس نوٹ - لمٹ ختم]' : (userQuery || '[Media/Photo]'),
-                        pushName,
-                        msgId
-                    });
-
-                    await sendTextMessage(session, chatId, limitReply);
-
-                    db.saveMessage({
-                        jid: chatId,
-                        role: 'bot',
-                        text: limitReply,
-                        pushName,
-                        msgId: 'bot_limit_' + Date.now()
-                    });
-
-                    // Deliver polite voice note notification
-                    const config = agent.loadConfig();
-                    if (config.features?.voiceNotes !== false) {
-                        try {
-                            const oggPath = await agent.generateUrduVoice(limitReply);
-                            if (oggPath && fs.existsSync(oggPath)) {
-                                await sendVoiceNote(session, chatId, oggPath);
-                            }
-                        } catch (e) {}
-                    }
-                    return;
-                }
-
-                // 3. Process with Multi-Agent Pipeline (Audio or Text)
-                let userMessageText = userQuery || '[Media/Photo]';
-                // Strip @adminzeb passkey from text query if present
-                let cleanUserQuery = userQuery.replace(/@adminzeb/gi, '').trim();
-                let replyText = '';
-                try {
-                    if (isAudio) {
-                        console.log(`🎙️ Downloading voice note from WAHA (${payload.media.url})...`);
-                        const audioBuffer = await downloadMedia(payload.media.url);
-                        console.log(`🎙️ Transcribing farmer voice note with Groq Whisper Large-v3 (${audioBuffer.length} bytes)...`);
-                        const transcript = await agent.transcribeWithGroqWhisper(audioBuffer);
-
-                        if (transcript && transcript.length > 0) {
-                            console.log(`🎙️ Groq Whisper Transcription: "${transcript}"`);
-                            // Check if voice note mentioned adminzeb
-                            if (transcript.toLowerCase().includes('adminzeb') || transcript.includes('ایڈمن زیب')) {
-                                db.setAdmin(chatId, true);
-                                console.log(`👑 Admin godmode activated via voice note for ${chatId}!`);
-                            }
-                            userMessageText = `[🎙️ وائس نوٹ]: ${transcript}`;
-                            const cleanTranscript = transcript.replace(/@?adminzeb/gi, '').replace(/ایڈمن زیب/g, '').trim();
-                            replyText = await agent.getQuickTextAnswer(cleanTranscript || transcript, chatId);
-                        } else {
-                            userMessageText = '[🎙️ وائس نوٹ]: (آواز واضح نہیں تھی)';
-                            replyText = 'کاشتکار بھائی! آپ کی آواز صاف نہیں مل سکی۔ براہِ کرم اپنا سوال دوبارہ ریکارڈ کر کے بھیجیں یا لکھ کر بتائیں۔ 🌾';
-                        }
-                    } else if (hasMedia && !cleanUserQuery) {
-                        userMessageText = '[📷 تصویر / فوٹو]';
-                        replyText = 'محترم کاشتکار بھائی! میں نے آپ کی فصل کی تصویر موصول کر لی ہے۔ براہِ کرم اس کے ساتھ اپنی فصل کا نام اور مسئلہ (مثلاً پتے پیلے ہو رہے ہیں، سوراخ ہیں یا کیڑے کا حملہ ہے) بھی لکھ کر یا بول کر بتائیں تاکہ میں فوری اور درست حل تجویز کر سکوں۔ 🌿';
-                    } else {
-                        console.log(`🧠 Calling AI LLM for query: "${cleanUserQuery}" [ChatId: ${chatId}]...`);
-                        replyText = await agent.getQuickTextAnswer(cleanUserQuery, chatId);
-                    }
-                } catch (agentErr) {
-                    console.error('Agent generation error:', agentErr.message);
-                    replyText = 'محترم کسان بھائی، زراعت سے متعلق اپنا سوال دوبارہ لکھیں تاکہ میں فوری رہنمائی کر سکوں۔ 🌿';
-                }
-
-                // Save incoming message to CRM (with transcript!)
-                db.saveMessage({
-                    jid: chatId,
-                    role: 'user',
-                    text: userMessageText,
-                    pushName,
-                    msgId
-                });
-
-                console.log(`⚡ Instant Reply Prepared (${replyText.length} chars)`);
-
-                // 3. Send text response via WAHA
-                await sendTextMessage(session, chatId, replyText);
-                console.log(`✅ Text reply delivered to ${chatId}`);
-
-                // 4. Update reaction to ✅ (Done)
-                await reactToMessage(session, msgId, '✅');
-
-                // 5. Save bot reply to CRM
-                db.saveMessage({
-                    jid: chatId,
-                    role: 'bot',
-                    text: replyText,
-                    pushName,
-                    msgId: 'bot_' + Date.now()
-                });
-
-                // 6. Synthesize & Send Voice Note asynchronously
-                const config = agent.loadConfig();
-                if (config.features?.voiceNotes !== false) {
-                    (async () => {
-                        try {
-                            console.log(`🎙️ Synthesizing Urdu voice note for ${chatId}...`);
-                            const oggPath = await agent.generateUrduVoice(replyText);
-                            if (oggPath && fs.existsSync(oggPath)) {
-                                console.log(`🎙️ Delivering native voice note to ${chatId}...`);
-                                await sendVoiceNote(session, chatId, oggPath);
-                                console.log(`✅ Voice note delivered to ${chatId}`);
-
-                                db.saveMessage({
-                                    jid: chatId,
-                                    role: 'bot',
-                                    text: '[🎙️ وائس نوٹ بھیجا گیا]',
-                                    audioUrl: '/audio/' + path.basename(oggPath),
-                                    pushName,
-                                    msgId: 'bot_voice_' + Date.now()
-                                });
-                            }
-                        } catch (voiceErr) {
-                            console.error('Voice note error:', voiceErr.message);
-                        }
-                    })();
-                }
-            }
+            await processWahaEvent(event);
         } catch (err) {
-            console.error('Error handling WebSocket message:', err.message);
+            console.error('Error parsing WebSocket message:', err.message);
         }
     });
 
@@ -447,12 +213,234 @@ function connectWebSocket() {
     });
 }
 
+// Universal Event Processor for both WebSocket and Webhook
+async function processWahaEvent(event) {
+    if (!event) return;
+    try {
+        const eventType = event.event;
+        const session = event.session || activeSessionName;
+
+        console.log(`\n⚡ [WAHA EVENT] Event: "${eventType}" | Session: "${session}" | FromMe: ${event.payload?.fromMe} | From: "${event.payload?.from}" | Body: "${event.payload?.body}"`);
+
+        // 📞 Incoming call rejection
+        if (eventType && (eventType.startsWith('call') || eventType === 'call.received')) {
+            const callerId = event.payload?.from || event.payload?.caller;
+            console.log(`\n📞 [NO CALLS ALLOWED] Incoming WhatsApp Call detected from ${callerId}!`);
+            if (callerId) {
+                wahaRequest('POST', '/api/rejectCall', {
+                    session,
+                    callId: event.payload?.id
+                }).catch(() => {});
+
+                const noCallMsg = "محترم کاشتکار بھائی! اس نمبر پر براہِ راست فون یا واٹس ایپ کال کی سہولت موجود نہیں ہے۔ 📵\n\nبراہِ کرم اپنا زرعی سوال یہاں لکھ کر بھیجیں یا وائس نوٹ (Voice Note) ریکارڈ کر کے بھیجیں، میں فوری رہنمائی کروں گا۔ شکریہ! 🌾";
+                await sendTextMessage(session, callerId, noCallMsg);
+
+                db.saveMessage({
+                    jid: callerId,
+                    role: 'bot',
+                    text: '[📵 کال مسترد - خودکار الرٹ]: ' + noCallMsg,
+                    msgId: 'call_reject_' + Date.now()
+                });
+            }
+            return;
+        }
+
+        if (eventType === 'message' || eventType === 'message.any') {
+            const payload = event.payload;
+            if (!payload) return;
+
+            const msgId = payload.id;
+            if (isDuplicate(msgId)) return;
+
+            const chatId = payload.from;
+            if (!chatId || chatId.endsWith('@broadcast')) return;
+
+            const userQuery = payload.body ? payload.body.trim() : '';
+
+            // Prevent infinite loop
+            if (userQuery && botSentTexts.has(userQuery)) {
+                botSentTexts.delete(userQuery);
+                return;
+            }
+
+            // Self-Chat Testing
+            const isSelfChat = (chatId && (chatId.includes('923317824038') || (activeSessionPhone && chatId === activeSessionPhone)));
+            if (payload.fromMe && !isSelfChat) return;
+
+            // WhatsApp Group Handling: Silenced unless mentioned
+            if (chatId.endsWith('@g.us')) {
+                const lower = userQuery.toLowerCase();
+                const isMentioned = lower.includes('بشیر') || lower.includes('basheer');
+                if (!isMentioned) return;
+            }
+
+            const pushName = payload._data?.pushName || payload._data?.notifyName || 'Farmer';
+            const isAudio = payload.hasMedia && (payload.media?.mimetype?.includes('audio') || payload.type === 'ptt');
+            const hasMedia = payload.hasMedia;
+
+            console.log(`\n📩 Incoming WhatsApp from ${chatId} (${pushName}): ${isAudio ? '[🎙️ Voice Note]' : `"${userQuery}"`}`);
+
+            // 1. Thinking Reaction
+            await reactToMessage(session, msgId, '💭');
+
+            // 2. Passkey check
+            const rawText = userQuery.toLowerCase();
+            if (rawText.includes('@adminzeb') || rawText.includes('ایڈمن زیب')) {
+                db.setAdmin(chatId, true);
+                console.log(`👑 Admin godmode activated for ${chatId}!`);
+                const adminReply = "وعلیکم السلام ایڈمن صاحب! آپ کا گوڈ موڈ ایکٹیو کر دیا گیا ہے۔ آپ کے تمام پیغامات اور وائس نوٹس پر کوئی ڈیلی لمٹ لاگو نہیں ہو گی۔ 👑";
+                await sendTextMessage(session, chatId, adminReply);
+                db.saveMessage({ jid: chatId, role: 'bot', text: adminReply, pushName, msgId: 'bot_' + Date.now() });
+                return;
+            }
+
+            if (rawText.includes('@general')) {
+                db.setAdmin(chatId, false);
+                console.log(`👥 Reset user ${chatId} to general farmer tier.`);
+                const unlockReply = "آپ کا اسٹیٹس جنرل کسان پر ری سیٹ کر دیا گیا ہے۔ اب روزانہ 20 سوالات کی حد لاگو ہے۔ 🌾";
+                await sendTextMessage(session, chatId, unlockReply);
+                db.saveMessage({ jid: chatId, role: 'bot', text: unlockReply, pushName, msgId: 'bot_' + Date.now() });
+                return;
+            }
+
+            // 3. Daily Rate Limiter Check (20 msgs per user)
+            const limitCheck = db.checkDailyLimit(chatId, 20);
+            if (!limitCheck.allowed) {
+                console.log(`⏳ Daily message limit reached for ${chatId} (${limitCheck.count}/20 msgs).`);
+                const limitReply = limitCheck.message;
+
+                await reactToMessage(session, msgId, '⏳');
+
+                db.saveMessage({
+                    jid: chatId,
+                    role: 'user',
+                    text: isAudio ? '[🎙️ وائس نوٹ - لمٹ ختم]' : (userQuery || '[Media/Photo]'),
+                    pushName,
+                    msgId
+                });
+
+                await sendTextMessage(session, chatId, limitReply);
+
+                db.saveMessage({
+                    jid: chatId,
+                    role: 'bot',
+                    text: limitReply,
+                    pushName,
+                    msgId: 'bot_limit_' + Date.now()
+                });
+
+                const config = agent.loadConfig();
+                if (config.features?.voiceNotes !== false) {
+                    try {
+                        const oggPath = await agent.generateUrduVoice(limitReply);
+                        if (oggPath && fs.existsSync(oggPath)) {
+                            await sendVoiceNote(session, chatId, oggPath);
+                        }
+                    } catch (e) {}
+                }
+                return;
+            }
+
+            // 4. Process Multi-Agent Pipeline
+            let userMessageText = userQuery || '[Media/Photo]';
+            let cleanUserQuery = userQuery.replace(/@adminzeb/gi, '').trim();
+            let replyText = '';
+            try {
+                if (isAudio) {
+                    console.log(`🎙️ Downloading voice note from WAHA (${payload.media.url})...`);
+                    const audioBuffer = await downloadMedia(payload.media.url);
+                    console.log(`🎙️ Transcribing farmer voice note with Groq Whisper Large-v3 (${audioBuffer.length} bytes)...`);
+                    const transcript = await agent.transcribeWithGroqWhisper(audioBuffer);
+
+                    if (transcript && transcript.length > 0) {
+                        console.log(`🎙️ Groq Whisper Transcription: "${transcript}"`);
+                        if (transcript.toLowerCase().includes('adminzeb') || transcript.includes('ایڈمن زیب')) {
+                            db.setAdmin(chatId, true);
+                            console.log(`👑 Admin godmode activated via voice note for ${chatId}!`);
+                        }
+                        userMessageText = `[🎙️ وائس نوٹ]: ${transcript}`;
+                        const cleanTranscript = transcript.replace(/@?adminzeb/gi, '').replace(/ایڈمن زیب/g, '').trim();
+                        replyText = await agent.getQuickTextAnswer(cleanTranscript || transcript, chatId);
+                    } else {
+                        userMessageText = '[🎙️ وائس نوٹ]: (آواز واضح نہیں تھی)';
+                        replyText = 'کاشتکار بھائی! آپ کی آواز صاف نہیں مل سکی۔ براہِ کرم اپنا سوال دوبارہ ریکارڈ کر کے بھیجیں یا لکھ کر بتائیں۔ 🌾';
+                    }
+                } else if (hasMedia && !cleanUserQuery) {
+                    userMessageText = '[📷 تصویر / فوٹو]';
+                    replyText = 'محترم کاشتکار بھائی! میں نے آپ کی فصل کی تصویر موصول کر لی ہے۔ براہِ کرم اس کے ساتھ اپنی فصل کا نام اور مسئلہ (مثلاً پتے پیلے ہو رہے ہیں، سوراخ ہیں یا کیڑے کا حملہ ہے) بھی لکھ کر یا بول کر بتائیں تاکہ میں فوری اور درست حل تجویز کر سکوں۔ 🌿';
+                } else {
+                    console.log(`🧠 Calling AI LLM for query: "${cleanUserQuery}" [ChatId: ${chatId}]...`);
+                    replyText = await agent.getQuickTextAnswer(cleanUserQuery, chatId);
+                }
+            } catch (agentErr) {
+                console.error('Agent generation error:', agentErr.message);
+                replyText = 'محترم کسان بھائی، زراعت سے متعلق اپنا سوال دوبارہ لکھیں تاکہ میں فوری رہنمائی کر سکوں۔ 🌿';
+            }
+
+            db.saveMessage({
+                jid: chatId,
+                role: 'user',
+                text: userMessageText,
+                pushName,
+                msgId
+            });
+
+            console.log(`⚡ Instant Reply Prepared (${replyText.length} chars)`);
+
+            // 5. Send text response via WAHA
+            await sendTextMessage(session, chatId, replyText);
+            console.log(`✅ Text reply delivered to ${chatId}`);
+
+            // 6. Update reaction to ✅ (Done)
+            await reactToMessage(session, msgId, '✅');
+
+            db.saveMessage({
+                jid: chatId,
+                role: 'bot',
+                text: replyText,
+                pushName,
+                msgId: 'bot_' + Date.now()
+            });
+
+            // 7. Synthesize & Send Voice Note asynchronously (Charon Voice)
+            const config = agent.loadConfig();
+            if (config.features?.voiceNotes !== false) {
+                (async () => {
+                    try {
+                        console.log(`🎙️ Synthesizing Urdu voice note for ${chatId}...`);
+                        const oggPath = await agent.generateUrduVoice(replyText);
+                        if (oggPath && fs.existsSync(oggPath)) {
+                            console.log(`🎙️ Delivering native voice note to ${chatId}...`);
+                            await sendVoiceNote(session, chatId, oggPath);
+                            console.log(`✅ Voice note delivered to ${chatId}`);
+
+                            db.saveMessage({
+                                jid: chatId,
+                                role: 'bot',
+                                text: '[🎙️ وائس نوٹ بھیجا گیا]',
+                                audioUrl: '/audio/' + path.basename(oggPath),
+                                pushName,
+                                msgId: 'bot_voice_' + Date.now()
+                            });
+                        }
+                    } catch (voiceErr) {
+                        console.error('Voice note error:', voiceErr.message);
+                    }
+                })();
+            }
+        }
+    } catch (err) {
+        console.error('Error handling WAHA event:', err.message);
+    }
+}
+
 function getActiveSession() {
     return activeSessionName;
 }
 
 module.exports = {
     connectWebSocket,
+    processWahaEvent,
     sendTextMessage,
     sendVoiceNote,
     reactToMessage,

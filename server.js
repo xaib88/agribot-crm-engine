@@ -23,6 +23,24 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Universal WAHA Webhook Endpoint (Supports Vercel & Cloud Serverless)
+app.post('/api/webhook', async (req, res) => {
+    try {
+        const event = req.body;
+        console.log(`📡 [HTTP WEBHOOK] Received event: "${event?.event}" for session: "${event?.session}"`);
+        if (event && event.event) {
+            // Trigger processing asynchronously so webhook responds with 200 OK immediately
+            waha.processWahaEvent(event).catch(err => {
+                console.error('Webhook async event error:', err.message);
+            });
+        }
+        res.status(200).json({ status: 'OK', received: true });
+    } catch (err) {
+        console.error('Webhook endpoint error:', err.message);
+        res.status(500).json({ error: err.message });
+    }
+});
+
 const CONFIG_PATH = path.join(__dirname, 'config.json');
 let botSocketRef = null;
 
