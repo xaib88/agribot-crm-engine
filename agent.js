@@ -167,7 +167,7 @@ async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3.
 }
 
 // Groq API Caller with strict 5s timeout
-async function callGroq(systemPrompt, contents, apiKey, model = 'llama-3.3-70b-versatile', maxTokens = 350) {
+async function callGroq(systemPrompt, contents, apiKey, model = 'qwen/qwen3.8-27b', maxTokens = 350) {
     try {
         const url = "https://api.groq.com/openai/v1/chat/completions";
         
@@ -259,7 +259,7 @@ function bossQualityGate(userQuery, botReply, chatId, currentMode) {
 // Master LLM Dispatcher with Zero-Hang Failover
 async function dispatchLLM(systemPrompt, contents, config, maxTokens = 350) {
     if (config.llmProvider === 'groq' && config.groqApiKey) {
-        const groqReply = await callGroq(systemPrompt, contents, config.groqApiKey, config.groqModel || 'llama-3.3-70b-versatile', maxTokens);
+        const groqReply = await callGroq(systemPrompt, contents, config.groqApiKey, config.groqModel || 'qwen/qwen3.8-27b', maxTokens);
         if (groqReply) return groqReply;
         console.warn("Groq failed, falling back to Gemini...");
     }
@@ -273,10 +273,10 @@ async function dispatchLLM(systemPrompt, contents, config, maxTokens = 350) {
     );
     if (geminiReply) return geminiReply;
 
-    // Instant fallback to Groq LLaMA 3.3 70B if Gemini timed out or spiked
+    // Instant fallback to Groq (<1s) if Gemini hits 20/day limit or spikes
     if (config.groqApiKey) {
-        console.log("⚡ Gemini timed out or spiked. Switching instantly to Groq LLaMA 3.3 70B (<1s)...");
-        const groqFallback = await callGroq(systemPrompt, contents, config.groqApiKey, 'llama-3.3-70b-versatile', maxTokens);
+        console.log("⚡ Gemini rate limit / spike. Switching instantly to Groq Qwen 3.8-27B (<1s)...");
+        const groqFallback = await callGroq(systemPrompt, contents, config.groqApiKey, 'qwen/qwen3.8-27b', maxTokens);
         if (groqFallback) return groqFallback;
     }
 
