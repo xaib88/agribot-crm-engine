@@ -1,13 +1,95 @@
-const { MsEdgeTTS, OUTPUT_FORMAT } = require('msedge-tts');
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const { MsEdgeTTS, OUTPUT_FORMAT } = require('msedge-tts');
 
 const AUDIO_DIR = path.join(__dirname, 'audio_out');
 if (!fs.existsSync(AUDIO_DIR)) {
     fs.mkdirSync(AUDIO_DIR, { recursive: true });
 }
 
+// 1. Mandatory Gemini 3.8 Flash TTS via Google Gemini Interactions API
+async function generateGeminiTTS(cleanText) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    const timestamp = Date.now();
+    const rand = Math.random().toString(36).substring(7);
+    const wavPath = path.join(AUDIO_DIR, `temp_${timestamp}_${rand}.wav`);
+    const finalOggPath = path.join(AUDIO_DIR, `voice_${timestamp}_${rand}.ogg`);
+
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey
+        },
+        signal: AbortSignal.timeout(10000), // 10s timeout
+        body: JSON.stringify({
+            model: 'gemini-3.8-flash-tts',
+            input: cleanText,
+            response_format: { type: 'audio' }
+        })
+    });
+
+    if (!res.ok) {
+        throw new Error(`Gemini TTS API returned HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+    const b64 = data.steps?.[0]?.content?.[0]?.data;
+    if (!b64) throw new Error('No audio data in Gemini TTS response');
+
+    fs.writeFileSync(wavPath, Buffer.from(b64, 'base64'));
+
+    // Convert WAV to WhatsApp-compliant Ogg Opus using ffmpeg
+    execSync(`ffmpeg -y -i "${wavPath}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
+        stdio: 'ignore',
+        timeout: 20000
+    });
+
+    if (fs.existsSync(wavPath)) {
+        try { fs.unlinkSync(wavPath); } catch (e) {}
+    }
+
+    if (fs.existsSync(finalOggPath) && fs.statSync(finalOggPath).size > 0) {
+        return finalOggPath;
+    }
+    throw new Error('FFmpeg failed to produce valid OGG Opus file');
+}
+
+// 2. Edge TTS Fallback
+async function generateEdgeTTS(cleanText, voiceName = 'ur-PK-AsadNeural') {
+    const tts = new MsEdgeTTS();
+    await tts.setMetadata(voiceName, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+
+    const timestamp = Date.now();
+    const rand = Math.random().toString(36).substring(7);
+    const tempMp3Path = path.join(AUDIO_DIR, `temp_${timestamp}_${rand}.mp3`);
+    const finalOggPath = path.join(AUDIO_DIR, `voice_${timestamp}_${rand}.ogg`);
+
+    await tts.toFile(AUDIO_DIR, cleanText);
+    const defaultMp3 = path.join(AUDIO_DIR, 'audio.mp3');
+    if (fs.existsSync(defaultMp3)) {
+        fs.renameSync(defaultMp3, tempMp3Path);
+    } else {
+        return null;
+    }
+
+    execSync(`ffmpeg -y -i "${tempMp3Path}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
+        stdio: 'ignore',
+        timeout: 20000
+    });
+
+    if (fs.existsSync(tempMp3Path)) {
+        try { fs.unlinkSync(tempMp3Path); } catch (e) {}
+    }
+
+    if (fs.existsSync(finalOggPath) && fs.statSync(finalOggPath).size > 0) {
+        return finalOggPath;
+    }
+    return null;
+}
+
+// Main Dispatcher: Always try Gemini 3.8 Flash TTS first, fallback to Edge TTS
 async function generateUrduVoice(text, voiceName = 'ur-PK-AsadNeural') {
     try {
         let cleanText = text
@@ -15,52 +97,24 @@ async function generateUrduVoice(text, voiceName = 'ur-PK-AsadNeural') {
             .replace(/\*/g, '')
             .replace(/#/g, '')
             .replace(/https?:\/\/\S+/g, '')
-            .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '') // strip emojis for TTS
+            .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '')
             .trim();
 
         if (!cleanText) return null;
 
-        const tts = new MsEdgeTTS();
-        await tts.setMetadata(voiceName, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
-        
-        const timestamp = Date.now();
-        const rand = Math.random().toString(36).substring(7);
-        const tempMp3Path = path.join(AUDIO_DIR, `temp_${timestamp}_${rand}.mp3`);
-        const finalOggPath = path.join(AUDIO_DIR, `voice_${timestamp}_${rand}.ogg`);
-
-        // 1. Generate MP3 via EdgeTTS (Full Length - No Character Limit)
-        await tts.toFile(AUDIO_DIR, cleanText);
-        const defaultMp3 = path.join(AUDIO_DIR, 'audio.mp3');
-        if (fs.existsSync(defaultMp3)) {
-            fs.renameSync(defaultMp3, tempMp3Path);
-        } else {
-            return null;
-        }
-
-        // 2. Convert MP3 to WhatsApp-compliant Ogg Opus using ffmpeg
+        // Try Gemini 3.8 Flash TTS first
         try {
-            execSync(`ffmpeg -y -i "${tempMp3Path}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
-                stdio: 'ignore',
-                timeout: 30000
-            });
-            
-            // Clean up temporary MP3
-            if (fs.existsSync(tempMp3Path)) {
-                fs.unlinkSync(tempMp3Path);
-            }
-
-            if (fs.existsSync(finalOggPath) && fs.statSync(finalOggPath).size > 0) {
-                return finalOggPath;
-            }
-        } catch (err) {
-            console.error('ffmpeg conversion error:', err.message);
-            // Fallback to tempMp3Path if ffmpeg fails
-            return tempMp3Path;
+            console.log('🎙️ Generating studio voice via Gemini 3.8 Flash TTS...');
+            const ogg = await generateGeminiTTS(cleanText);
+            if (ogg) return ogg;
+        } catch (geminiErr) {
+            console.warn('Gemini 3.8 Flash TTS error, trying Edge TTS fallback:', geminiErr.message);
         }
 
-        return null;
-    } catch (e) {
-        console.error('Voice generation error:', e.message);
+        // Fallback to Edge TTS
+        return await generateEdgeTTS(cleanText, voiceName);
+    } catch (err) {
+        console.error('All TTS engines failed:', err.message);
         return null;
     }
 }
