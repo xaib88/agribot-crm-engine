@@ -3,6 +3,14 @@ const path = require('path');
 const { execSync } = require('child_process');
 const { MsEdgeTTS, OUTPUT_FORMAT } = require('msedge-tts');
 
+let ffmpegPath = 'ffmpeg';
+try {
+    const staticFfmpeg = require('ffmpeg-static');
+    if (staticFfmpeg && fs.existsSync(staticFfmpeg)) {
+        ffmpegPath = `"${staticFfmpeg}"`;
+    }
+} catch (e) {}
+
 const AUDIO_DIR = path.join(__dirname, 'audio_out');
 if (!fs.existsSync(AUDIO_DIR)) {
     fs.mkdirSync(AUDIO_DIR, { recursive: true });
@@ -61,7 +69,7 @@ async function generateGeminiTTS(cleanText) {
     fs.writeFileSync(wavPath, Buffer.from(b64, 'base64'));
 
     // Convert WAV to WhatsApp-compliant Ogg Opus using ffmpeg
-    execSync(`ffmpeg -y -i "${wavPath}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
+    execSync(`${ffmpegPath} -y -i "${wavPath}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
         stdio: 'ignore',
         timeout: 20000
     });
@@ -94,7 +102,7 @@ async function generateEdgeTTS(cleanText, voiceName = 'ur-PK-AsadNeural') {
         return null;
     }
 
-    execSync(`ffmpeg -y -i "${tempMp3Path}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
+    execSync(`${ffmpegPath} -y -i "${tempMp3Path}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
         stdio: 'ignore',
         timeout: 20000
     });
