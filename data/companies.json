@@ -1,0 +1,30 @@
+[
+  {
+    "id": "syngenta",
+    "name": "سنجینٹا پاکستان (Syngenta Pakistan)",
+    "botName": "سویرا (Savera) / بشیر (Basheer)",
+    "role": "ڈیجیٹل زرعی و لائیو اسٹاک مشیر",
+    "competitorBlock": true,
+    "notionDb": "https://app.notion.com/p/Syngenta-Crops-Products-2ede6ec6d6f280c584c8ef2d83807cf8",
+    "productsCount": 50,
+    "status": "Active"
+  },
+  {
+    "id": "fmc",
+    "name": "ایف ایم سی پاکستان (FMC Pakistan)",
+    "botName": "کسان رہبر (Kisan Rehbar)",
+    "role": "ایف ایم سی کراپ پروٹیکشن ایڈوائزر",
+    "competitorBlock": true,
+    "topProducts": "Coragen, Talstar, Benevia, Steward, Ferterra",
+    "status": "Ready to Deploy"
+  },
+  {
+    "id": "bayer",
+    "name": "بائر کراپ سائنس (Bayer CropScience)",
+    "botName": "بائر ایگری ہیلپ (Bayer AgriHelp)",
+    "role": "بائر زرعی کنسلٹنٹ",
+    "competitorBlock": true,
+    "topProducts": "Belt, Nativo, Confidor, Movento, Routine Start",
+    "status": "Ready to Deploy"
+  }
+]

@@ -1,0 +1,3648 @@
+{
+  "updatedAt": "2026-10-20T18:34:05.385Z",
+  "totalProducts": 50,
+  "totalCrops": 0,
+  "products": [
+    {
+      "id": "2eee6ec6-d6f2-81f7-b997-f9d7a5e25381",
+      "rawTitle": "ACEPHATE_75_SP",
+      "name": "Acephate 75 Sp",
+      "attributes": {
+        "Product Name": "Acephate 75 Sp",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "5 KG, 1 KG",
+        "Composition": "750 gm/kg Acephate",
+        "Formulation": "Water Soluble Acephate",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "long text block",
+        "Applicable Crops": "Cotton",
+        "Targets": "Jassid, Thrips, Whitefly, Aphid, Pink Bollworm, Spotted Bollworm, American Bollworm, Fall Armyworm, Cutworm",
+        "USPs/Key Benefits": "1- Gives durable control against Sucking pest; jasids, thrips, aphids, whiteflies and cutworms, Pink, Spotted, American Bollworms and Armyworms.2- Provides long-lasting and excellent control.3- Rapid and wide-ranging mode of action.”",
+        "Product Overview": "Acephate is an organophosphate insecticide. Acephate is easily absorbed into the tender branches and leaves of plants and provides immediate control.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Cutworm",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Jassid, Thrips, Whitefly, Aphid",
+          "Dosage per Acre": "300 grams/acre",
+          "Pre-Harvest Interval (PHI)": "21 days",
+          "Application Timing": "Spray when insect population reaches ETL, repeat after 7 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Pink Bollworm, Spotted Bollworm, American Bollworm, Fall Armyworm, Cutworm",
+          "Dosage per Acre": "400 grams/acre",
+          "Pre-Harvest Interval (PHI)": "21 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Insects": "Whitefly Adult, Whitefly Nymph",
+          "Dose Per Acre": "300 grams/acre",
+          "Usage Instructions": "Spray when insect population reaches ETL, repeat after 7 days",
+          "PHI (Duration between Spray & harvest)": "21 days"
+        },
+        {
+          "Crop": "Cotton",
+          "Insects": "Pink Bollworm, Spotted Bollworm, American Bollworm, Fall Armyworm, Cutworm",
+          "Dose Per Acre": "400 grams/acre",
+          "Usage Instructions": "Spray when insect population reaches ETL, repeat after 7 days",
+          "PHI (Duration between Spray & harvest)": "21 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-8182-b41d-cc853d8f2d12",
+      "rawTitle": "ADVION_COCKROACH_GEL_",
+      "name": "Advion Cockroach Gel",
+      "attributes": {
+        "Product Name": "Advion Cockroach Gel",
+        "Category": "Professional Solutions",
+        "Variants/SKUs": "30 gm",
+        "Composition": "Indoxacarb",
+        "Formulation": "Gel Bait",
+        "Mode of Action": "Ingestion",
+        "Product Technology": "N/A",
+        "Applicable Crops": "N/A",
+        "Targets": "Cockroach",
+        "USPs/Key Benefits": "1- Lasting protection for 3 months from Lal bag.2- Easy to use.3- Useful for use on all types of surfaces.4- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Advion Cockroach Jel is made with a special bio-activated formulation, which rapidly attracts the red bag. Effective for all types of cockroaches with an effective solution for home, factory and outdoor alike.",
+        "Supported Media": "Product Banner",
+        "CTA": "Shop Now Button",
+        "Video Section": "Multiple scroll section for videos publihsed on Yt for the product",
+        "Product Technology (Media)": "MOA Videos; if available",
+        "Crops Registered on (Media)": "Multiple Crop images section below the text"
+      },
+      "topPicks": [],
+      "usage": [],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-8130-bac9-f111b9d14996",
+      "rawTitle": "AMISTAR_TOP_325_SC_",
+      "name": "AMISTAR TOP 325 SC",
+      "attributes": {
+        "Product Name": "AMISTAR TOP 325 SC",
+        "Category": "Fungicide",
+        "Variants/SKUs": "200ml, 600 ml",
+        "Composition": "200g/L Azoxystrobin +125g/L Difenoconazole",
+        "Formulation": "SC (Suspension Concentrate)",
+        "Mode of Action": "Contact and vapour action",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "Amistar Technology",
+        "Applicable Crops": "Rice, Mango, Potato, Cotton",
+        "Targets": "Blast, Brown Leaf Spot, Powdery Mildew, Anthracnose, Early Blight, Stem Blight, Twig Blight",
+        "USPs/Key Benefits": "1- Protects crop from Blast, Brown Leaf Spots, Anthracnose, Powdery & Early Blight. 2. The effect is protected from fading after rain.3. Transmissibility, protection against diseases by the ability of leaves to spread.4. Easy to use and environment friendly.5. Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Amistar Top protects against blight. It helps the crop to produce higher yield and better quality produce. Due to its unique mode of action, Amistar Top provides effective control of the disease for a long period of time.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media (Banner)": "Product Banner; With product bottle/packshot",
+        "CTA": "Shop Now Button",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Blast",
+          "Crop": "All"
+        },
+        {
+          "Target": "Brown Leaf Spot",
+          "Crop": "All"
+        },
+        {
+          "Target": "Leaf Spot",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Rice",
+          "Target Weeds/Pests/Disease": "Blast",
+          "Dosage per Acre": "300 ml",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Mango, Rice",
+          "Target Weeds/Pests/Disease": "Brown Leaf Spot",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Mango",
+          "Target Weeds/Pests/Disease": "Powdery Mildew",
+          "Dosage per Acre": "50 ml per 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Mango",
+          "Target Weeds/Pests/Disease": "Anthracnose",
+          "Dosage per Acre": "50 ml per 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Potato",
+          "Target Weeds/Pests/Disease": "Early Blight",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "3 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Stem Blight, Twig Blight",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Rice",
+          "Disease": "Blast",
+          "Dose per Acre": "300 ml",
+          "PHI (Interval Between Spray and Harvest)": "28 days"
+        },
+        {
+          "Crop": "Rice",
+          "Disease": "Brown Leaf Spot",
+          "Dose per Acre": "200 ml",
+          "PHI (Interval Between Spray and Harvest)": "28 days"
+        },
+        {
+          "Crop": "Mango",
+          "Disease": "Powdery Mildew",
+          "Dose per Acre": "50 ml per 100 liters of water",
+          "PHI (Interval Between Spray and Harvest)": "7 days"
+        },
+        {
+          "Crop": "Mango",
+          "Disease": "Anthracnose",
+          "Dose per Acre": "50 ml per 100 liters of water",
+          "PHI (Interval Between Spray and Harvest)": "7 days"
+        },
+        {
+          "Crop": "Potato",
+          "Disease": "Early Blight",
+          "Dose per Acre": "200 ml",
+          "PHI (Interval Between Spray and Harvest)": "3 days"
+        },
+        {
+          "Crop": "Cotton",
+          "Disease": "Stem Blight, Twig Blight",
+          "Dose per Acre": "200 ml",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-815d-ab29-efa543b9520e",
+      "rawTitle": "AMPLIGO_150_ZC",
+      "name": "AMPLIGO 150 ZC",
+      "attributes": {
+        "Product Name": "AMPLIGO 150 ZC",
+        "Category": "Insecticide",
+        "Variants/SKUs": "160 ml",
+        "Composition": "50 g/L Lambda-Cyhalothrin +100 g/L Chlorantraniliprole",
+        "Formulation": "ZC (Zion Concentration)",
+        "Mode of Action": "Pyrethroid & Diamide",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "ZEON Technology",
+        "Applicable Crops": "Cotton, Tomato, Maize",
+        "Targets": "Pink Bollworm, American Bollworm, Fruit Borer, Fall Armyworm",
+        "USPs/Key Benefits": "1- Provides effective and long-lasting control over the growth of Pink Bollworm2- If it rains after use, the spray has already taken effect.3- Provides a rapid and wide-ranging mode of action.”",
+        "Product Overview": "“Ampligo is a mixture of two different poisons; Chlorentra Nelyprole and Lambda-Cyhalothrin. These two poisons belong to different chemical groups, which cause the insects to stop feeding immediately.",
+        "Crops Registered on": "Cotton",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "American Bollworm",
+          "Crop": "All"
+        },
+        {
+          "Target": "Pink Bollworm",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Pink Bollworm, American Bollworm",
+          "Dosage per Acre": "160 ml per acre",
+          "Pre-Harvest Interval (PHI)": "20 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Tomato",
+          "Target Weeds/Pests/Disease": "Fruit Borer",
+          "Dosage per Acre": "160 ml per acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Maize",
+          "Target Weeds/Pests/Disease": "Fall Armyworm",
+          "Dosage per Acre": "120 ml per acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Pink Bollworm, American Bollworm",
+          "Dosage per Acre": "160 ml per acre",
+          "Pre-Harvest Interval (PHI)": "20 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Tomato",
+          "Target Weeds/Pests/Disease": "Fruit Borer",
+          "Dosage per Acre": "160 ml per acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Maize",
+          "Target Weeds/Pests/Disease": "Fall Armyworm",
+          "Dosage per Acre": "120 ml per acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-81bd-bee7-e504bf1187ef",
+      "rawTitle": "ALLY_MAX_286_SG",
+      "name": "ALLY MAX 28.6% SG",
+      "attributes": {
+        "Product Name": "ALLY MAX 28.6% SG",
+        "Category": "Herbicide",
+        "Variants/SKUs": "14 gm, 42 gm",
+        "Composition": "14.3% Metsulfuron methyl +14.3% Tribenuron methyl",
+        "Formulation": "WG (Water Dispersible Granules)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "long text block",
+        "Applicable Crops": "Wheat",
+        "Targets": "Broad Leaf Weed",
+        "USPs/Key Benefits": "1- Provides excellent control of broadleaf weeds.2- Easy to use and environment friendly.3- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Ally Max is a highly effective herbicide that helps the crop produce more and better quality. Provides excellent control of weed production due to its unique mode of action.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Wheat",
+          "Target Weeds/Pests/Disease": "Broad Leaf Weed",
+          "Dosage per Acre": "14 grams",
+          "Pre-Harvest Interval (PHI)": "70 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Wheat",
+          "Weeds": "Broad Leaf Weed",
+          "Dose Per Acre": "14 grams",
+          "PHI (Duration between Spray & Harvest)": "70 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81ba-83cd-ecd216196dac",
+      "rawTitle": "AXIAL_XL_050_EC",
+      "name": "AXIAL XL 050 EC",
+      "attributes": {
+        "Product Name": "AXIAL XL 050 EC",
+        "Category": "Herbicide",
+        "Variants/SKUs": "330 ml, 1 Lt",
+        "Composition": "50g/L Pinoxaden",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "long text block",
+        "Applicable Crops": "Wheat",
+        "Targets": "Dumbi Sitti, Jungli Jai",
+        "USPs/Key Benefits": "1- Grasses (dummy and wild oats) provide excellent weed control.2- Easy to use and environment friendly.3- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "“Axial is a highly effective herbicide that helps to control Grass Leaf Weeds (Dumbi Sitti & Jangli Jai). It also help the crop produce more and better quality yiled. Due to its unique mode of action, it is the best in herbicide production.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Wheat",
+          "Target Weeds/Pests/Disease": "Dumbi Sitti, Jungli Jai",
+          "Dosage per Acre": "330 ml",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Wheat",
+          "Weeds": "Dumbi Sitti, Jungli Jai",
+          "Dose Per Acre": "330 ml"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-8185-a39b-c3596f657200",
+      "rawTitle": "BIFENTHRIN_10_EC",
+      "name": "Bifenthrin 10% EC",
+      "attributes": {
+        "Product Name": "Bifenthrin 10% EC",
+        "Category": "Insecticide",
+        "Variants/SKUs": "1 Lt",
+        "Composition": "100gm/Lt Bifenthrin",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Contact & stomach action",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "long text block",
+        "Applicable Crops": "Cotton, Citrus, Mango, Apple",
+        "Targets": "Pink Bollworm, Spotted Bollworm, Whitefly, Mite, Jassid, Leaf Miner, Mango Hopper, Spider Mite",
+        "USPs/Key Benefits": "1- Provides effective and long-lasting control.2- It provides excellent control of both Sucking and Chewing insects.3- Provides a fast-acting and wide-ranging mode of action.”",
+        "Product Overview": "“Bifenthrin is a broad-spectrum insecticide that kills insects by attacking their nerves through contact action. It affects the nervous system by interfering with sodium channel communication.",
+        "Type of Content": "Supported Media",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Spider Mite",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Pink Bollworm, Spotted Bollworm, Whitefly, Mite, Jassid",
+          "Dosage per Acre": "200-250ml/acre",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "Spray at ETL, with an interval of 7 to 10 days, and do not exceed 2 sprays",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Citrus",
+          "Target Weeds/Pests/Disease": "Leaf Miner",
+          "Dosage per Acre": "250ml/100 liters of water",
+          "Pre-Harvest Interval (PHI)": "30 days",
+          "Application Timing": "Spray at ETL, with an interval of 7 to 10 days, and do not exceed 2 sprays",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Mango",
+          "Target Weeds/Pests/Disease": "Mango Hopper",
+          "Dosage per Acre": "250ml/100 liters of water",
+          "Pre-Harvest Interval (PHI)": "30 days",
+          "Application Timing": "Spray at ETL, with an interval of 7 to 10 days, and do not exceed 2 sprays",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Apple",
+          "Target Weeds/Pests/Disease": "Spider Mite",
+          "Dosage per Acre": "250ml/100 liters of water",
+          "Pre-Harvest Interval (PHI)": "30days",
+          "Application Timing": "Spray at ETL, with an interval of 7 to 10 days, and do not exceed 2 sprays",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Target Insects": "Pink Bollworm, Spotted Bollworm, Whitefly, Mite, Jassid",
+          "Dose": "200-250ml/acre",
+          "Spray Time": "14 days",
+          "PHI (Duration between Spray & Harvest)": "14 days"
+        },
+        {
+          "Crop": "Citrus",
+          "Target Insects": "Leaf Miner",
+          "Dose": "250ml/100 liters of water",
+          "Spray Time": "Spray at ETL, with an interval of 7 to 10 days, and do not exceed 2 sprays",
+          "PHI (Duration between Spray & Harvest)": "30 days"
+        },
+        {
+          "Crop": "Mango",
+          "Target Insects": "Mango Hopper",
+          "Dose": "250ml/100 liters of water",
+          "Spray Time": "30 days",
+          "PHI (Duration between Spray & Harvest)": "30 days"
+        },
+        {
+          "Crop": "Apple",
+          "Target Insects": "Spider Mite",
+          "Dose": "250ml/100 liters of water",
+          "Spray Time": "30 days",
+          "PHI (Duration between Spray & Harvest)": "30 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81bb-bc6f-e5a7decefeb2",
+      "rawTitle": "BROMOXYNIL_MCPA_40_EC",
+      "name": "BROMOXYNIL + MCPA 40% EC",
+      "attributes": {
+        "Product Name": "BROMOXYNIL + MCPA 40% EC",
+        "Category": "Herbicide",
+        "Variants/SKUs": "1 Lt",
+        "Composition": "200gm /Lt BROMOXYNIL + 200 gm/Lt MCPA",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Wheat",
+        "Targets": "Bathu, Shahitra, Piyazi, Dhodak, Mina, Jungli Halo, Rewari, Lehli, Jungli Palak",
+        "USPs/Key Benefits": "1- Provides excellent control of weeds (bathu, shahtra, piazi, dhodak, meena, wild halo, ruari, lehli, and wild spinach).2- Easy to use and environment friendly.3- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Bromoxenil+MCPA is a highly effective, broad-spectrum herbicide that helps crops produce more and better quality crops. Due to its unique mode of action, it gives excellent control on weeds.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Wheat",
+          "Target Weeds/Pests/Disease": "Bathu, Shahitra, Piyazi, Dhodak, Mina, Jungli Halo, Rewari, Lehli, Jungli Palak",
+          "Dosage per Acre": "500 ml",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-81dd-8e2e-ef448bbc9951",
+      "rawTitle": "BUPROFEZINE_25_WP",
+      "name": "Buprofezine 25% WP",
+      "attributes": {
+        "Product Name": "Buprofezine 25% WP",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "1 Kg, 5 Kg",
+        "Composition": "250% gm per 1KG Buprofezine",
+        "Formulation": "WP (Wettable Powder)",
+        "Mode of Action": "Contact & stomach action",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "long text block",
+        "Applicable Crops": "Cotton",
+        "Targets": "Thrips, Jassid, Whitefly, Brown Plant Hopper, Aphid",
+        "USPs/Key Benefits": "1- Provides effective and long-lasting control.2- Buprofezin can be used in combination with other pesticides.3- Provides fast acting and wide impact mode of action.4- It also affects the ability of adult insects to lay eggs.",
+        "Product Overview": "Buprofezin is excellent for control of Whitefly, Jassid and aphid of cotton crop.",
+        "Video Section": "Will need short caption for the videos",
+        "Type of Content": "Supported Media; CTA"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Thrips, Jassid, Whitefly",
+          "Dosage per Acre": "500 gm per acre",
+          "Pre-Harvest Interval (PHI)": "20 days",
+          "Application Timing": "Immediately after pest appearance, with a 7 to 8-day interval, spray only 2 times",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "",
+          "Target Weeds/Pests/Disease": "",
+          "Dosage per Acre": "",
+          "Pre-Harvest Interval (PHI)": "",
+          "Application Timing": "",
+          "Mixing Instructions/Guidelines": ""
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Insects": "Thrips, Jassid, Whitefly",
+          "Dose per Acre": "500 grams per acre",
+          "Spray Timing": "Immediately after pest appearance, with a 7 to 8-day interval, spray only 2 times",
+          "PHI (Duration between Spray & Harvest)": "20 days"
+        },
+        {
+          "Crop": "",
+          "Insects": "",
+          "Dose per Acre": "",
+          "Spray Timing": "",
+          "PHI (Duration between Spray & Harvest)": ""
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-8170-9308-dc3c59b636d0",
+      "rawTitle": "CHLORPYRIFOS_40_EC",
+      "name": "Chlorpyrifos 40% EC",
+      "attributes": {
+        "Product Name": "Chlorpyrifos 40% EC",
+        "Category": "Insecticide",
+        "Variants/SKUs": "1 Lt",
+        "Composition": "400g/Lt Chlorpyrifos",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Contact and stomach action",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Sugarcane",
+        "Targets": "Borer, Black Bug, Termite",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting control of borers and termites.2- Provides effective and long-lasting control.3- Provides a rapid and wide-ranging mode of action.”",
+        "Product Overview": "Chlorpyrifos is a broad-spectrum insecticide that kills insects by attacking their nerves through Contact Action. It is absorbed into the tender branches and leaves of the plant.",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Sugarcane",
+          "Target Weeds/Pests/Disease": "Borer, Black Bug, Termite",
+          "Dosage per Acre": "1 liter per acre",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "At the time of sowing - during sugarcane growth, with intervals of 7-8 days, only 2 sprays",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Sugarcane",
+          "Insects": "Borer, Black Bug, Termite",
+          "Dose Per Acre": "1 liter per acre",
+          "Time of Application": "At the time of sowing - during sugarcane growth, with intervals of 7-8 days, only 2 sprays",
+          "PHI (Interval Between Spray and Harvest)": "7 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-815f-8961-e4f0c27b4ec5",
+      "rawTitle": "COPPER_OXYCHLORIDE_50_WP_",
+      "name": "COPPER OXYCHLORIDE 50 WP",
+      "attributes": {
+        "Product Name": "COPPER OXYCHLORIDE 50 WP",
+        "Category": "Fungicide",
+        "Variants/SKUs": "1 kg",
+        "Composition": "500gm/kg COPPER OXYCHLORIDE",
+        "Formulation": "WP (Wettable Powder)",
+        "Mode of Action": "Contact Action",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Potato, Tomato, Chili, Cucurbits",
+        "Targets": "Late Blight, Early Blight, Leaf Blight, Downy Mildew",
+        "USPs/Key Benefits": "1- Protects crop from Early & Late Blight and downy mildew.2- Due to contact action, ability to provide protection against disease.3- Easy to use and environment friendly.4- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Copper oxychloride protects against blight and downy mildew. Helps the crop to produce higher yield and better quality crop. Due to its unique mode of action, copperoxychloride provides effective disease control over a long period of time.",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Potato",
+          "Target Weeds/Pests/Disease": "Late Blight, Early Blight",
+          "Dosage per Acre": "1 kg per acre",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Use as a protective spray; repeat every 14 days if conditions persist."
+        },
+        {
+          "Crop": "Tomato",
+          "Target Weeds/Pests/Disease": "Late Blight, Early Blight",
+          "Dosage per Acre": "1 kg per acre",
+          "Pre-Harvest Interval (PHI)": "10 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Spray every 10 days during disease-prone periods."
+        },
+        {
+          "Crop": "Chili",
+          "Target Weeds/Pests/Disease": "Leaf Blight",
+          "Dosage per Acre": "500 grams per acre",
+          "Pre-Harvest Interval (PHI)": "3 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Apply at the onset of symptoms and repeat every 3 days if necessary."
+        },
+        {
+          "Crop": "Cucurbits",
+          "Target Weeds/Pests/Disease": "Downy Mildew",
+          "Dosage per Acre": "500 grams per acre",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Spray every 7 days during humid conditions conducive to disease."
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-8122-9133-da6640ac1ff3",
+      "rawTitle": "CRUISER_350_FS",
+      "name": "CRUISER 350 FS",
+      "attributes": {
+        "Product Name": "CRUISER 350 FS",
+        "Category": "Seedcare",
+        "Variants/SKUs": "100 ml",
+        "Composition": "350g/L Thiamethoxam",
+        "Formulation": "FS (Flowable Concentrate)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Seed Treatment",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Maize, Cotton",
+        "Targets": "Shootfly, Jassid, Thrips",
+        "USPs/Key Benefits": "1. Cruiser is a highly effective insecticide that is applied to seeds before sowing.2. After sowing, it spreads throughout the plant via the emerging roots.3. It protects the cotton crop from sap-sucking insects, especially thrips and jassids.4. It protects the Maize crop from shootfly",
+        "Product Overview": "Cruiser Seed Treatment applied to seeds that provides broad protection against sucking pest during the early days of the crop.It gives the crop an excellent start, which improves plant health and contributes to higher yield.",
+        "Crops Registered on": "MaizeCotton",
+        "Video Section": "Multiple scroll section for videos publihsed on Yt for the product"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Maize",
+          "Target Weeds/Pests/Disease": "Shootfly",
+          "Dosage per Acre": "10ml per KG Seed",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Product + Water"
+        },
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Jassid, Thrips",
+          "Dosage per Acre": "6ml per KG Seed",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Product + Water"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Maize",
+          "Insects": "Shootfly",
+          "Dose (per kg seed)": "10 mL per kg seed",
+          "Solvent Preparation": "Prepare 25 mL solution (product + water) for 1 kg seed"
+        },
+        {
+          "Crop": "Cotton",
+          "Insects": "Jassid, Thrips",
+          "Dose (per kg seed)": "6 mL per kg seed",
+          "Solvent Preparation": "Prepare 25 mL solution (product + water) for 1 kg seed"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-8139-971a-e02b87054510",
+      "rawTitle": "discontinued_DRAGON_40_WP_",
+      "name": "DRAGON 40% WP",
+      "attributes": {
+        "Product Name": "DRAGON 40% WP",
+        "Category": "Fungicide",
+        "Variants/SKUs": "400 gm",
+        "Composition": "270g/Kg Chlorothalonil +130g/Kg Pyrimenthanil",
+        "Formulation": "WP (Wettable Powder)",
+        "Discontinued Message": "Product is discontinued, do not recommend",
+        "Mode of Action": "Respiration Inhibitors (C) and Sterol Biosynthesis Inhibitors",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Potato",
+        "Targets": "Late Blight, Early Blight",
+        "USPs/Key Benefits": "1- Protects crop from Early & Late Blight.2- Transmissibility, protection against diseases by the ability of leaves to spread.3- Easy to use and environment friendly.4- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Dragon is a powerful and effective fungicide. Helps the crop to produce higher yield and better quality produce. Due to its unique mode of action, Dragon provides effective disease control for a long period of time.",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Potato",
+          "Target Weeds/Pests/Disease": "Late Blight, Early Blight",
+          "Dosage per Acre": "400-500 grams per acre",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-815e-952b-c09b8c174309",
+      "rawTitle": "DUAL_GOLD_960_EC_",
+      "name": "DUAL GOLD 960 EC",
+      "attributes": {
+        "Product Name": "DUAL GOLD 960 EC",
+        "Category": "Herbicide",
+        "Variants/SKUs": "800 ml, 5 Lt",
+        "Composition": "960g/L S-Metolachlor",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Contact",
+        "Mode of Application": "Flood application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton, Maize, Onion, Mung Bean, Potato, Cauliflower, Chili, Peas, Sunflower, Okra, Sugarcane, Sugar Beet",
+        "Targets": "Grass Weed, Broad Leaf Weed, Deela, Swanki, Itsit",
+        "USPs/Key Benefits": "1- Provides excellent control of Broadleaf, Grass Weed.2- Easy to use and environment friendly.3- Innovative and unique technology, with powerful formula.”",
+        "Product Overview": "Dual Gold is a highly effective, broad-spectrum (Broadleaf, Grass Weed) herbicide that helps crops produce more and better quality crops. Due to its unique mode of action, it gives excellent control on weeds.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Cotton, Maize, Onion, Mung Bean, Potato, Cauliflower, Chili, Peas, Sunflower, Okra, Sugar beet",
+          "Target Weeds/Pests/Disease": "Grass Weed, Broad Leaf Weed, Deela, Swanki, Itsit",
+          "Dosage per Acre": "800 ml",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Sugarcane",
+          "Target Weeds/Pests/Disease": "Grass Weed, Broad Leaf Weed, Deela, Swanki, Itsit",
+          "Dosage per Acre": "1000 ml",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-81ed-bb8b-deda3a6fad96",
+      "rawTitle": "CURACRON_500_EC_",
+      "name": "Curacron 500 EC",
+      "attributes": {
+        "Product Name": "Curacron 500 EC",
+        "Category": "Insecticide",
+        "Variants/SKUs": "1 Lt",
+        "Composition": "500g/Lt Profenofos",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Contact & Translaminar",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "long text block",
+        "Applicable Crops": "Cotton",
+        "Targets": "Heliothis Eggs, Mealybug, Bollworm, Whitefly, Thrips, Jassid, Mite",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting pest control.2- Provides excellent control of Bollworms, thrips, Mites, and Mealybugs.3- Provides fast acting and wide impact mode of action.4- Can be used in combination with other pesticides.",
+        "Product Overview": "Curacron is a very effective poison to kill insects. Provides excellent Insect control, especially by paralyzing Sucking & Chewing insects.",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Heliothis eggs",
+          "Crop": "All"
+        },
+        {
+          "Target": "Mealybug",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Bollworm, Jassid, Whitefly Adult, Thrips, Mite",
+          "Dosage per Acre": "800 to 1000 ml",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Heliothis eggs",
+          "Dosage per Acre": "250ml",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Mealybug",
+          "Dosage per Acre": "800 ml per 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "",
+          "Target Weeds/Pests/Disease": "",
+          "Dosage per Acre": "",
+          "Pre-Harvest Interval (PHI)": "",
+          "Application Timing": "",
+          "Mixing Instructions/Guidelines": ""
+        },
+        {
+          "Crop": "",
+          "Target Weeds/Pests/Disease": "",
+          "Dosage per Acre": "",
+          "Pre-Harvest Interval (PHI)": "",
+          "Application Timing": "",
+          "Mixing Instructions/Guidelines": ""
+        },
+        {
+          "Crop": "",
+          "Target Weeds/Pests/Disease": "",
+          "Dosage per Acre": "",
+          "Pre-Harvest Interval (PHI)": "",
+          "Application Timing": "",
+          "Mixing Instructions/Guidelines": ""
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Target Pest/Insect": "Bollworm, Jassid, Whitefly Adult, Thrips, Mite",
+          "Dose (per acre)": "800 to 1000 ml",
+          "Water Volume / Mixing Instructions": "100 liters of water",
+          "PHI (Interval Between Spray and Harvest)": "28 days"
+        },
+        {
+          "Crop": "Cotton",
+          "Target Pest/Insect": "Heliothis eggs",
+          "Dose (per acre)": "250 ml",
+          "Water Volume / Mixing Instructions": "100 liters of water",
+          "PHI (Interval Between Spray and Harvest)": "28 days"
+        },
+        {
+          "Crop": "Cotton",
+          "Target Pest/Insect": "Mealybug",
+          "Dose (per acre)": "800 ml per 100 liters of water",
+          "Water Volume / Mixing Instructions": "100 liters of water",
+          "PHI (Interval Between Spray and Harvest)": "28 days"
+        },
+        {
+          "Crop": "",
+          "Target Pest/Insect": "",
+          "Dose (per acre)": "",
+          "Water Volume / Mixing Instructions": "",
+          "PHI (Interval Between Spray and Harvest)": ""
+        },
+        {
+          "Crop": "",
+          "Target Pest/Insect": "",
+          "Dose (per acre)": "",
+          "Water Volume / Mixing Instructions": "",
+          "PHI (Interval Between Spray and Harvest)": ""
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81ce-8f92-db14a81915d3",
+      "rawTitle": "DUMEI_50_WG",
+      "name": "DUMEI 50% WG",
+      "attributes": {
+        "Product Name": "DUMEI 50% WG",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "120 gm",
+        "Composition": "500g/Kg Flonicamid",
+        "Formulation": "WG (Wettable Granules)",
+        "Mode of Action": "Contact",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Rice",
+        "Targets": "Plant Hopper",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting pest control.2- Provides excellent control of Sucking insects Special plant hoppers.3- Provides fast acting and wide impact mode of action.4- Can be used in combination with other pesticides.",
+        "Product Overview": "Dumei is a very effective Insecticide for killing insects. It is absorbed into the soft branches and leaves of plants. It provides excellent control against insects, especially by paralyzing sucking insects.",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Rice",
+          "Target Weeds/Pests/Disease": "Plant Hopper",
+          "Dosage per Acre": "100-125 grams per acre",
+          "Pre-Harvest Interval (PHI)": "45 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Rice",
+          "Target Insect": "Plant Hopper",
+          "Dose per Acre": "100-125 grams per acre",
+          "PHI (Duration between Spray & Harvest)": "45 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-8165-bfa0-e7027e705d29",
+      "rawTitle": "discontinued_ELESTAL_NEO_54_WG",
+      "name": "Elestal Neo 54% WG",
+      "attributes": {
+        "Product Name": "Elestal Neo 54% WG",
+        "Category": "Insecticide",
+        "Variants/SKUs": "100 gm",
+        "Composition": "30% Spiropidion +24% Acetamiprid",
+        "Formulation": "WG (Wettable Granule)",
+        "Mode of Action": "Contact action",
+        "Discontinued Message": "Product is discontinued, do not recommend",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "Tinivion TechnologyThe TINIVION™ technology in Elestal Neo has the exclusive feature of ambimobility, as it moves up and down the entire plant controlling all stages of the whitefly.",
+        "Applicable Crops": "Cotton, Citrus, Tomato, Brinjal",
+        "Targets": "Whitefly Adult, Whitefly Nymph, Mealybug",
+        "USPs/Key Benefits": "1. Protection of newly emerging leaves from whiteflies.2. New and advanced Tinivion technology.3. Long-lasting protection of shoots and new leaves - Through Tinivion technology, becomes the part of plant system through the xylem and phloem.4. Quick control for adults and children.5. Safe for Pollinators and Natural enemies.",
+        "Product Overview": "“Kills whiteflies as soon as the spray is applied through Contact Action. It is also effective against insects that invade later in the plant through the xylem and phloem.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Whitefly Adult, Whitefly Nymph",
+          "Dosage per Acre": "100 grams + 200 ml",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Product": "Imidacloprid 54% WG + Adjuvant (Basin)",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Citrus",
+          "Target Weeds/Pests/Disease": "Mealybug",
+          "Dosage per Acre": "40 grams + 500 ml",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Product": "Imidacloprid 54% WG + Adjuvant (Basin)",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Tomato",
+          "Target Weeds/Pests/Disease": "Whitefly Adult, Whitefly Nymph",
+          "Dosage per Acre": "100 grams + 200 ml",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Product": "Imidacloprid 54% WG + Adjuvant (Basin)",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Brinjal",
+          "Target Weeds/Pests/Disease": "Whitefly Adult, Whitefly Nymph",
+          "Dosage per Acre": "100 grams + 200 ml",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Product": "Imidacloprid 54% WG + Adjuvant (Basin)",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Target Insect/Pest": "Whitefly Adult, Whitefly Nymph",
+          "Product": "Imidacloprid 54% WG + Adjuvant (Basin)",
+          "Dose Per Acre": "100 grams + 200 ml",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81e7-8e8c-cbd4a5d45570",
+      "rawTitle": "ENRICH",
+      "name": "ENRICH",
+      "attributes": {
+        "Product Name": "ENRICH",
+        "Category": "SPECIALITY NUTRIENT",
+        "Variants/SKUs": "8 kg",
+        "Composition": "400gm/Kg Humic Acid70gm/Kg Potash",
+        "Formulation": "Granules",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Broadcast application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Field Crops, Vegetables, Orchards, Fruits, Citrus",
+        "Targets": "N/A",
+        "USPs/Key Benefits": "1- Soil conditioner.2- Helps in efficient absorption of oxygen.3- Helps in efficient absorption of nutrients.4- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Enrich is a Soil Conditioner, helps retain water and provides organic matter to crops. Fertilizers can be kept in the root zone longer with the product, allowing plants to absorb more nutrients. It helps break up compacted soil. Helps the available nutrients reach deep into the root zone.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Field Crops",
+          "Dose per Acre": "8 kilograms per acre",
+          "Application Timing": "Before sowing, mix into the soil during land preparation"
+        },
+        {
+          "Crop": "Vegetables",
+          "Dose per Acre": "8 kilograms per acre",
+          "Application Timing": "Before sowing, mix into the soil during land preparation"
+        },
+        {
+          "Crop": "Orchards, Fruits",
+          "Dose per Acre": "8 kilograms per acre",
+          "Application Timing": "Before sowing, mix into the soil during land preparation"
+        },
+        {
+          "Crop": "Citrus",
+          "Dose per Acre": "8 kilograms per acre",
+          "Application Timing": "Before sowing, mix into the soil during land preparation"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Field Crops",
+          "Dose per Acre": "8 kilograms per acre",
+          "Time of Application / Directions": "Before sowing, mix into the soil during land preparation"
+        },
+        {
+          "Crop": "Vegetables",
+          "Dose per Acre": "8 kilograms per acre",
+          "Time of Application / Directions": "Before sowing, mix into the soil during land preparation"
+        },
+        {
+          "Crop": "Orchards, Fruits",
+          "Dose per Acre": "8 kilograms per acre",
+          "Time of Application / Directions": "Before sowing, mix into the soil during land preparation"
+        },
+        {
+          "Crop": "Citrus",
+          "Dose per Acre": "8 kilograms per acre",
+          "Time of Application / Directions": "Before sowing, mix into the soil during land preparation"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81b8-9454-e1109767d0f9",
+      "rawTitle": "GENGWEI_550_SC_",
+      "name": "GENGWEI 550 SC",
+      "attributes": {
+        "Product Name": "GENGWEI 550 SC",
+        "Category": "Herbicide",
+        "Variants/SKUs": "1 Lt",
+        "Composition": "50gm/L Mesotrione +500gm/L Atrazine",
+        "Formulation": "SC (Suspension Concentrate)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Maize",
+        "Targets": "Broad Leaf Weed, Grass Weed",
+        "USPs/Key Benefits": "1- Provides excellent control of Broadleaf, Grass Weed.2- Easy to use and environment friendly.3- Innovative and unique technology, with powerful formula.”",
+        "Product Overview": "Gengwei is a highly effective, broad-spectrum (Broadleaf, Grass Weed) herbicide that helps crops produce more and better quality crops. Due to its unique mode of action, it gives excellent control on weeds.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Maize",
+          "Target Weeds/Pests/Disease": "Broad Leaf Weed, Grass Weed",
+          "Dosage per Acre": "495-727.2 ml per Acre",
+          "Pre-Harvest Interval (PHI)": "90 days",
+          "Application Timing": "At the 3-4 leaf stage",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-819f-a93c-fd1b11578532",
+      "rawTitle": "GLYPHOSATE_480_SL_",
+      "name": "GLYPHOSATE 480 SL",
+      "attributes": {
+        "Product Name": "GLYPHOSATE 480 SL",
+        "Category": "Herbicide",
+        "Variants/SKUs": "1 Lt",
+        "Composition": "480 gm/Lt Glyphosate Isopropylamine",
+        "Formulation": "Soluble concentrate (SL)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "N/A",
+        "Targets": "Broad Leaf Weed, Annual Weed, Perennial Weed",
+        "USPs/Key Benefits": "1- Provides excellent control of Broadleaf, Annual & Prennial weeds.2- Easy to use and environment friendly.3- Innovative and unique technology, with powerful formula.”",
+        "Product Overview": "Glyphosate is a highly effective, broad-spectrum (Broadleaf, Annual & Prennial weeds) herbicide that helps crops produce more and better quality crops. Due to its unique mode of action, it gives excellent control on weeds.",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Target Weeds/Pests/Disease": "Broad Leaf Weed, Annual Weed, Perennial Weed",
+          "Dosage per Acre": "1500-2000 ml per acre",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "When weeds on 3-4 leaf stage"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Weed": "Broad Leaf Weed, Annual Weed, Perennial Weed",
+          "Dose Per Acre": "1500-2000 ml per acre",
+          "PHI (Interval Between Spray and Harvest)": "7 days",
+          "Application Time": "When weeds on 3-4 leaf stage"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81b7-9b30-f9f8af07df16",
+      "rawTitle": "ICON_10CS",
+      "name": "ICON 10CS",
+      "attributes": {
+        "Product Name": "ICON 10CS",
+        "Category": "Professional Solutions",
+        "Variants/SKUs": "62.5 ml",
+        "Composition": "lambda-cyhalothrin",
+        "Formulation": "Capsule Suspension",
+        "Mode of Action": "Contact",
+        "Product Technology": "N/A",
+        "Applicable Crops": "N/A",
+        "Targets": "Mosquito",
+        "USPs/Key Benefits": "1- Lasting protection from mosquitoes up to 3 months.2- Easy to use.3- Useful for use on all types of surfaces.4- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "“Icon is an effective solution for eliminating all types of mosquitoes in the home, made with advanced technology. Icon Spray is safe for the human environment. It was specifically designed for indoor sprinkler use.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button",
+        "Crops Registered on": "N/A",
+        "Video Section": "Multiple scroll section for videos publihsed on Yt for the product"
+      },
+      "topPicks": [],
+      "usage": [],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-8116-a1f1-cf4c6cdcd044",
+      "rawTitle": "IMIDACLOPRID_20_SL",
+      "name": "Imidacloprid 20% SL",
+      "attributes": {
+        "Product Name": "Imidacloprid 20% SL",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "500 ml",
+        "Composition": "200g/Ltr Imidachloprid",
+        "Formulation": "SC (Soluble Concentrate)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton, Rice, Apple",
+        "Targets": "Jassid, Whitefly, Thrips, Plant Hopper, Aphid",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting pest control of Sucking pests2- Provides fast acting and wide impact mode of action.3- Can be used in combination with other pesticides.4- Imadacloprid is IPM compatible and does not harm beneficial insects.",
+        "Product Overview": "Imidacloprid is a systemic insecticide that affects the nervous system of insects. This broad-spectrum insecticide protects plants against sap-sucking insects.",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Jassid",
+          "Dosage per Acre": "200-250 ml per acre",
+          "Pre-Harvest Interval (PHI)": "40 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Whitefly, Thrips",
+          "Dosage per Acre": "200-250 ml per acre",
+          "Pre-Harvest Interval (PHI)": "40 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Rice",
+          "Target Weeds/Pests/Disease": "Plant Hopper",
+          "Dosage per Acre": "100 ml per acre",
+          "Pre-Harvest Interval (PHI)": "40 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Apple",
+          "Target Weeds/Pests/Disease": "Aphid",
+          "Dosage per Acre": "200-250 ml per acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-81c3-b8b7-dc1be132fdc0",
+      "rawTitle": "INCIPIO_200SC",
+      "name": "Incipio 200SC",
+      "attributes": {
+        "Product Name": "Incipio 200SC",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "120ml",
+        "Composition": "Isocycloseram 200g/l",
+        "Formulation": "Soluble Concentrate",
+        "Mode of Action": "Contact",
+        "Product Technology": "Plinazolin 360°",
+        "Applicable Crops": "Rice",
+        "Targets": "Stem Borer, Leaf Folder",
+        "USPs/Key Benefits": "1. Unique and new technology that provides complete control of stem borer and leaf folder at the same time.2. Quick, effective and long-lasting effect3. Healthy and lush green crop4. Significant increases rice yield.",
+        "Product Overview": "A PLINAZOLIN® technology, INCIPIO® is a broad-spectrum insecticide that is an effective, unique, and long-lasting solution for Leaf Folder and Stem Borers.",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Leaf Folder",
+          "Crop": "All"
+        },
+        {
+          "Target": "Stem Borer",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Rice",
+          "Target Weeds/Pests/Disease": "Stem Borer",
+          "Dosage per Acre": "120ml",
+          "Pre-Harvest Interval (PHI)": "20 DAYS",
+          "Application Timing": "1st spray: 20 days after nursary Transplantation2nd Spray : 20days after first application",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Rice",
+          "Target Weeds/Pests/Disease": "Leaf Folder",
+          "Dosage per Acre": "40ml",
+          "Pre-Harvest Interval (PHI)": "20 DAYS",
+          "Application Timing": "Application on certain symptoms appearance",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-8197-af0e-dc452e1352fb",
+      "rawTitle": "ISABION",
+      "name": "ISABION",
+      "attributes": {
+        "Product Name": "ISABION",
+        "Category": "Syngenta Biologicals",
+        "Variants/SKUs": "500ml, 1litre",
+        "Composition": "100g/L Amino Acids",
+        "Formulation": "SC (Suspension Concentrate)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Field Crops, Vegetables, Orchards, Fruits",
+        "Targets": "N/A",
+        "USPs/Key Benefits": "1- Ensures supply of essential amino acids.2- Provides better crop3- Efficient and uniform production.",
+        "Product Overview": "Isabion is formulated with natural ingredients for instant plant nutrition. It contains a mixture of amino acids and proteins that accelerate the production process, resulting in regular and high number of flowers and fruits on the plant. .",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Field Crops",
+          "Dosage per Acre": "500 ml per acre",
+          "Application Timing": "when flowers are forming",
+          "Mixing Instructions/Guidelines": "Dissolve in 100 liters of water and spray on plants",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Target Weeds/Pests/Disease": "N/A"
+        },
+        {
+          "Crop": "Orchards, Fruits",
+          "Dosage per Acre": "500 ml per acre",
+          "Application Timing": "when fruits are forming",
+          "Mixing Instructions/Guidelines": "Dissolve in 200 liters of water and spray on plants",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Target Weeds/Pests/Disease": "N/A"
+        },
+        {
+          "Crop": "Vegetables",
+          "Dosage per Acre": "500 ml per acre",
+          "Application Timing": "when flowers are forming",
+          "Mixing Instructions/Guidelines": "Dissolve in 100 liters of water and spray on plants",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Target Weeds/Pests/Disease": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Orchards",
+          "Dose per Acre": "500 milliliters",
+          "Water Volume (per acre)": "200 liters",
+          "Usage / Spray Schedule": "First spray before flowering, second spray when fruit is chickpea-size, third spray when fruit is walnut-size"
+        },
+        {
+          "Crop": "Cucumber",
+          "Dose per Acre": "500 milliliters",
+          "Water Volume (per acre)": "100 liters",
+          "Usage / Spray Schedule": "First spray 20 days after sowing, second spray at flowering, third and fourth sprays at 15-day intervals"
+        },
+        {
+          "Crop": "Melon",
+          "Dose per Acre": "500 milliliters",
+          "Water Volume (per acre)": "100 liters",
+          "Usage / Spray Schedule": "First spray 20 days after sowing, second spray at flowering, third and fourth sprays at 15-day intervals"
+        },
+        {
+          "Crop": "Tomato, Chili",
+          "Dose per Acre": "500 milliliters",
+          "Water Volume (per acre)": "100 liters",
+          "Usage / Spray Schedule": "First spray at flowering and continue at 15 to 20-day intervals"
+        },
+        {
+          "Crop": "Potato",
+          "Dose per Acre": "500 milliliters",
+          "Water Volume (per acre)": "100 liters",
+          "Usage / Spray Schedule": "First spray at complete growth, second spray 45 days after sowing (upon potato formation), third spray at potato bulking"
+        },
+        {
+          "Crop": "Cotton",
+          "Dose per Acre": "500 milliliters",
+          "Water Volume (per acre)": "100 liters",
+          "Usage / Spray Schedule": "First spray 45 to 50 days after sowing, second spray 15 days after the first spray, third and fourth sprays"
+        },
+        {
+          "Crop": "Maize",
+          "Dose per Acre": "500 milliliters",
+          "Water Volume (per acre)": "100 liters",
+          "Usage / Spray Schedule": "First spray at the stage of 3 leaves, second spray at the stage of 5 to 6 leaves, and third spray at the stage of 8 leaves"
+        },
+        {
+          "Crop": "Wheat, Rice",
+          "Dose per Acre": "500 milliliters",
+          "Water Volume (per acre)": "100 liters",
+          "Usage / Spray Schedule": "First spray after complete tillering, and second spray at grain filling"
+        },
+        {
+          "Crop": "Chickpea",
+          "Dose per Acre": "500 milliliters",
+          "Water Volume (per acre)": "100 liters",
+          "Usage / Spray Schedule": "First spray at the initial stage of flowering, repeat the second and third sprays at 15-day interval"
+        },
+        {
+          "Crop": "Strawberry",
+          "Dose per Acre": "500 milliliters",
+          "Water Volume (per acre)": "100 liters",
+          "Usage / Spray Schedule": "First spray before flowering, second, third, and fourth sprays at 10-day intervals"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-810a-a983-d0bbe850e2ee",
+      "rawTitle": "KARATE_25_EC_",
+      "name": "KARATE 2.5 EC",
+      "attributes": {
+        "Product Name": "KARATE 2.5 EC",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "250 ml, 1 Lt",
+        "Composition": "25 g/L Lambda-Cyhlothrin",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Contact & stomach action",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "long text block",
+        "Applicable Crops": "Cotton, Mango, Brinjal, Okra, Chickpea, Rice",
+        "Targets": "Bollworm, Jassid, Thrips, Whitefly Adult, Mango Hopper, Fruit Borer, Pod Borer",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting pest control.2- Provides excellent control of insects and crawling insects.3- Provides fast acting and wide impact mode of action.4- Can be used in combination with other pesticides.",
+        "Product Overview": "“Karate is a broad-spectrum insecticide that kills insects by attacking their nerves on contact. It is absorbed into the tender branches and leaves of the plant.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Bollworm",
+          "Crop": "All"
+        },
+        {
+          "Target": "Mango Hopper",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Bollworm, Jassid, Thrips, Whitefly Adult",
+          "Dosage per Acre": "330 ml per acre",
+          "Pre-Harvest Interval (PHI)": "15 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Mango",
+          "Target Weeds/Pests/Disease": "Mango Hopper",
+          "Dosage per Acre": "40 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Brinjal, Okra",
+          "Target Weeds/Pests/Disease": "Fruit Borer",
+          "Dosage per Acre": "200 ml per acre",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Chickpea",
+          "Target Weeds/Pests/Disease": "Pod Borer",
+          "Dosage per Acre": "250 ml per acre",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Target Insects": "Bollworm, Jassid, Thrips, Whitefly Adult",
+          "Dose Per Acre": "330 ml per acre",
+          "PHI (Interval Between Spray and Harvest)": "15 days"
+        },
+        {
+          "Crop": "Rice",
+          "Target Insects": "Stem Borer, Leaf Folder",
+          "Dose Per Acre": "200 ml in 100 liters of water",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        },
+        {
+          "Crop": "Mango",
+          "Target Insects": "Mango Hopper",
+          "Dose Per Acre": "40 ml in 100 liters of water",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        },
+        {
+          "Crop": "Brinjal, Okra",
+          "Target Insects": "Fruit Borer",
+          "Dose Per Acre": "200 ml per acre",
+          "PHI (Interval Between Spray and Harvest)": "7 days"
+        },
+        {
+          "Crop": "Chickpea",
+          "Target Insects": "Pod Borer",
+          "Dose Per Acre": "250 ml per acre",
+          "PHI (Interval Between Spray and Harvest)": "7 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81bd-8b0e-d1b8a737df57",
+      "rawTitle": "KLERAT_WAX_BLOCKS",
+      "name": "Klerat Wax Blocks",
+      "attributes": {
+        "Product Name": "Klerat Wax Blocks",
+        "Category": "Professional Solutions",
+        "Variants/SKUs": "150 gm",
+        "Composition": "0.5 gm/kg Brodifacoum",
+        "Formulation": "Wax Blocks",
+        "Mode of Action": "Ingestion",
+        "Product Technology": "N/A",
+        "Applicable Crops": "N/A",
+        "Targets": "N/A",
+        "USPs/Key Benefits": "1- Lasting protection for 3 months from Lal bag.2- Easy to use.3- Useful for use on all types of surfaces.4- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Klerat Wax Blocks (rodenticide) is made with a special bio-activated formulation, which rapidly attracts the rodents. Effective for all types of rodents with an effective solution for home, factor,y and outdoor alike.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Multiple scroll section for videos publihsed on Yt for the product",
+        "Indication": "Professional Solutions",
+        "Crops Registered on": "N/A"
+      },
+      "topPicks": [],
+      "usage": [],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-8138-92b6-f00f37928dab",
+      "rawTitle": "LOGRAN_75_WG",
+      "name": "LOGRAN 75 WG",
+      "attributes": {
+        "Product Name": "LOGRAN 75 WG",
+        "Category": "Herbicide",
+        "Variants/SKUs": "16 gm",
+        "Composition": "750gm/Kg Triasulfuron",
+        "Formulation": "WG (Water Dispersible Granules)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Wheat, Rice",
+        "Targets": "Broad Leaf Weed",
+        "USPs/Key Benefits": "1- Provides excellent control of Broadleaf weeds.2- Easy to use and environment friendly.3- Innovative and unique technology, with powerful formula.”",
+        "Product Overview": "Logran is a highly effective, broad-spectrum (Broadleaf weeds) herbicide that helps crops produce more and better quality crops. Due to its unique mode of action, it gives excellent control on weeds.",
+        "Crops Registered on": "Wheat",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Wheat",
+          "Target Weeds/Pests/Disease": "Broad Leaf Weed",
+          "Dosage per Acre": "16 grams",
+          "Pre-Harvest Interval (PHI)": "90 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Rice",
+          "Target Weeds/Pests/Disease": "Broad Leaf Weed",
+          "Dosage per Acre": "10 grams",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "Pre emergence",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Wheat",
+          "Target Weed/Pest": "Broad Leaf Weed",
+          "Dose Per Acre": "16 grams",
+          "PHI (Interval Between Spray and Harvest)": "90 days"
+        },
+        {
+          "Crop": "Rice",
+          "Target Weed/Pest": "Broad Leaf Weed",
+          "Dose Per Acre": "10 grams",
+          "PHI (Interval Between Spray and Harvest)": "N/A"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-8163-9498-e10d042918ac",
+      "rawTitle": "KNOCKOUT_25_SP_",
+      "name": "KNOCKOUT 25% SP",
+      "attributes": {
+        "Product Name": "KNOCKOUT 25% SP",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "100 gm",
+        "Composition": "25% Nitenpyram",
+        "Formulation": "SP (Soluble Powder)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton",
+        "Targets": "Jassid",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting pest control.2- Provides excellent control of Sucking insects.3- Provides fast acting and wide impact mode of action.4- Can be used in combination with other pesticides.”",
+        "Product Overview": "“Knockout is a broad-spectrum insecticide that attacks the nerves of insects on contact and kills them. It is absorbed into the tender branches and leaves of the plant to provide optimal control. Is.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media (Banner)": "Product Banner",
+        "CTA (Banner)": "Shop Now Button",
+        "Supported Media (Indication section)": "With product bottle/packshot",
+        "CTA (Indication section)": "-",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Jassid",
+          "Dosage per Acre": "100 grams",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Insects": "Jassid",
+          "Dose Per Acre": "100 grams",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81dd-9d06-dd6fa65617d3",
+      "rawTitle": "MATCH_050_EC_",
+      "name": "MATCH 050 EC",
+      "attributes": {
+        "Product Name": "MATCH 050 EC",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "200 ml, 1 Lt",
+        "Composition": "50 g/L Lufenuron",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Contact & stomach action",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton, Tomato, Onion, Potato, Cauliflower, Cabbage, Apple, Citrus, Mung Bean, Berseem, Maize",
+        "Targets": "Heliothis, Armyworm, American Bollworm, Diamondback Moth, Butterfly, Codling Moth, Thrips, Leaf Miner, Aphid, Termite",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting pest control.2- Provides excellent control of Bollworms and Sucking insects.3- Provides fast acting and wide impact mode of action.4- Can be used in combination with other pesticides.5- Prevents insects from entering developmental stages from one stage to another.",
+        "Product Overview": "“Match is a broad-spectrum insecticide. It contains the active ingredient Leofenorone, which (growth inhibitor) inhibits the growth of insects and kills them.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Armyworm",
+          "Crop": "All"
+        },
+        {
+          "Target": "Butterfly",
+          "Crop": "All"
+        },
+        {
+          "Target": "Codling Moth",
+          "Crop": "All"
+        },
+        {
+          "Target": "Heliothis",
+          "Crop": "All"
+        },
+        {
+          "Target": "Leaf Miner",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Heliothis, Armyworm",
+          "Dosage per Acre": "800 ml, 100 to 200 ml",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Tomato, Onion, Potato",
+          "Target Weeds/Pests/Disease": "American Bollworm, Diamondback Moth, Heliothis",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cauliflower",
+          "Target Weeds/Pests/Disease": "Diamondback Moth",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cabbage",
+          "Target Weeds/Pests/Disease": "Butterfly",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Apple",
+          "Target Weeds/Pests/Disease": "Codling Moth, Heliothis",
+          "Dosage per Acre": "100 ml poison in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Citrus",
+          "Target Weeds/Pests/Disease": "Thrips, Leaf Miner",
+          "Dosage per Acre": "40 to 80 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Mung Bean",
+          "Target Weeds/Pests/Disease": "Armyworm",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Berseem",
+          "Target Weeds/Pests/Disease": "American Bollworm, Armyworm",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Maize",
+          "Target Weeds/Pests/Disease": "Fall Armyworm",
+          "Dosage per Acre": "240 ml",
+          "Pre-Harvest Interval (PHI)": "35 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Target Insect/Pest": "American Bollworm",
+          "Dose": "800 ml",
+          "Water Volume / Mixing": "—in 100 liters of water",
+          "PHI (Spray-to-Harvest Interval)": "28 days"
+        },
+        {
+          "Crop": "Cotton",
+          "Target Insect/Pest": "Armyworm",
+          "Dose": "100 to 200 ml",
+          "Water Volume / Mixing": "in 100 liters of water",
+          "PHI (Spray-to-Harvest Interval)": "28 days"
+        },
+        {
+          "Crop": "Tomato, Onion, Potato",
+          "Target Insect/Pest": "American Bollworm",
+          "Dose": "200 ml",
+          "Water Volume / Mixing": "in 100 liters of water",
+          "PHI (Spray-to-Harvest Interval)": "7 days"
+        },
+        {
+          "Crop": "Cauliflower",
+          "Target Insect/Pest": "Diamondback Moth",
+          "Dose": "200 ml",
+          "Water Volume / Mixing": "in 100 liters of water",
+          "PHI (Spray-to-Harvest Interval)": "28 days"
+        },
+        {
+          "Crop": "Cabbage",
+          "Target Insect/Pest": "Butterfly",
+          "Dose": "200 ml",
+          "Water Volume / Mixing": "in 100 liters of water",
+          "PHI (Spray-to-Harvest Interval)": "28 days"
+        },
+        {
+          "Crop": "Apple",
+          "Target Insect/Pest": "Codling Moth, American Bollworm",
+          "Dose": "100 ml",
+          "Water Volume / Mixing": "in 100 liters of water",
+          "PHI (Spray-to-Harvest Interval)": "28 days"
+        },
+        {
+          "Crop": "Citrus",
+          "Target Insect/Pest": "Thrips, Leaf Miner",
+          "Dose": "40 to 80 ml",
+          "Water Volume / Mixing": "in 100 liters of water",
+          "PHI (Spray-to-Harvest Interval)": "28 days"
+        },
+        {
+          "Crop": "Mung Bean",
+          "Target Insect/Pest": "Armyworm",
+          "Dose": "200 ml",
+          "Water Volume / Mixing": "in 100 liters of water",
+          "PHI (Spray-to-Harvest Interval)": "28 days"
+        },
+        {
+          "Crop": "Berseem",
+          "Target Insect/Pest": "American Bollworm, Armyworm",
+          "Dose": "200 ml",
+          "Water Volume / Mixing": "in 100 liters of water",
+          "PHI (Spray-to-Harvest Interval)": "28 days"
+        },
+        {
+          "Crop": "Maize",
+          "Target Insect/Pest": "Fall Armyworm",
+          "Dose": "240 ml",
+          "Water Volume / Mixing": "in 100 liters of water",
+          "PHI (Spray-to-Harvest Interval)": "35 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-8141-816a-f22d9064960f",
+      "rawTitle": "METRIBUZIN_70_WP_",
+      "name": "METRIBUZIN 70% WP",
+      "attributes": {
+        "Product Name": "METRIBUZIN 70% WP",
+        "Category": "Herbicide",
+        "Variants/SKUs": "80 gm",
+        "Composition": "70gm/Kg Metribuzin",
+        "Formulation": "WP (Wettable Powder)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Wheat",
+        "Targets": "Dumbi Sitti, Bathu, Senji",
+        "USPs/Key Benefits": "1. It works when used as pre emergence2. Due to its broad spectrum usage and low dose/acre its extremely economical along with leaving no residual effect on the succeeding crop3. Easy to use",
+        "Product Overview": "Metribuzin is a selective, systemic and contact herbicide which works for the control of weeds in sugarcane, potato, tomato, soybean and wheat. It acts through the roots and leaves and therefore, can be used for both pre and post emergence applications. It controls both narrow and broad leaf weeds.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Wheat",
+          "Target Weeds/Pests/Disease": "Dumbi Sitti, Bathu, Senji",
+          "Dosage per Acre": "80 grams",
+          "Pre-Harvest Interval (PHI)": "70 days",
+          "Amount of Water per Acre": "100-120 liters",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Wheat",
+          "Weeds": "Dumbi Sitti, Bathu, Senji",
+          "Dose Per Acre": "80 grams",
+          "Amount of Water per Acre": "100-120 liters",
+          "PHI (Interval Between Spray and Harvest)": "70 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-8128-a991-d8485fb0dfc7",
+      "rawTitle": "NAYA_NPK_151515",
+      "name": "NAYA NPK 15-15-15",
+      "attributes": {
+        "Product Name": "NAYA NPK 15-15-15",
+        "Category": "Micronutrient",
+        "Variants/SKUs": "1 Kg, 8 Kg",
+        "Composition": "Nitrogen 15% + Phosphorus 15% + Potassium 15%",
+        "Formulation": "SG (Soluble Granules)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton, Wheat, Rice, Potato, Vegetables, Orchards",
+        "Targets": "N/A",
+        "USPs/Key Benefits": "1. Supplies large nutrient quantities quickly to help field crops reach target yield.2. High nutrient density covers more acres with fewer bags — saving cost and labor.3. Promotes early vegetative growth for stronger canopy and higher biomass.",
+        "Product Overview": "Field crops require rapid nutrient uptake to reach their yield potential, which is supported by Naya NPK’s nutrient supply.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Multiple scroll section for videos publihsed on Yt for the product"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Application Timing": "as needed",
+          "Dosage per Acre": "1 kilogram",
+          "Mixing Instructions/Guidelines": "Mix in 100-120 liters of water and spray as needed",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Target Weeds/Pests/Disease": "N/A"
+        },
+        {
+          "Crop": "Wheat",
+          "Application Timing": "as needed",
+          "Dosage per Acre": "1 kilogram",
+          "Mixing Instructions/Guidelines": "Mix in 100-120 liters of water and spray as needed",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Target Weeds/Pests/Disease": "N/A"
+        },
+        {
+          "Crop": "Rice",
+          "Application Timing": "as needed",
+          "Dosage per Acre": "1 kilogram",
+          "Mixing Instructions/Guidelines": "Mix in 100-120 liters of water and spray as needed",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Target Weeds/Pests/Disease": "N/A"
+        },
+        {
+          "Crop": "Potato",
+          "Application Timing": "as needed",
+          "Dosage per Acre": "1 kilogram",
+          "Mixing Instructions/Guidelines": "Mix in 100-120 liters of water and spray as needed",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Target Weeds/Pests/Disease": "N/A"
+        },
+        {
+          "Crop": "Orchards",
+          "Application Timing": "when fruit is the size of a pea",
+          "Dosage per Acre": "1 kilogram",
+          "Mixing Instructions/Guidelines": "Mix in 500 liters of water and spray (when fruit is the size of a pea)",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Target Weeds/Pests/Disease": "N/A"
+        },
+        {
+          "Crop": "Vegetables",
+          "Application Timing": "at the beginning of flowering",
+          "Dosage per Acre": "1 kilogram",
+          "Mixing Instructions/Guidelines": "Mix in 100-120 liters of water and spray at the beginning of flowering",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Target Weeds/Pests/Disease": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Dose Per Acre": "1 kilogram",
+          "Water Volume (Liters)": "100–120",
+          "Application Timing/Instructions": "Mix in 100–120 liters of water and spray as needed"
+        },
+        {
+          "Crop": "Wheat",
+          "Dose Per Acre": "1 kilogram",
+          "Water Volume (Liters)": "100–120",
+          "Application Timing/Instructions": "Mix in 100–120 liters of water and spray as needed"
+        },
+        {
+          "Crop": "Rice",
+          "Dose Per Acre": "1 kilogram",
+          "Water Volume (Liters)": "100–120",
+          "Application Timing/Instructions": "Mix in 100–120 liters of water and spray as needed"
+        },
+        {
+          "Crop": "Potato",
+          "Dose Per Acre": "1 kilogram",
+          "Water Volume (Liters)": "100–120",
+          "Application Timing/Instructions": "Mix in 100–120 liters of water and spray as needed"
+        },
+        {
+          "Crop": "Orchards",
+          "Dose Per Acre": "1 kilogram",
+          "Water Volume (Liters)": "500",
+          "Application Timing/Instructions": "Mix in 500 liters of water and spray (when fruit is the size of a pea)"
+        },
+        {
+          "Crop": "Vegetables",
+          "Dose Per Acre": "1 kilogram",
+          "Water Volume (Liters)": "100–120",
+          "Application Timing/Instructions": "Mix in 100–120 liters of water and spray at the beginning of flowering"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81c3-a7b6-c65c86954999",
+      "rawTitle": "NAYA_POTASH",
+      "name": "NAYA POTASH",
+      "attributes": {
+        "Product Name": "NAYA POTASH",
+        "Category": "Micronutrient",
+        "Variants/SKUs": "5 Lt",
+        "Composition": "300gm/L Liquid Potash",
+        "Formulation": "Water Soluble",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Flood application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Wheat, Cotton, Rice, Maize, Sugarcane, Orchards & Vegetables",
+        "Targets": "N/A",
+        "USPs/Key Benefits": "1- Provides complete balance of potassium.2- Improves plant growth and development.3- Provides immunity to crops against weather stress4- Innovative and unique technology, with powerful formula.”",
+        "Product Overview": "It contains thirty percent dissolved potash derived from potassium carbonate. It helps in the opening and closing of stomata in leaves and the release of carbon dioxide. It helps in water regulation and is essential for plant growth.",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image",
+        "CTA": "Shop Now Button",
+        "Video Section": "Multiple scroll section for videos publihsed on Yt for the product"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Sugarcane",
+          "Time of Application": "After earthing up",
+          "Dose Per Acre": "5 liters",
+          "Application Method": "By irrigation",
+          "=ZU^": "",
+          "UufJ": ""
+        },
+        {
+          "Crop": "Orchards",
+          "Time of Application": "At the beginning of fruiting",
+          "Dose Per Acre": "6 liters",
+          "Application Method": "By irrigation",
+          "=ZU^": "",
+          "UufJ": ""
+        },
+        {
+          "Crop": "Wheat",
+          "Time of Application": "At booting stage",
+          "Dose Per Acre": "3 liters",
+          "Application Method": "By irrigation",
+          "=ZU^": "",
+          "UufJ": ""
+        },
+        {
+          "Crop": "Cotton",
+          "Time of Application": "During boll formation",
+          "Dose Per Acre": "3 liters",
+          "Application Method": "By irrigation",
+          "=ZU^": "",
+          "UufJ": ""
+        },
+        {
+          "Crop": "Rice",
+          "Time of Application": "During panicle formation",
+          "Dose Per Acre": "3 liters",
+          "Application Method": "By irrigation",
+          "=ZU^": "",
+          "UufJ": ""
+        },
+        {
+          "Crop": "Maize",
+          "Time of Application": "At the beginning and after cob formation",
+          "Dose Per Acre": "3 liters",
+          "Application Method": "By irrigation",
+          "=ZU^": "",
+          "UufJ": ""
+        },
+        {
+          "Crop": "Vegetables",
+          "Time of Application": "During fruit, flower stage",
+          "Dose Per Acre": "5 liters",
+          "Application Method": "By irrigation",
+          "=ZU^": "",
+          "UufJ": ""
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Sugarcane",
+          "Time of Application": "After earthing up",
+          "Dose Per Acre": "5 liters",
+          "Application Method": "By irrigation"
+        },
+        {
+          "Crop": "Orchards",
+          "Time of Application": "At the beginning of fruiting",
+          "Dose Per Acre": "6 liters",
+          "Application Method": "By irrigation"
+        },
+        {
+          "Crop": "Wheat",
+          "Time of Application": "At booting stage",
+          "Dose Per Acre": "3 liters",
+          "Application Method": "By irrigation"
+        },
+        {
+          "Crop": "Cotton",
+          "Time of Application": "During boll formation",
+          "Dose Per Acre": "3 liters",
+          "Application Method": "By irrigation"
+        },
+        {
+          "Crop": "Rice",
+          "Time of Application": "During panicle formation",
+          "Dose Per Acre": "3 liters",
+          "Application Method": "By irrigation"
+        },
+        {
+          "Crop": "Maize",
+          "Time of Application": "At the beginning and after cob formation",
+          "Dose Per Acre": "3 liters",
+          "Application Method": "By irrigation"
+        },
+        {
+          "Crop": "Vegetables",
+          "Time of Application": "During fruit, flower stage",
+          "Dose Per Acre": "5 liters",
+          "Application Method": "By irrigation"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81a5-b821-fb062b5fad0c",
+      "rawTitle": "MIRAVIS_DUO_200_SC",
+      "name": "MIRAVIS DUO 200 SC",
+      "attributes": {
+        "Product Name": "MIRAVIS DUO 200 SC",
+        "Category": "Fungicide",
+        "Variants/SKUs": "200ml, 400ml",
+        "Composition": "75g/L Pydiflumetofen125g/L Difenoconazole",
+        "Formulation": "SC (Suspension Concentrate)",
+        "Mode of Action": "systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "ADEPIDYN® technology",
+        "Applicable Crops": "Tomato, Potato, Cucumber, Melon, Onion",
+        "Targets": "Early Blight, Powdery Mildew, Purple Blotch",
+        "USPs/Key Benefits": "1- Protects crop from Early Blight& Powdery Mildew.2- Transmissibility, protection against diseases by the ability of leaves to spread.3- Easy to use and environment friendly.4- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Miravis Duo is a powerful and effective fungicide. Helps the crop to produce higher yield and better quality produce. Due to its unique mode of action ,Miravos Duo provides effective control of the disease for a long period of time.",
+        "Crops Registered on": "TomatoPotatoCucumberMelonOnion",
+        "Product Technology (detail)": "ADEPIDYN® technology and difenoconazole for long-lasting disease control, even under high disease pressure and unpredictable weather.",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Early Blight",
+          "Crop": "All"
+        },
+        {
+          "Target": "Powdery Mildew",
+          "Crop": "All"
+        },
+        {
+          "Target": "Purple Blotch",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Tomato",
+          "Target Weeds/Pests/Disease": "Early Blight",
+          "Dosage per Acre": "200 ml per acre",
+          "Pre-Harvest Interval (PHI)": "0 days",
+          "Application Timing": "Use only twice at intervals of 7 to 14 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Potato",
+          "Target Weeds/Pests/Disease": "Early Blight",
+          "Dosage per Acre": "200 ml per acre",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "Use only twice at intervals of 7 to 14 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cucumber",
+          "Target Weeds/Pests/Disease": "Powdery Mildew",
+          "Dosage per Acre": "100 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "1 days",
+          "Application Timing": "Use only twice at intervals of 7 to 14 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Melon",
+          "Target Weeds/Pests/Disease": "Powdery Mildew",
+          "Dosage per Acre": "100 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "0 days",
+          "Application Timing": "Use only twice at intervals of 7 to 14 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Onion",
+          "Target Weeds/Pests/Disease": "Purple Blotch",
+          "Dosage per Acre": "200ml per acre",
+          "Pre-Harvest Interval (PHI)": "3 days",
+          "Application Timing": "Use only twice at intervals of 7 to 14 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Tomato",
+          "Target Weeds/Pests/Disease": "Early Blight",
+          "Dosage per Acre": "200 ml per acre",
+          "Pre-Harvest Interval (PHI)": "0 days",
+          "Application Timing": "Use only twice at intervals of 7 to 14 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Potato",
+          "Target Weeds/Pests/Disease": "Early Blight",
+          "Dosage per Acre": "200 ml per acre",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "Use only twice at intervals of 7 to 14 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cucumber",
+          "Target Weeds/Pests/Disease": "Powdery Mildew",
+          "Dosage per Acre": "100 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "1 days",
+          "Application Timing": "Use only twice at intervals of 7 to 14 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Melon",
+          "Target Weeds/Pests/Disease": "Powdery Mildew",
+          "Dosage per Acre": "100 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "0 days",
+          "Application Timing": "Use only twice at intervals of 7 to 14 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Onion",
+          "Target Weeds/Pests/Disease": "Purple Blotch",
+          "Dosage per Acre": "200ml per acre",
+          "Pre-Harvest Interval (PHI)": "3 days",
+          "Application Timing": "Use only twice at intervals of 7 to 14 days",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-81cd-bb6f-fed73aaddc78",
+      "rawTitle": "NAYA_S_UREA",
+      "name": "Naya S Urea",
+      "attributes": {
+        "Product Name": "Naya S Urea",
+        "Category": "Speciality Nutrient",
+        "Variants/SKUs": "25 kg",
+        "Composition": "Nitrogen 32% + Sulphur 13%",
+        "Formulation": "Granular Formulation",
+        "Mode of Action": "N/A",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Field Crops, Vegetables, Orchards, Fruits",
+        "Targets": "N/A",
+        "USPs/Key Benefits": "1. The sulfur included in it is not only an important component of plant nutrition, but it also reduces the dissolution rate of nitrogen from urea.2. Slow release nitrogen3. Increased macro & micro nutrient availabilty with improved use efficiency4. Convenient & Uniform application",
+        "Product Overview": "Sulphur Coated Urea (SCU) is a specialized fertilizer designed to improve nitrogen use efficiency while supplying essential sulphur for crop nutrition. By coating urea granules with a layer of sulphur, the release of nitrogen is slowed down, reducing leaching and volatilization losses, and ensuring a steady nutrient supply over time. This controlled-release mechanism not only enhances crop growth and yield but also supports sustainable farming practices by minimizing environmental impact. Additionally, the sulphur coating provides an important secondary nutrient that boosts protein synthesis, oil content, and overall crop quality, making SCU a smart, dual-benefit solution for modern agriculture."
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Field Crops",
+          "Time & Method of Application": "As first nitrogen application",
+          "Dose per Acre": "25 KG/Acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Vegetables",
+          "Time & Method of Application": "First Application: As first nitrogen application; Second Application: At the flowering stage",
+          "Dose per Acre": "25 KG/Acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Orchards, Fruits",
+          "Time & Method of Application": "First Application: As first nitrogen application; Second Application: At the flowering stage",
+          "Dose per Acre": "25 KG/Acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Potato",
+          "Time & Method of Application": "First Application: At the time of sowing or soil preparation; Second Application: As first nitrogen application",
+          "Dose per Acre": "25 KG/Acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-8167-9365-fffe9052a60d",
+      "rawTitle": "NAYA_SOP_",
+      "name": "Naya SOP",
+      "attributes": {
+        "Product Name": "Naya SOP",
+        "Category": "Speciality Nutrient",
+        "Variants/SKUs": "25 kg",
+        "Composition": "Potassium 50% + Sulphur 17.5%",
+        "Formulation": "WP (Wettable Powder)",
+        "Mode of Action": "N/A",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Field Crops, Vegetables, Orchards, Fruits",
+        "Targets": "Potash deficiency",
+        "USPs/Key Benefits": "1- Provides complete balance of potassium.2- Improves plant growth and development.3- Provides immunity to crops against weather stress4- Imported quality, innovative and unique technology, with powerful formula.",
+        "Product Overview": "Sulphate of potash fertilizer aids in the opening and closing of stomata in leaves and the release of carbon dioxide. Helps in water regulation and is essential for plant growth.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -"
+      },
+      "topPicks": [
+        {
+          "Crop": "Field Crops, Vegetables, Orchards, Fruits",
+          "Target": "Potash deficiency",
+          "Dosage per Acre": "25 KG"
+        }
+      ],
+      "usage": [],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-818f-a336-f7d8e5cf23e2",
+      "rawTitle": "NAYA_ZINC_PLUS",
+      "name": "NAYA ZINC PLUS",
+      "attributes": {
+        "Product Name": "NAYA ZINC PLUS",
+        "Category": "Micronutrient",
+        "Variants/SKUs": "3 Kg",
+        "Composition": "270gm/Kg Zinc Sulphate",
+        "Formulation": "SG (Soluble Granules)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Field Crops, Vegetables, Orchards",
+        "Targets": "N/A",
+        "USPs/Key Benefits": "1- Increases metabolic processes and helps in chlorophyll production.2- Zinc supplementation increases the metabolic rate.3- Helps in effective excretion of nutrients.4- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Ensures the supply of zinc for a healthy crop. With zinc the plant is able to absorb proteins and carbohydrates which help in the production of chlorophyll which only occurs in the presence of zinc.",
+        "Type of Content": "Supported Media; CTA"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Field Crops",
+          "Target Weeds/Pests/Disease": "N/A",
+          "Dosage per Acre": "7.5 Kilogram",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Orchards",
+          "Target Weeds/Pests/Disease": "N/A",
+          "Dosage per Acre": "100 grams per plant",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Vegetables",
+          "Target Weeds/Pests/Disease": "N/A",
+          "Dosage per Acre": "7.5 KG",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Field Crops",
+          "Dosage per Acre": "7.5 Kilogram",
+          "XQEQ": ""
+        },
+        {
+          "Crop": "Orchards",
+          "Dosage per Acre": "100 grams per plant",
+          "XQEQ": ""
+        },
+        {
+          "Crop": "Vegetables",
+          "Dosage per Acre": "7.5 KG",
+          "XQEQ": ""
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-8161-8119-e86426c3a547",
+      "rawTitle": "PENDIMETHALIN_33_EC",
+      "name": "PENDIMETHALIN 33% EC",
+      "attributes": {
+        "Product Name": "PENDIMETHALIN 33% EC",
+        "Category": "Herbicide",
+        "Variants/SKUs": "1 Lt",
+        "Composition": "330gm/L Pendimethalin",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton, Maize, Wheat",
+        "Targets": "Broad Leaf Weed, Grass Weed",
+        "USPs/Key Benefits": "1- Provides excellent control of broadleaf and grassy weeds.2- Easy to use and environment friendly.3- Innovative and unique technology, with powerful formula.”",
+        "Product Overview": "Pendimethalin is a highly effective, broad-spectrum herbicide that helps crops produce more and better quality crops. Due to its unique mode of action, it gives excellent control on weeds.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Broad Leaf Weed, Grass Weed",
+          "Dosage per Acre": "Hard Soil: 1.25 liters; Common Soil: 1 Litre",
+          "Pre-Harvest Interval (PHI)": "60 days",
+          "Application Timing": "Immediately after sowing and before emergence",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Maize",
+          "Target Weeds/Pests/Disease": "Broad Leaf Weed, Grass Weed",
+          "Dosage per Acre": "Hard Soil: 1.25 liters; Common Soil: 1 Litre",
+          "Pre-Harvest Interval (PHI)": "90 days",
+          "Application Timing": "Immediately after sowing and before emergence",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Wheat",
+          "Target Weeds/Pests/Disease": "Broad Leaf Weed, Grass Weed",
+          "Dosage per Acre": "Hard Soil: 1.25 liters; Common Soil: 1 Litre",
+          "Pre-Harvest Interval (PHI)": "90 days",
+          "Application Timing": "Immediately after sowing and before emergence",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Weeds": "Broad Leaf Weed, Grass Weed",
+          "Dose Per Acre (Hard Soil)": "1.25 liters",
+          "Dose Per Acre (Common Soil)": "1 Litre",
+          "Time of Application": "Immediately after sowing and before emergence",
+          "PHI (Interval Between Spray and Harvest)": "60 days"
+        },
+        {
+          "Crop": "Maize",
+          "Weeds": "Broad Leaf Weed, Grass Weed",
+          "Dose Per Acre (Hard Soil)": "1.25 liters",
+          "Dose Per Acre (Common Soil)": "1 Litre",
+          "Time of Application": "Immediately after sowing and before emergence",
+          "PHI (Interval Between Spray and Harvest)": "90 days"
+        },
+        {
+          "Crop": "Wheat",
+          "Weeds": "Broad Leaf Weed, Grass Weed",
+          "Dose Per Acre (Hard Soil)": "1.25 liters",
+          "Dose Per Acre (Common Soil)": "1 Litre",
+          "Time of Application": "Immediately after sowing and before emergence",
+          "PHI (Interval Between Spray and Harvest)": "90 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-8190-a93b-ef6b53ba341e",
+      "rawTitle": "ORONDIS_OPTI_406_SC_",
+      "name": "ORONDIS OPTI 40.6 SC",
+      "attributes": {
+        "Product Name": "ORONDIS OPTI 40.6 SC",
+        "Category": "Fungicide",
+        "Variants/SKUs": "400 ml",
+        "Composition": "400g/Lt Chlorothalonil + 6g/Lt Oxathiapiprolin",
+        "Formulation": "SC (Suspension Concentrate)",
+        "Mode of Action": "Systemic, translaminar",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "long text block",
+        "Applicable Crops": "Tomato, Cucumber, Chili, Melon, Watermelon",
+        "Targets": "Late Blight, Downy Mildew, Phytophthora Blight",
+        "USPs/Key Benefits": "1- Protects crop from Early Blight& Powdery Mildew.2- Prevents the growth of fungi and provides protection against diseases.3- Easy to use and environment friendly.4- Innovative and unique technology, with a powerful formula.",
+        "Product Overview": "Orondis Opti is a potent and effective fungicide. Helps the crop to produce higher yield and better quality. Due to its unique mode of action, Orondis Opti provides effective disease control for a long period of time.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media (Product Banner)": "With product bottle/packshot",
+        "CTA": "Shop Now Button"
+      },
+      "topPicks": [
+        {
+          "Target": "Downy Mildew",
+          "Crop": "All"
+        },
+        {
+          "Target": "Late Blight",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Tomato",
+          "Disease": "Late Blight",
+          "Dose per Acre": "450 ml",
+          "Water Quantity per Acre": "100 liters of water",
+          "Number of Sprays": "2 sprays per season, with a 7-10 day interval",
+          "PHI (Interval Between Spray and Harvest)": "0"
+        },
+        {
+          "Crop": "Melon, Watermelon",
+          "Disease": "Downy Mildew",
+          "Dose per Acre": "400 ml",
+          "Water Quantity per Acre": "100 liters of water",
+          "Number of Sprays": "2 sprays per season, with a 7-10 day interval",
+          "PHI (Interval Between Spray and Harvest)": "0"
+        },
+        {
+          "Crop": "Cucumber",
+          "Disease": "Downy Mildew",
+          "Dose per Acre": "400 ml",
+          "Water Quantity per Acre": "100 liters of water",
+          "Number of Sprays": "2 sprays per season, with a 7-10 day interval",
+          "PHI (Interval Between Spray and Harvest)": "2"
+        },
+        {
+          "Crop": "Chili",
+          "Disease": "Phytophthora Blight",
+          "Dose per Acre": "450-500 ml",
+          "Water Quantity per Acre": "100 liters of water",
+          "Number of Sprays": "2 sprays per season, with a 7-10 day interval",
+          "PHI (Interval Between Spray and Harvest)": "2"
+        },
+        {
+          "Crop": "",
+          "Disease": "",
+          "Dose per Acre": "",
+          "Water Quantity per Acre": "",
+          "Number of Sprays": "",
+          "PHI (Interval Between Spray and Harvest)": ""
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Tomato",
+          "Disease": "Late Blight",
+          "Dose per Acre": "450 ml",
+          "Water Quantity per Acre": "100 liters of water",
+          "Number of Sprays": "2 sprays per season, with a 7-10 day interval",
+          "PHI (Interval Between Spray and Harvest)": "0"
+        },
+        {
+          "Crop": "Melon, Watermelon",
+          "Disease": "Downy Mildew",
+          "Dose per Acre": "400 ml",
+          "Water Quantity per Acre": "100 liters of water",
+          "Number of Sprays": "2 sprays per season, with a 7-10 day interval",
+          "PHI (Interval Between Spray and Harvest)": "0"
+        },
+        {
+          "Crop": "Cucumber",
+          "Disease": "Downy Mildew",
+          "Dose per Acre": "400 ml",
+          "Water Quantity per Acre": "100 liters of water",
+          "Number of Sprays": "2 sprays per season, with a 7-10 day interval",
+          "PHI (Interval Between Spray and Harvest)": "2"
+        },
+        {
+          "Crop": "Chili",
+          "Disease": "Phytophthora Blight",
+          "Dose per Acre": "450-500 ml",
+          "Water Quantity per Acre": "100 liters of water",
+          "Number of Sprays": "2 sprays per season, with a 7-10 day interval",
+          "PHI (Interval Between Spray and Harvest)": "2"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-8170-bf4d-e744fe9d2b00",
+      "rawTitle": "PLENUM_50_WG_",
+      "name": "PLENUM 50 WG",
+      "attributes": {
+        "Product Name": "PLENUM 50 WG",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "120 gm",
+        "Composition": "500 g/ Kg Pymetrozine",
+        "Formulation": "WG (Water Dispersible Granules)",
+        "Mode of Action": "Systemic & Translaminar",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Rice",
+        "Targets": "Plant Hopper",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting pest control.2- It provides excellent control of Sucking insects especially Plant Hopper.3- Provides fast acting and wide impact mode of action.4- Can be used in combination with other pesticides.",
+        "Product Overview": "Plenum provides powerful control of Sucking insects. It is a broad-spectrum insecticide that kills insects by attacking their nerves on contact. It kills the soft branches of the plant. And absorption into the leaves provides excellent control.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Plant Hopper",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Rice",
+          "Target Weeds/Pests/Disease": "Plant Hopper",
+          "Dosage per Acre": "120 grams",
+          "Pre-Harvest Interval (PHI)": "20 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Amount of Water per Acre: 100-120 liters"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Rice",
+          "Insects": "Plant Hopper",
+          "Dose Per Acre": "120 grams",
+          "Amount of Water per Acre": "100-120 liters",
+          "PHI (Interval Between Spray and Harvest)": "20 days"
+        },
+        {
+          "Crop": "Rice",
+          "Insects": "Plant Hopper",
+          "Dose Per Acre": "120 grams",
+          "Amount of Water per Acre": "100-120 liters",
+          "PHI (Interval Between Spray and Harvest)": "20 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81a0-967a-c627611cbeb5",
+      "rawTitle": "POLO_500_SC_",
+      "name": "POLO 500 SC",
+      "attributes": {
+        "Product Name": "POLO 500 SC",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "200 ml, 1 Lt",
+        "Composition": "500 g/Lt Diafentiuron",
+        "Formulation": "SC (Suspension Concentrate)",
+        "Mode of Action": "Translaminar & Contact & stomach action",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton, Cabbage, Cauliflower, Potato, Okra, Brinjal, Chili",
+        "Targets": "Whitefly, Jassid, Thrips, Aphid, Mite, Bud Mite",
+        "USPs/Key Benefits": "1. Excellent control against whiteflies and mealybugs2. Systemic action inhibits the respiratory mechanism of insects and kills them within 3 days of spraying.3. Polo helps create a heavier, fuller bole, aiding in better quality production.",
+        "Product Overview": "Polo provides powerful control against whiteflies and aphids. If it rains within six hours of spraying, its effect may be reduced.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Aphid",
+          "Crop": "All"
+        },
+        {
+          "Target": "Bud Mite",
+          "Crop": "All"
+        },
+        {
+          "Target": "Mite",
+          "Crop": "All"
+        },
+        {
+          "Target": "Whitefly",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Whitefly, Jassid, Thrips, Mite",
+          "Dosage per Acre": "200 ml per acre",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Cabbage, Cauliflower",
+          "Target Weeds/Pests/Disease": "Aphid",
+          "Dosage per Acre": "100 ml per acre",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Potato",
+          "Target Weeds/Pests/Disease": "Whitefly, Jassid",
+          "Dosage per Acre": "100 ml per acre",
+          "Pre-Harvest Interval (PHI)": "21 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Okra",
+          "Target Weeds/Pests/Disease": "Jassid",
+          "Dosage per Acre": "100 ml per acre",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Brinjal",
+          "Target Weeds/Pests/Disease": "Whitefly, Jassid, Mite",
+          "Dosage per Acre": "100 ml per acre",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Chili",
+          "Target Weeds/Pests/Disease": "Bud Mite",
+          "Dosage per Acre": "100 ml per acre",
+          "Pre-Harvest Interval (PHI)": "28 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Insects": "Whitefly, Jassid, Thrips, Mite",
+          "Dose Per Acre": "200 ml per acre",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        },
+        {
+          "Crop": "Cabbage, Cauliflower",
+          "Insects": "Aphid",
+          "Dose Per Acre": "100 ml per acre",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        },
+        {
+          "Crop": "Potato",
+          "Insects": "Whitefly, Jassid",
+          "Dose Per Acre": "100 ml per acre",
+          "PHI (Interval Between Spray and Harvest)": "21 days"
+        },
+        {
+          "Crop": "Okra",
+          "Insects": "Jassid",
+          "Dose Per Acre": "100 ml per acre",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        },
+        {
+          "Crop": "Brinjal",
+          "Insects": "Whitefly, Jassid, Mite",
+          "Dose Per Acre": "100 ml per acre",
+          "PHI (Interval Between Spray and Harvest)": "7 days"
+        },
+        {
+          "Crop": "Chili",
+          "Insects": "Bud Mite",
+          "Dose Per Acre": "100 ml per acre",
+          "PHI (Interval Between Spray and Harvest)": "28 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81bd-a322-f6bf4d6428b1",
+      "rawTitle": "POLYTRIN_C_440_EC_",
+      "name": "POLYTRIN C 440 EC",
+      "attributes": {
+        "Product Name": "POLYTRIN C 440 EC",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "500 ml, 1 Lt",
+        "Composition": "400g/L Profenofos +40g/L Cypermethrin",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Contact & stomach action",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "long text block",
+        "Applicable Crops": "Cotton",
+        "Targets": "Cotton Bollworm, Pink Bollworm, Jassid, Thrips, Whitefly Adult, Mite",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting pest control.2- Provides excellent control of aphids and sap-sucking insects.3- Provides fast acting and wide impact mode of action.4- Can be used in combination with other pesticides.",
+        "Product Overview": "“Polytrin provides powerful control of worms and sap-sucking insects. It is a broad-spectrum insecticide. It kills insects by attacking their nerves.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Cotton Bollworm",
+          "Crop": "All"
+        },
+        {
+          "Target": "Whitefly Adult",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Cotton Bollworm, Pink Bollworm, Jassid, Thrips, Whitefly Adult, Mite",
+          "Dosage per Acre": "500 - 600 ml per acre",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-81fa-be62-d5a5c76ced71",
+      "rawTitle": "PRIMEXTRA_GOLD_720_SC",
+      "name": "PRIMEXTRA GOLD 720 SC",
+      "attributes": {
+        "Product Name": "PRIMEXTRA GOLD 720 SC",
+        "Category": "Herbicide",
+        "Variants/SKUs": "400 ml",
+        "Composition": "320gm/L Atrazine +400gm/L S-Metolachlor",
+        "Formulation": "SC (Suspension Concentrate)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Maize, Sugarcane",
+        "Targets": "Deela, Broad Leaf Weed, Grass Weed",
+        "USPs/Key Benefits": "1. Broad spectrum herbicide2. Long lasting control3. Unique technology, with powerful formula.",
+        "Product Overview": "PRIMEXTRA® Gold is an effective, longer lasting and broad spectrum herbicide. It controls annual grasses and broadleaf weeds in maize, sugar cane and sweet corn. The product should be thoroughly mixed before spraying and continuous agitation while spraying yields better result and should never be applied when heavy rains or storms that are likely to cause runoff are forecast within 2 days of application.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos",
+        "Crops Registered on": "Corn, Sugarcane"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Maize",
+          "Weed": "Broad Leaf Weed",
+          "Dosage Per Acre": "400 ml/acre",
+          "Time of Application": "Before the crop and weeds grow, in moist condition",
+          "<tLi": "",
+          "JQEP": "",
+          "}=~p": "",
+          "B^:f": ""
+        },
+        {
+          "Crop": "Maize",
+          "Weed": "Grass Weed, Sedges",
+          "Dosage Per Acre": "800 ml/acre",
+          "Time of Application": "Before the crop and weeds grow, in moist condition",
+          "<tLi": "",
+          "JQEP": "",
+          "}=~p": "",
+          "B^:f": ""
+        },
+        {
+          "Crop": "Sugarcane",
+          "Weed": "Broad Leaf Weed",
+          "Dosage Per Acre": "800 ml/acre",
+          "Time of Application": "Before the crop and weeds grow, in moist condition",
+          "<tLi": "",
+          "JQEP": "",
+          "}=~p": "",
+          "B^:f": ""
+        },
+        {
+          "Crop": "",
+          "Weed": "",
+          "Dosage Per Acre": "",
+          "Time of Application": "",
+          "Iuug": "",
+          "Ne}O": ""
+        },
+        {
+          "Crop": "Maize",
+          "Weed": "Broad Leaf Weed",
+          "Dosage Per Acre": "400 ml/acre",
+          "Time of Application": "Before the crop and weeds grow, in moist condition",
+          "Iuug": "",
+          "Ne}O": ""
+        },
+        {
+          "Crop": "Maize",
+          "Weed": "Grass Weed, Sedges",
+          "Dosage Per Acre": "800 ml/acre",
+          "Time of Application": "Before the crop and weeds grow, in moist condition",
+          "Iuug": "",
+          "Ne}O": ""
+        },
+        {
+          "Crop": "Sugarcane",
+          "Weed": "Broad Leaf Weed",
+          "Dosage Per Acre": "800 ml/acre",
+          "Time of Application": "Before the crop and weeds grow, in moist condition",
+          "Iuug": "",
+          "Ne}O": ""
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-81b1-ae45-d5701f38b761",
+      "rawTitle": "PROCLAIM_019_EC_",
+      "name": "PROCLAIM 019 EC",
+      "attributes": {
+        "Product Name": "PROCLAIM 019 EC",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "200 ml, 1 Lt",
+        "Composition": "19.2g/l Emamectin Benzoate",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Contact & stomach action",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton, Cauliflower, Potato, Tomato, Okra, Brinjal, Maize",
+        "Targets": "Helicoverpa armigera, Spotted Bollworm, Armyworm, Diamondback Moth, Earias, Fruit Borer, Stem Borer, Fall Armyworm",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting pest control.2- Provides the best protection of documents.3- Provides fast acting and wide impact mode of action.4- Can be used in combination with other pesticides.”",
+        "Product Overview": "Proclaim provides powerful control of various types of worms. It is a broad-spectrum insecticide. It attacks the nerves of insects and kills them.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner",
+        "CTA": "Shop Now Button",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Earias",
+          "Crop": "All"
+        },
+        {
+          "Target": "Helicoverpa armigera",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Helicoverpa armigera, Spotted Bollworm, Armyworm",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "28 days"
+        },
+        {
+          "Crop": "Cauliflower",
+          "Target Weeds/Pests/Disease": "Diamondback Moth",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "3 days"
+        },
+        {
+          "Crop": "Potato",
+          "Target Weeds/Pests/Disease": "Armyworm, Helicoverpa armigera",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "7 days"
+        },
+        {
+          "Crop": "Tomato",
+          "Target Weeds/Pests/Disease": "Helicoverpa armigera",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "2 days"
+        },
+        {
+          "Crop": "Okra",
+          "Target Weeds/Pests/Disease": "Helicoverpa armigera, Earias",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "3 days"
+        },
+        {
+          "Crop": "Brinjal",
+          "Target Weeds/Pests/Disease": "Fruit Borer, Stem Borer",
+          "Dosage per Acre": "200 ml",
+          "Pre-Harvest Interval (PHI)": "3 days"
+        },
+        {
+          "Crop": "Maize",
+          "Target Weeds/Pests/Disease": "Fall Armyworm",
+          "Dosage per Acre": "240 ml",
+          "Pre-Harvest Interval (PHI)": "34 days"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Insects": "Helicoverpa armigera, Spotted Bollworm, Armyworm",
+          "Dose Per Acre": "200 ml",
+          "PHI (Interval Between Spray and Harvest)": "28 days"
+        },
+        {
+          "Crop": "Cauliflower",
+          "Insects": "Diamondback Moth",
+          "Dose Per Acre": "200 ml",
+          "PHI (Interval Between Spray and Harvest)": "3 days"
+        },
+        {
+          "Crop": "Potato",
+          "Insects": "Armyworm, Helicoverpa armigera",
+          "Dose Per Acre": "200 ml",
+          "PHI (Interval Between Spray and Harvest)": "7 days"
+        },
+        {
+          "Crop": "Tomato",
+          "Insects": "Helicoverpa armigera",
+          "Dose Per Acre": "200 ml",
+          "PHI (Interval Between Spray and Harvest)": "2 days"
+        },
+        {
+          "Crop": "Okra",
+          "Insects": "Helicoverpa armigera, Earias",
+          "Dose Per Acre": "200 ml",
+          "PHI (Interval Between Spray and Harvest)": "3 days"
+        },
+        {
+          "Crop": "Brinjal",
+          "Insects": "Fruit Borer, Stem Borer",
+          "Dose Per Acre": "200 ml",
+          "PHI (Interval Between Spray and Harvest)": "3 days"
+        },
+        {
+          "Crop": "Maize",
+          "Insects": "Fall Armyworm",
+          "Dose Per Acre": "240 ml",
+          "PHI (Interval Between Spray and Harvest)": "34 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-817b-95ba-f1295729a069",
+      "rawTitle": "PROMIX_NPK_886",
+      "name": "PROMIX NPK (8:8:6)",
+      "attributes": {
+        "Product Name": "PROMIX NPK (8:8:6)",
+        "Category": "Micronutrient",
+        "Variants/SKUs": "1 Lt",
+        "Composition": "80 gm/Lt Nitrogen + 80 gm/Lt Phosphorus + 60 gm/Lt Potassium",
+        "Formulation": "SG (Soluble Granules)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton, Maize, Rice, Wheat, Sesame, Vegetables, Orchards",
+        "Targets": "N/A",
+        "USPs/Key Benefits": "1. Balanced nutrition controls excessive vegetative growth to maintain fruit quality.2. Promix reduces the risk of plant burn and allows for safe, repeated applications.3. It enhances fruit size, taste, and shelf life to optimize overall fruit quality.",
+        "Product Overview": "Promix provides gentle, balanced nutrition for delicate crops like fruits and vegetables.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Dosage per Acre": "1 L in 100–120L water",
+          "Application Timing": "1. Before flowering 2. Before Boll formation"
+        },
+        {
+          "Crop": "Maize",
+          "Dosage per Acre": "1 L in 100–120L water",
+          "Application Timing": "1. At 8-leaf stage 2. At Tasseling stage"
+        },
+        {
+          "Crop": "Rice, Wheat, Sesame",
+          "Dosage per Acre": "1 L in 100–120L water",
+          "Application Timing": "1. At Tillering stage 2. At Panicle formation stage"
+        },
+        {
+          "Crop": "Vegetables",
+          "Dosage per Acre": "1 L in 100–120L water",
+          "Application Timing": "1. Before flowering 2. 30 days after 1st application"
+        },
+        {
+          "Crop": "Orchards",
+          "Dosage per Acre": "1 L in 200L water",
+          "Application Timing": "1. 25-30 days before flowering 2. 30 days after fruit formation"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Time of Application": "1. Before flowering 2. Before boll formation",
+          "Product Dose": "1 L in 100–120L water"
+        },
+        {
+          "Crop": "Maize",
+          "Time of Application": "1. At 8-leaf stage 2. At tasseling stage",
+          "Product Dose": "1 L in 100–120L water"
+        },
+        {
+          "Crop": "Rice, Wheat",
+          "Time of Application": "1. At tillering stage 2. Panicle formation stage",
+          "Product Dose": "1 L in 100–120L water"
+        },
+        {
+          "Crop": "Vegetables",
+          "Time of Application": "1. Before flowering 2. 30 days after 1st application",
+          "Product Dose": "1 L in 100–120L water"
+        },
+        {
+          "Crop": "Orchards",
+          "Time of Application": "1. 25–30 days before flowering 2. 30 days after fruit formation",
+          "Product Dose": "1 L in 200L water"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-815c-8ed9-d8c496f8b429",
+      "rawTitle": "PYRIPROXYFIN_108_EC",
+      "name": "PYRIPROXYFIN 10.8% EC",
+      "attributes": {
+        "Product Name": "PYRIPROXYFIN 10.8% EC",
+        "Category": "INSECTICIDE",
+        "Variants/SKUs": "500 ml, 1 Lt",
+        "Composition": "108g/Ltr Pyriproxyfen",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Contact & stomach & Translaminar",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton",
+        "Targets": "Whitefly",
+        "USPs/Key Benefits": "1- Provides excellent and long-lasting whitefly control.2- Immediate control of adults and children.5. Reduces hatching.3- Provides a fast-acting and wide-ranging mode of action.”",
+        "Product Overview": "“Pyriproxyfin kills whiteflies as soon as the spray is applied. It is absorbed into the soft branches and leaves of the plant and provides excellent control. It protects against insect attack after inoculation.",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Target Weeds/Pests/Disease": "Whitefly",
+          "Dosage per Acre": "500ml",
+          "Pre-Harvest Interval (PHI)": "28 Days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Insect": "Whitefly",
+          "Dose Per Acre": "500 ml",
+          "PHI (Interval Between Spray and Harvest)": "28 Days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81a4-872a-d1adf5afefd8",
+      "rawTitle": "QUANTIS",
+      "name": "QUANTIS",
+      "attributes": {
+        "Product Name": "QUANTIS",
+        "Category": "Syngenta Biologicals",
+        "Variants/SKUs": "800 ml",
+        "Composition": "Biostimulant",
+        "Formulation": "SC (Suspension Concentrate)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Cotton, Wheat, Rice, Potato, Maize, Sugarcane, Orchards",
+        "Targets": "Abiotic Stress, environmental factors such as hot, cold temperatures, non availability of water",
+        "USPs/Key Benefits": "1. Provides essential micronutrients to the crop for better yield2. Quantis helps protect your crop from environmental factors such as hot and cold temperatures and non availability of water.3. Quantis aids fertility and boosts enzymes and hormone production for a better yield",
+        "Product Overview": "Quantis is formulated to protect crop from A-Biotic Stress and accelerate the production process., Cotton, Corn, Sugarcane, Wheat, Orchards, Rice",
+        "Type of Content": "Supported Media: Product Banner; CTA: Shop Now Button",
+        "Supported Media (Indication section)": "With product bottle/packshot",
+        "CTA (Indication section)": "-",
+        "Product Technology (media note)": "MOA Videos; if available",
+        "Video Section (media note)": "Multiple scroll section for videos publihsed on Yt for the product"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Cotton",
+          "Time of Application": "1st: 35 days after sowing 2nd: 15 days after 1st application",
+          "Dose": "400ml / 100L Water"
+        },
+        {
+          "Crop": "Wheat",
+          "Time of Application": "1st: On Tillering Stage 2nd: On Stem development 3rd: On Booting Stage",
+          "Dose": "400ml / 100L Water"
+        },
+        {
+          "Crop": "Potato",
+          "Time of Application": "1st: 25-30 days after sowing 2nd: 10-15 days after 1st application",
+          "Dose": "400ml / 100L Water"
+        },
+        {
+          "Crop": "Rice",
+          "Time of Application": "Apply as needed from spraying time until buds open",
+          "Dose": "400ml / 100L Water"
+        },
+        {
+          "Crop": "Sugarcane",
+          "Time of Application": "On complete tillering stage",
+          "Dose": "800ml / 100L Water"
+        },
+        {
+          "Crop": "Maize",
+          "Time of Application": "Single spray at 5-leaf stage",
+          "Dose": "800ml / 100L Water"
+        },
+        {
+          "Crop": "Orchards",
+          "Time of Application": "On abiotic stress",
+          "Dose": "400ml / 200L Water"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Cotton",
+          "Time of Application": "1st: 35 days after sowing 2nd: 15 days after 1st application",
+          "Dose": "400ml / 100L Water"
+        },
+        {
+          "Crop": "Wheat",
+          "Time of Application": "1st: On Tillering Stage 2nd: On Stem development 3rd: On Booting Stage",
+          "Dose": "400ml / 100L Water"
+        },
+        {
+          "Crop": "Potato",
+          "Time of Application": "1st: 25-30 days after sowing 2nd: 10-15 days after 1st application",
+          "Dose": "400ml / 100L Water"
+        },
+        {
+          "Crop": "Rice",
+          "Time of Application": "Apply as needed from spraying time until buds open",
+          "Dose": "400ml / 100L Water"
+        },
+        {
+          "Crop": "Sugarcane",
+          "Time of Application": "On complete tillering stage",
+          "Dose": "800ml / 100L Water"
+        },
+        {
+          "Crop": "Maize",
+          "Time of Application": "Single spray at 5-leaf stage",
+          "Dose": "800ml / 100L Water"
+        },
+        {
+          "Crop": "Orchards",
+          "Time of Application": "On abiotic stress",
+          "Dose": "400ml / 200L Water"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81c0-8206-e7307a1fa336",
+      "rawTitle": "discontinued_REVUS_250_SC",
+      "name": "REVUS 250 SC",
+      "attributes": {
+        "Product Name": "REVUS 250 SC",
+        "Category": "Fungicide",
+        "Variants/SKUs": "240ml, 960ml",
+        "Composition": "250g/L Mandipropamid",
+        "Formulation": "SC (Suspension Concentrate)",
+        "Mode of Action": "Translaminar",
+        "Discontinued Message": "Product is discontinued, do not recommend",
+        "Product Technology": "LOK + FLO™ technologyDue to its LOK + FLO™ technology, Revus® produces quality vegetables, hops and grapes even under adverse conditions.",
+        "Applicable Crops": "Mango, Pomegranate, Guava, Citrus, Onion, Brinjal, Cucumber, Melon",
+        "Targets": "Mealybug, Thrips, Powdery Mildew",
+        "USPs/Key Benefits": "1- Protects the crop from Late Blight & Downy Mildew.2- Systemic mode of action provides protection against fungal diseases.3- Easy to use and environment friendly.4- Innovative and unique technology, with powerful formula.",
+        "Product Overview": "Revus is a powerful and effective fungicide. Helps the crop to produce higher and better quality yield. Due to its unique mode of action, Revus provides effective control of the disease for a long period of time.",
+        "Crops Registered on": "MangoPomegranateGuavaCitrusonionEggplantCucumberMelon",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Mango",
+          "Target Weeds/Pests/Disease": "Mealybug",
+          "Dosage per Acre": "240 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed."
+        },
+        {
+          "Crop": "Pomegranate",
+          "Target Weeds/Pests/Disease": "Mealybug",
+          "Dosage per Acre": "240 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "1 day",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed."
+        },
+        {
+          "Crop": "Guava",
+          "Target Weeds/Pests/Disease": "Mealybug",
+          "Dosage per Acre": "240 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "1 day",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed."
+        },
+        {
+          "Crop": "Citrus",
+          "Target Weeds/Pests/Disease": "Mealybug",
+          "Dosage per Acre": "240 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed."
+        },
+        {
+          "Crop": "Onion",
+          "Target Weeds/Pests/Disease": "Thrips",
+          "Dosage per Acre": "240 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "0 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed."
+        },
+        {
+          "Crop": "Brinjal",
+          "Target Weeds/Pests/Disease": "Mealybug",
+          "Dosage per Acre": "240 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "1 day",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed."
+        },
+        {
+          "Crop": "Cucumber",
+          "Target Weeds/Pests/Disease": "Powdery Mildew",
+          "Dosage per Acre": "200 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed."
+        },
+        {
+          "Crop": "Melon",
+          "Target Weeds/Pests/Disease": "Powdery Mildew",
+          "Dosage per Acre": "200 ml in 100 liters of water",
+          "Pre-Harvest Interval (PHI)": "0 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed."
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Mango",
+          "Target Pest/Disease": "Mealybug",
+          "Pesticide Quantity": "240 ml",
+          "Water Volume": "100 liters",
+          "Instructions": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed.",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        },
+        {
+          "Crop": "Pomegranate",
+          "Target Pest/Disease": "Mealybug",
+          "Pesticide Quantity": "240 ml",
+          "Water Volume": "100 liters",
+          "Instructions": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed.",
+          "PHI (Interval Between Spray and Harvest)": "1 day"
+        },
+        {
+          "Crop": "Guava",
+          "Target Pest/Disease": "Mealybug",
+          "Pesticide Quantity": "240 ml",
+          "Water Volume": "100 liters",
+          "Instructions": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed.",
+          "PHI (Interval Between Spray and Harvest)": "1 day"
+        },
+        {
+          "Crop": "Citrus",
+          "Target Pest/Disease": "Mealybug",
+          "Pesticide Quantity": "240 ml",
+          "Water Volume": "100 liters",
+          "Instructions": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed.",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        },
+        {
+          "Crop": "Onion",
+          "Target Pest/Disease": "Thrips",
+          "Pesticide Quantity": "240 ml",
+          "Water Volume": "100 liters",
+          "Instructions": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed.",
+          "PHI (Interval Between Spray and Harvest)": "0 days"
+        },
+        {
+          "Crop": "Brinjal",
+          "Target Pest/Disease": "Mealybug",
+          "Pesticide Quantity": "240 ml",
+          "Water Volume": "100 liters",
+          "Instructions": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed.",
+          "PHI (Interval Between Spray and Harvest)": "1 day"
+        },
+        {
+          "Crop": "Cucumber",
+          "Target Pest/Disease": "Powdery Mildew",
+          "Pesticide Quantity": "200 ml",
+          "Water Volume": "100 liters",
+          "Instructions": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed.",
+          "PHI (Interval Between Spray and Harvest)": "14 days"
+        },
+        {
+          "Crop": "Melon",
+          "Target Pest/Disease": "Powdery Mildew",
+          "Pesticide Quantity": "200 ml",
+          "Water Volume": "100 liters",
+          "Instructions": "Use 250 ml of SC formulation as a protective measure. Repeat spray after 10 days if needed.",
+          "PHI (Interval Between Spray and Harvest)": "0 days"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-81aa-bb92-d087b0a3a4de",
+      "rawTitle": "REVUS_START_PEPITE_430_WG",
+      "name": "Revus Start Pepite 430 WG",
+      "attributes": {
+        "Product Name": "Revus Start Pepite 430 WG",
+        "Category": "Fungicide",
+        "Variants/SKUs": "200 gm",
+        "Composition": "250g/Kg Mandipropamid + 180g/Kg Cymoxanil",
+        "Formulation": "WG (Water Dispersable Granule)",
+        "Mode of Action": "Systemic & Transleminar",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "Group 40/27 Fungicide. Revus Start offers preventive and systemic activity, it contains two AIs to provide strong defense against late blight in potato crop.",
+        "Applicable Crops": "Potato, Melon, Cucumber",
+        "Targets": "Late Blight",
+        "USPs/Key Benefits": "1- Protects crop from Late blight2. The effect is protected from fading after rain.3. Best in class defense against late blight.4. Superior crop greening effect.5. Powerful active ingredients.",
+        "Product Overview": "Revus Start protects against late blight in potatoes. It helps the crop in improving the crop yield and quality of the produce. Due the power of two AIs, Revus Start provides effective control of the disease.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [
+        {
+          "Target": "Downy Mildew",
+          "Crop": "All"
+        },
+        {
+          "Target": "Late Blight",
+          "Crop": "All"
+        }
+      ],
+      "usage": [
+        {
+          "Crop": "Potato",
+          "Target Weeds/Pests/Disease": "Late Blight",
+          "Dosage per Acre": "200gm",
+          "Pre-Harvest Interval (PHI)": "7 Days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "In favourable weather conditions, use 1st preventive spray. Use 2nd application 10 days after 1st spray. For effective control, ensure 2 applications."
+        },
+        {
+          "Crop": "Melon",
+          "Target Weeds/Pests/Disease": "Downy Mildew",
+          "Dosage per Acre": "100 gm per acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "In favourable weather conditions, use 1st preventive spray. Use 2nd application 10 days after 1st spray. For effective control, ensure 2 applications."
+        },
+        {
+          "Crop": "Cucumber",
+          "Target Weeds/Pests/Disease": "Downy Mildew",
+          "Dosage per Acre": "100 gm per acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "In favourable weather conditions, use 1st preventive spray. Use 2nd application 10 days after 1st spray. For effective control, ensure 2 applications."
+        }
+      ],
+      "labelInfo": []
+    },
+    {
+      "id": "2eee6ec6-d6f2-8185-a902-fd315073531b",
+      "rawTitle": "RIFIT_500_EC",
+      "name": "RIFIT 500 EC",
+      "attributes": {
+        "Product Name": "RIFIT 500 EC",
+        "Category": "Herbicide",
+        "Variants/SKUs": "400 ml",
+        "Composition": "500g/L Pretilachlor",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Contact",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "N/A",
+        "Applicable Crops": "Rice",
+        "Targets": "Weed",
+        "USPs/Key Benefits": "1. Pre emergence weedicide2. Easy to use3. Siol soft, excellent root development4. Better control of Ghoin, Bhoin, Mirch Booti, Swanki & Kutta Kami.5. Continuous use of Rift does not induce resistance to the weeds",
+        "Product Overview": "Rifit is a pre-emergence herbicide for control of grasses, sedges and some broad leaf weeds in transplanted Rice. No adverse effect like stunting or yellowing of crop, rather gives greening effect to the crop. Best time of application to yield optimum results should be maximum till the 5th day after transplanting and water management is extremely important during the use of the product.",
+        "Type of Content": "Supported Media; CTA",
+        "Supported Media": "Product Banner; With product bottle/packshot; each will be supported by a benefit image; Multiple Crop images section below the text; MOA Videos; if available; Multiple scroll section for videos publihsed on Yt for the product",
+        "CTA": "Shop Now Button; -",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Rice",
+          "Target Weeds/Pests/Disease": "Weed",
+          "Dosage per Acre": "400 - 500 ml",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Uniform spreading is necessary, older weeds should not be present in the crop during spraying"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Rice",
+          "Target Pest/Weed": "Weed",
+          "Dose Per Acre": "400 - 500 milliliters",
+          "Method of Application": "Uniform spreading is necessary, older weeds should not be present in the crop during spraying"
+        }
+      ]
+    },
+    {
+      "id": "2eee6ec6-d6f2-810d-af38-f2cface5961c",
+      "rawTitle": "SCORE_250_EC",
+      "name": "SCORE 250 EC",
+      "attributes": {
+        "Product Name": "SCORE 250 EC",
+        "Category": "Fungicide",
+        "Variants/SKUs": "250 ml",
+        "Composition": "250g/L Difenoconazole",
+        "Formulation": "EC (Emulsifiable Concentrate)",
+        "Mode of Action": "Systemic",
+        "Mode of Application": "Foliar application",
+        "Product Technology": "long text block",
+        "Applicable Crops": "Rice, Potato, Tomato, Chickpea, Cucumber, Mango, Apple, Citrus, Chili, Mung Bean, Melon, Onion, Chili, Mung Bean",
+        "Targets": "Blast, Early Blight, Late Blight, Blight, Powdery Mildew, Downy Mildew, Anthracnose, Wither Tip, Leaf Spot, Purple Blotch",
+        "USPs/Key Benefits": "1- Protects against Early & Late blight, Downy Mildew, Powdery Mildew, Anthracnose, Wither tip, and Blast.2- Systemic mode of action provides protection against fungal diseases.3- Easy to use and environment friendly.4- Innovative and unique technology, with a powerful formula.",
+        "Product Overview": "Score is a potent and effective fungicide. Helps the crop to produce higher yields and better quality. Due to its unique mode of action, Score provides effective disease control over a long period of time.",
+        "Crops Registered on": "RicePotatoTomatoChickpeaCucumberMangoAppleCitrusChiliMung BeanMelonOnion",
+        "Video Section": "Will need short caption for the videos"
+      },
+      "topPicks": [],
+      "usage": [
+        {
+          "Crop": "Rice",
+          "Target Weeds/Pests/Disease": "Blast",
+          "Dosage per Acre": "125 ml/acre in 500 liters water",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Potato",
+          "Target Weeds/Pests/Disease": "Early Blight, Late Blight",
+          "Dosage per Acre": "120 ml/acre in 500 liters water",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Tomato",
+          "Target Weeds/Pests/Disease": "Early Blight, Late Blight",
+          "Dosage per Acre": "50 ml/acre in 100 liters water",
+          "Pre-Harvest Interval (PHI)": "7 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Chickpea",
+          "Target Weeds/Pests/Disease": "Blight",
+          "Dosage per Acre": "120 ml/acre in 100 liters water",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Cucumber",
+          "Target Weeds/Pests/Disease": "Powdery Mildew, Downy Mildew",
+          "Dosage per Acre": "200 ml/acre in 100 liters water",
+          "Pre-Harvest Interval (PHI)": "3 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Mango",
+          "Target Weeds/Pests/Disease": "Anthracnose, Powdery Mildew",
+          "Dosage per Acre": "30 ml/acre in 100 liters water",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Apple",
+          "Target Weeds/Pests/Disease": "Powdery Mildew",
+          "Dosage per Acre": "30 ml/acre in 100 liters water",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Citrus",
+          "Target Weeds/Pests/Disease": "Wither Tip",
+          "Dosage per Acre": "30 ml/acre in 100 liters water",
+          "Pre-Harvest Interval (PHI)": "14 days",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Chili",
+          "Target Weeds/Pests/Disease": "Anthracnose",
+          "Dosage per Acre": "120 ml/HLW",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Melon",
+          "Target Weeds/Pests/Disease": "Anthracnose",
+          "Dosage per Acre": "120 ml",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Melon",
+          "Target Weeds/Pests/Disease": "Powdery Mildew",
+          "Dosage per Acre": "120 ml/HLW",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Mung Bean",
+          "Target Weeds/Pests/Disease": "Blight, Leaf Spot",
+          "Dosage per Acre": "200 ml/acre",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        },
+        {
+          "Crop": "Onion",
+          "Target Weeds/Pests/Disease": "Purple Blotch",
+          "Dosage per Acre": "120 ml/HLW",
+          "Pre-Harvest Interval (PHI)": "N/A",
+          "Application Timing": "N/A",
+          "Mixing Instructions/Guidelines": "N/A"
+        }
+      ],
+      "labelInfo": [
+        {
+          "Crop": "Rice",
+          "Disease": "Blast",
+          "Dose/Acre (Product)": "125 ml/acre",
+          "Water Volume/Acre": "500 liters water",
+          "PHI (Spray to Harvest)": "14 days",
+          "Instructions": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Potato",
+          "Disease": "Early Blight, Late Blight",
+          "Dose/Acre (Product)": "120 ml/acre",
+          "Water Volume/Acre": "500 liters water",
+          "PHI (Spray to Harvest)": "14 days",
+          "Instructions": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Tomato",
+          "Disease": "Early Blight, Late Blight",
+          "Dose/Acre (Product)": "50 ml/acre",
+          "Water Volume/Acre": "100 liters water",
+          "PHI (Spray to Harvest)": "7 days",
+          "Instructions": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Chickpea",
+          "Disease": "Blight",
+          "Dose/Acre (Product)": "120 ml/acre",
+          "Water Volume/Acre": "100 liters water",
+          "PHI (Spray to Harvest)": "14 days",
+          "Instructions": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Cucumber",
+          "Disease": "Powdery Mildew, Downy Mildew",
+          "Dose/Acre (Product)": "200 ml/acre",
+          "Water Volume/Acre": "100 liters water",
+          "PHI (Spray to Harvest)": "3 days",
+          "Instructions": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Mango",
+          "Disease": "Anthracnose, Powdery Mildew",
+          "Dose/Acre (Product)": "30 ml/acre",
+          "Water Volume/Acre": "100 liters water",
+          "PHI (Spray to Harvest)": "14 days",
+          "Instructions": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Apple",
+          "Disease": "Powdery Mildew",
+          "Dose/Acre (Product)": "30 ml/acre",
+          "Water Volume/Acre": "100 liters water",
+          "PHI (Spray to Harvest)": "14 days",
+          "Instructions": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        },
+        {
+          "Crop": "Citrus",
+          "Disease": "Wither Tip",
+          "Dose/Acre (Product)": "30 ml/acre",
+          "Water Volume/Acre": "100 liters water",
+          "PHI (Spray to Harvest)": "14 days",
+          "Instructions": "Whenever favorable conditions for the disease are observed, start spraying or spray as soon as symptoms of the disease are seen."
+        }
+      ]
+    }
+  ],
+  "crops": []
+}

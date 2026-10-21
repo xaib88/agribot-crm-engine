@@ -1,0 +1,22 @@
+{
+  "botName": "بشیر (Basheer)",
+  "meaning": "خوشخبری لانے والا اور رہنمائی کرنے والا",
+  "creator": "شاہزیب ارشاد (Shahzaib Arshad - ایگریکلچر اسپیشلسٹ)",
+  "role": "زرعی و لائیو اسٹاک ماہر",
+  "llmProvider": "gemini",
+  "geminiApiKey": "",
+  "geminiModel": "gemini-3.8-flash",
+  "groqApiKey": "",
+  "groqModel": "llama-3.3-70b-versatile",
+  "groqWhisperModel": "whisper-large-v3",
+  "socials": {
+    "youtubeLink": "https://www.youtube.com/@AgricultureGuidance/"
+  },
+  "features": {
+    "voiceNotes": true,
+    "weather": true,
+    "nayasaveraKnowledge": true,
+    "livestock": true,
+    "thinkingReaction": true
+  }
+}

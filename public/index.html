@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriBot AI | WhatsApp Enterprise CRM & Bot Factory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --wa-teal: #128c7e;
+            --wa-green: #25d366;
+            --wa-dark-teal: #075e54;
+            --wa-header: #f0f2f5;
+            --wa-chat-bg: #efeae2;
+            --wa-user-bubble: #ffffff;
+            --wa-bot-bubble: #d9fdd3;
+            --border-color: #e9edef;
+            --text-dark: #111b21;
+            --text-muted: #667781;
+            --accent-blue: #008069;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+        body { background: #111b21; color: var(--text-dark); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        .urdu { font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; }
+
+        /* Top Application Bar */
+        .top-navbar {
+            background: #202c33;
+            color: #e9edef;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            z-index: 100;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-badge {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 2px 6px rgba(37,211,102,0.3);
+        }
+
+        .brand-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.2px;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            color: #8696a0;
+        }
+
+        .nav-tabs-wrapper {
+            display: flex;
+            gap: 4px;
+            background: #111b21;
+            padding: 3px;
+            border-radius: 8px;
+        }
+
+        .nav-tab {
+            background: transparent;
+            border: none;
+            color: #aebac1;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-tab:hover { color: #ffffff; background: rgba(255,255,255,0.06); }
+        .nav-tab.active { background: #00a884; color: #ffffff; }
+
+        .system-status-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 168, 132, 0.15);
+            border: 1px solid rgba(0, 168, 132, 0.3);
+            color: #25d366;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #25d366;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #25d366;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
+        }
+
+        /* Main Workspace Container */
+        .app-workspace {
+            flex: 1;
+            display: flex;
+            background: #ffffff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* TAB 1: WhatsApp CRM (3-Column Layout) */
+        #tab-crm {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        /* Column 1: Conversations List */
+        .chat-sidebar {
+            width: 360px;
+            background: #ffffff;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            background: var(--wa-header);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-box-wrapper {
+            padding: 8px 12px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-input-inner {
+            background: #f0f2f5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 6px 12px;
+            gap: 8px;
+        }
+
+        .search-input-inner input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 13px;
+            width: 100%;
+            color: var(--text-dark);
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 6px;
+            padding: 6px 12px 10px;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border-color);
+            background: #ffffff;
+        }
+
+        .chip-btn {
+            background: #f0f2f5;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .chip-btn.active {
+            background: #e7fce3;
+            color: #008069;
+        }
+
+        .contacts-scroll-area {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f2f5f7;
+            cursor: pointer;
+            transition: background 0.15s;
+            gap: 12px;
+        }
+
+        .contact-row:hover { background: #f5f6f6; }
+        .contact-row.active { background: #f0f2f5; border-left: 4px solid #00a884; }
+
+        .contact-avatar {
+            width: 44px;
+            height: 44px;
+            background: #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #475569;
+            font-size: 16px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .mode-indicator-dot {
+            width: 12px;
+            height: 12px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+        }
+
+        .dot-agri { background: #22c55e; }
+        .dot-general { background: #0ea5e9; }
+
+        .contact-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .contact-top-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3px;
+        }
+
+        .contact-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contact-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .contact-bottom-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-preview {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .badge-count {
+            background: #25d366;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* Column 2: WhatsApp Web Chat Window */
+        .chat-main-window {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--wa-chat-bg);
+            background-image: radial-gradient(#d4cbbe 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: relative;
+        }
+
+        .chat-header {
+            background: var(--wa-header);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+        }
+
+        .chat-header-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-header-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .chat-header-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-mode-toggle {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-mode-toggle:hover { background: #f8fafc; border-color: #94a3b8; }
+
+        .chat-messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bubble-row {
+            display: flex;
+            width: 100%;
+        }
+
+        .bubble-row.user { justify-content: flex-start; }
+        .bubble-row.bot { justify-content: flex-end; }
+
+        .message-bubble {
+            max-width: 65%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 1px 1.5px rgba(11,20,26,0.13);
+            font-size: 13.5px;
+            line-height: 1.45;
+        }
+
+        .bubble-row.user .message-bubble {
+            background: var(--wa-user-bubble);
+            color: var(--text-dark);
+            border-top-left-radius: 0;
+        }
+
+        .bubble-row.bot .message-bubble {
+            background: var(--wa-bot-bubble);
+            color: var(--text-dark);
+            border-top-right-radius: 0;
+        }
+
+        .bubble-time {
+            font-size: 10px;
+            color: #667781;
+            float: right;
+            margin-left: 8px;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        /* Custom WhatsApp Audio Note Player */
+        .audio-note-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0,0,0,0.03);
+            padding: 6px 10px;
+            border-radius: 8px;
+            margin-top: 4px;
+        }
+
+        .play-btn {
+            width: 32px;
+            height: 32px;
+            background: #00a884;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .waveform-mock {
+            flex: 1;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .wave-bar {
+            width: 3px;
+            background: #8696a0;
+            border-radius: 2px;
+        }
+
+        .chat-input-bar {
+            background: var(--wa-header);
+            padding: 10px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .quick-actions-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+        }
+
+        .action-chip {
+            background: #ffffff;
+            border: 1px solid #d1d7db;
+            color: #54656f;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .action-chip:hover { background: #f0f2f5; color: #111b21; }
+
+        .input-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-controls input {
+            flex: 1;
+            background: #ffffff;
+            border: none;
+            outline: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .btn-send-wa {
+            background: #00a884;
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .btn-send-wa:hover { background: #008069; }
+
+        /* Column 3: Live Backend Telemetry Inspector */
+        .backend-inspector {
+            width: 320px;
+            background: #ffffff;
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow-y: auto;
+        }
+
+        .inspector-header {
+            background: var(--wa-header);
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .inspector-card {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #8696a0;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .metric-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .metric-sub {
+            font-size: 11px;
+            color: #667781;
+            margin-top: 3px;
+        }
+
+        .progress-bar-bg {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: #25d366;
+            border-radius: 3px;
+        }
+
+        .badge-pill {
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .badge-green { background: #dcfce7; color: #15803d; }
+        .badge-blue { background: #e0f2fe; color: #0284c7; }
+        .badge-gold { background: #fef3c7; color: #b45309; }
+
+        /* TAB 2: Bot Factory */
+        #tab-factory {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 30px 40px;
+            background: #f8fafc;
+            display: none;
+        }
+
+        .factory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .btn-create-bot {
+            background: #00a884;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .company-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .company-card h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #0f172a;
+        }
+
+        .company-card p {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 14px;
+        }
+
+        .card-spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 12px;
+        }
+
+        /* TAB 3: WAHA Cloud Gateway & QR Linking */
+        #tab-gateway {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 30px 40px;
+            background: #f8fafc;
+            display: none;
+        }
+
+        /* TAB 4: Syngenta Catalog */
+        #tab-catalog {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 30px 40px;
+            background: #f8fafc;
+            display: none;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            width: 540px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: #202c33;
+            color: #ffffff;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #334155;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .modal-footer {
+            padding: 12px 20px;
+            background: #f8fafc;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP APPLICATION BAR -->
+    <header class="top-navbar">
+        <div class="brand-container">
+            <div class="brand-badge">🌾</div>
+            <div>
+                <div class="brand-title">AgriBot Enterprise CRM</div>
+                <div class="brand-subtitle">Supervised by Shahzaib Arshad (Agricultural Specialist)</div>
+            </div>
+        </div>
+
+        <nav class="nav-tabs-wrapper">
+            <button class="nav-tab active" onclick="switchTab('crm')">💬 WhatsApp Web CRM</button>
+            <button class="nav-tab" onclick="switchTab('factory')">🏭 Bot Factory (Create AgriBot)</button>
+            <button class="nav-tab" onclick="switchTab('gateway')">📡 WAHA Cloud & Link Phone</button>
+            <button class="nav-tab" onclick="switchTab('catalog')">📚 Syngenta 50 Products</button>
+        </nav>
+
+        <div class="system-status-pill" id="global-status-badge">
+            <div class="status-dot"></div>
+            <span id="gateway-status-text">Cloud WAHA: Connected (+92 302 6964085)</span>
+        </div>
+    </header>
+
+    <!-- MAIN APP WORKSPACE -->
+    <main class="app-workspace">
+
+        <!-- ======================================================== -->
+        <!-- TAB 1: WHATSAPP WEB CRM (3-Column Layout)               -->
+        <!-- ======================================================== -->
+        <section id="tab-crm">
+            
+            <!-- Column 1: Conversations List -->
+            <aside class="chat-sidebar">
+                <div class="sidebar-header">
+                    <span style="font-weight: 700; font-size: 14px;">WhatsApp Chats</span>
+                    <button class="chip-btn" onclick="fetchContacts()">🔄 Refresh</button>
+                </div>
+
+                <div class="search-box-wrapper">
+                    <div class="search-input-inner">
+                        <span>🔍</span>
+                        <input type="text" id="search-input" placeholder="Search farmer name or phone..." oninput="filterContacts()">
+                    </div>
+                </div>
+
+                <div class="filter-chips">
+                    <button class="chip-btn active" onclick="setFilter('all')">All Chats</button>
+                    <button class="chip-btn" onclick="setFilter('agri')">🌿 AgriBot</button>
+                    <button class="chip-btn" onclick="setFilter('general')">🌐 General</button>
+                    <button class="chip-btn" onclick="setFilter('admin')">👑 Admin</button>
+                </div>
+
+                <div class="contacts-scroll-area" id="contacts-list">
+                    <!-- Dynamic Contacts Loaded Here -->
+                </div>
+            </aside>
+
+            <!-- Column 2: WhatsApp Web Chat Window -->
+            <section class="chat-main-window">
+                <div class="chat-header" id="chat-header-bar" style="display: none;">
+                    <div class="chat-header-user">
+                        <div class="contact-avatar" id="active-avatar">S</div>
+                        <div>
+                            <div class="chat-header-name" id="active-chat-name">Farmer Name</div>
+                            <div class="chat-header-meta">
+                                <span id="active-chat-phone">+92 300 0000000</span>
+                                <span>•</span>
+                                <span id="active-chat-status">Active on WhatsApp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="header-actions">
+                        <button class="btn-mode-toggle" id="btn-toggle-mode" onclick="toggleActiveChatMode()">
+                            <span id="mode-icon">🌿</span>
+                            <span id="mode-label">AgriBot Mode</span>
+                        </button>
+                        <button class="chip-btn" style="background: #fee2e2; color: #dc2626;" onclick="resetActiveLimit()">🔄 Reset Limits</button>
+                        <button class="chip-btn" style="background: #fef3c7; color: #b45309;" onclick="toggleActiveAdmin()">👑 Godmode</button>
+                    </div>
+                </div>
+
+                <div class="chat-messages-container" id="chat-messages-canvas">
+                    <div style="text-align: center; margin-top: 100px; color: #8696a0;">
+                        <div style="font-size: 40px; margin-bottom: 10px;">🌾</div>
+                        <div style="font-size: 16px; font-weight: 700; color: #111b21;">WhatsApp Web AI CRM</div>
+                        <div style="font-size: 13px; margin-top: 6px;">Select a conversation from the left to view messages and backend telemetry.</div>
+                    </div>
+                </div>
+
+                <div class="chat-input-bar" id="chat-input-container" style="display: none;">
+                    <div class="quick-actions-row">
+                        <span class="action-chip" onclick="insertPrompt('گندم میں جڑی بوٹیوں کے لیے کون سا سپرے بہتر ہے؟')">🌾 Wheat Weed Spray</span>
+                        <span class="action-chip" onclick="insertPrompt('کپاس میں سفید مکھی کا کیا حل ہے؟')">🐛 Cotton Whitefly</span>
+                        <span class="action-chip" onclick="insertPrompt('ملتان میں آج موسم کیسا رہے گا؟')">🌦️ Multan Weather</span>
+                        <span class="action-chip" onclick="insertPrompt('دودھ بڑھانے کے لیے مویشیوں کو کیا خوراک دیں؟')">🐮 Dairy Feed</span>
+                        <span class="action-chip" onclick="insertPrompt('@adminzeb')">👑 Unlock @adminzeb</span>
+                    </div>
+
+                    <div class="input-controls">
+                        <input type="text" id="manual-msg-input" placeholder="Type an Urdu or English WhatsApp reply..." onkeypress="if(event.key==='Enter') sendManualMessage()">
+                        <button class="btn-send-wa" onclick="sendManualMessage()">
+                            <span>Send</span>
+                            <span>✈️</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Column 3: Live Backend Telemetry Inspector -->
+            <aside class="backend-inspector" id="backend-inspector-panel">
+                <div class="inspector-header">
+                    <span>⚡</span>
+                    <span>Live Backend Telemetry Inspector</span>
+                </div>
+
+                <div class="inspector-card">
+                    <div class="card-label">
+                        <span>Active AI Intelligence</span>
+                        <span class="badge-pill badge-green">LIVE</span>
+                    </div>
+                    <div class="metric-value" id="telemetry-model">Gemini 3.5 Flash Lite</div>
+                    <div class="metric-sub">Temperature: 0.2 (Uplift AI Zero-Hallucination)</div>
+                </div>
+
+                <div class="inspector-card">
+                    <div class="card-label">Voice STT Engine (Transcription)</div>
+                    <div class="metric-value" id="telemetry-stt">Groq Whisper Large-v3</div>
+                    <div class="metric-sub">Turnaround Latency: ~720ms | Urdu Domain Priming</div>
+                </div>
+
+                <div class="inspector-card">
+                    <div class="card-label">Voice TTS Engine (Voice Notes)</div>
+                    <div class="metric-value">Edge Neural (ur-PK-AsadNeural)</div>
+                    <div class="metric-sub">Studio 24kHz Native WhatsApp Opus PTT Audio</div>
+                </div>
+
+                <div class="inspector-card">
+                    <div class="card-label">RAG Syngenta Grounding</div>
+                    <div class="metric-value" id="telemetry-rag">Active Grounding (50 Products)</div>
+                    <div class="metric-sub">Verified dosages per acre & Pre-Harvest Interval (PHI)</div>
+                </div>
+
+                <div class="inspector-card">
+                    <div class="card-label">Satellite Weather Source</div>
+                    <div class="metric-value">Open-Meteo Satellite Grounding</div>
+                    <div class="metric-sub">Source Label: 📡 ذریعہ (Source): IBM Weather</div>
+                </div>
+
+                <div class="inspector-card">
+                    <div class="card-label">
+                        <span>Daily Message Cap (12h Window)</span>
+                        <span id="telemetry-limit-num" style="font-weight: 700; color: #0f172a;">0 / 20</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="telemetry-limit-bar" style="width: 0%;"></div>
+                    </div>
+                    <div class="metric-sub" id="telemetry-limit-text">20 messages remaining</div>
+                </div>
+
+                <div class="inspector-card">
+                    <div class="card-label">Developer Godmode Status</div>
+                    <div class="metric-value" id="telemetry-admin">Standard User (Subject to Limits)</div>
+                    <div class="metric-sub">Type @adminzeb to activate permanent godmode</div>
+                </div>
+
+                <div class="inspector-card">
+                    <div class="card-label">Boss Z Quality Gate</div>
+                    <div class="metric-value" style="color: #15803d;">Active & Enforced ✅</div>
+                    <div class="metric-sub">• No uninvited greetings (Salam Guard)<br>• 2 to 3 lines concise default<br>• Strictly male persona</div>
+                </div>
+            </aside>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- TAB 2: BOT FACTORY (Create Corporate AgriBots)          -->
+        <!-- ======================================================== -->
+        <section id="tab-factory">
+            <div class="factory-header">
+                <div>
+                    <h2 style="font-size: 20px; font-weight: 800; color: #0f172a;">AgriBot Factory & Corporate Deployments</h2>
+                    <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Launch specialized WhatsApp agricultural bots for fertilizer, seed, and chemical companies.</p>
+                </div>
+                <button class="btn-create-bot" onclick="openCreateBotModal()">+ Create New AgriBot</button>
+            </div>
+
+            <div class="companies-grid" id="companies-container">
+                <!-- Companies loaded here -->
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- TAB 3: WAHA CLOUD GATEWAY & LINK PHONE                   -->
+        <!-- ======================================================== -->
+        <section id="tab-gateway">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">WhatsApp Cloud Gateway & Device Pairing</h2>
+                <p style="font-size: 13px; color: #64748b; margin-bottom: 24px;">Link your WhatsApp phone number to the cloud server using either Pairing Code or QR Code.</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <!-- Option A: Link with Phone Number (Pairing Code) -->
+                    <div class="company-card">
+                        <h3 style="display: flex; align-items: center; gap: 8px;">
+                            <span>📱</span>
+                            <span>Option 1: Link with Phone Number</span>
+                        </h3>
+                        <p>Receive an 8-character code on screen and enter it in WhatsApp Linked Devices.</p>
+
+                        <div class="form-group" style="margin-bottom: 12px;">
+                            <label>Phone Number (with Country Code):</label>
+                            <input type="text" id="pair-phone-input" value="923026964085" placeholder="e.g. 923026964085">
+                        </div>
+
+                        <button class="btn-send-wa" style="width: 100%; justify-content: center;" onclick="requestPairingCode()">
+                            <span>Request WhatsApp Pairing Code</span>
+                        </button>
+
+                        <div id="pair-code-result" style="margin-top: 16px; display: none; background: #e7fce3; border: 1px solid #86efac; padding: 14px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 12px; color: #166534; font-weight: 600;">Your WhatsApp Pairing Code:</div>
+                            <div id="pair-code-display" style="font-size: 28px; font-weight: 800; letter-spacing: 4px; color: #15803d; margin: 8px 0;">----</div>
+                            <div style="font-size: 11px; color: #166534;">Open WhatsApp > Settings > Linked Devices > Link with Phone Number and enter this code.</div>
+                        </div>
+                    </div>
+
+                    <!-- Option B: QR Code Scanner -->
+                    <div class="company-card" style="text-align: center;">
+                        <h3 style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <span>📷</span>
+                            <span>Option 2: Scan QR Code</span>
+                        </h3>
+                        <p>Open WhatsApp > Linked Devices > Scan QR Code</p>
+
+                        <div style="margin: 16px 0; display: flex; justify-content: center;">
+                            <img id="gateway-qr-img" src="/api/waha/qr-image" style="width: 220px; height: 220px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px; background: #ffffff;" onerror="this.src='/waha_qr.png'">
+                        </div>
+
+                        <button class="chip-btn" style="margin: 0 auto;" onclick="refreshQrCode()">🔄 Refresh QR Code</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- TAB 4: SYNGENTA 50 PRODUCTS CATALOG                      -->
+        <!-- ======================================================== -->
+        <section id="tab-catalog">
+            <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="font-size: 20px; font-weight: 800;">Syngenta Pakistan Verified Product Catalog</h2>
+                    <p style="font-size: 13px; color: #64748b;">50 verified chemical and biological agricultural products loaded in RAG.</p>
+                </div>
+                <input type="text" id="catalog-search" placeholder="Search by crop, pest, or product..." oninput="filterCatalog()" style="width: 300px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
+
+            <div class="companies-grid" id="catalog-container">
+                <!-- Products loaded here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CREATE BOT MODAL WITH VOICE OPTIONS (GROQ VS GEMINI) -->
+    <div class="modal-overlay" id="create-bot-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span>Create New Enterprise AgriBot</span>
+                <button onclick="closeCreateBotModal()" style="background: transparent; border: none; color: #ffffff; font-size: 18px; cursor: pointer;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Company / Brand Name:</label>
+                    <input type="text" id="new-company-name" placeholder="e.g. Syngenta Pakistan, FMC, Bayer CropScience">
+                </div>
+
+                <div class="form-group">
+                    <label>Bot Persona Name:</label>
+                    <input type="text" id="new-bot-name" placeholder="e.g. Basheer, Kissan Dost, Zarkhez">
+                </div>
+
+                <!-- THE NEW VOICE PROVIDER OPTION (GROQ VS GEMINI) -->
+                <div class="form-group">
+                    <label>🎙️ Voice STT Engine (Speech-to-Text):</label>
+                    <select id="new-voice-provider">
+                        <option value="groq" selected>Groq Whisper Large-v3 (Ultra-Fast ~700ms - Recommended)</option>
+                        <option value="gemini">Google Gemini Voice (Multimodal Interactions API)</option>
+                    </select>
+                </div>
+
+                <!-- VOICE TTS SYNTHESIS OPTION -->
+                <div class="form-group">
+                    <label>🗣️ Voice TTS Engine (Urdu Speech Synthesis):</label>
+                    <select id="new-tts-provider">
+                        <option value="edge" selected>Microsoft Edge Neural (ur-PK-AsadNeural Male - 24kHz Native Opus)</option>
+                        <option value="gemini-tts">Google Gemini 3.8 Flash TTS</option>
+                    </select>
+                </div>
+
+                <!-- LLM REASONING BRAIN -->
+                <div class="form-group">
+                    <label>🧠 Core LLM Reasoning Engine:</label>
+                    <select id="new-llm-provider">
+                        <option value="gemini" selected>Google Gemini 3.5 Flash Lite (0.2 Low Temp - Anti-Hallucination)</option>
+                        <option value="groq">Groq Llama 3.3 70B Versatile</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Daily Rate Limit per Farmer:</label>
+                    <input type="number" id="new-rate-limit" value="20" placeholder="e.g. 20">
+                </div>
+
+                <div class="form-group">
+                    <label>YouTube Channel Link Policy:</label>
+                    <select id="new-yt-policy">
+                        <option value="once_24h" selected>Strictly Once per 24 Hours</option>
+                        <option value="disabled">Disabled (No Links)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="chip-btn" onclick="closeCreateBotModal()">Cancel</button>
+                <button class="btn-send-wa" onclick="submitCreateBot()">Deploy AgriBot</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allContacts = [];
+        let activeChatJid = null;
+        let activeFilter = 'all';
+        let allProducts = [];
+
+        // Tab Navigation
+        function switchTab(tabId) {
+            document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('tab-crm').style.display = tabId === 'crm' ? 'flex' : 'none';
+            document.getElementById('tab-factory').style.display = tabId === 'factory' ? 'block' : 'none';
+            document.getElementById('tab-gateway').style.display = tabId === 'gateway' ? 'block' : 'none';
+            document.getElementById('tab-catalog').style.display = tabId === 'catalog' ? 'block' : 'none';
+
+            if (tabId === 'factory') loadCompanies();
+            if (tabId === 'catalog') loadCatalog();
+            if (tabId === 'gateway') checkWahaStatus();
+        }
+
+        // Fetch Contacts for WhatsApp CRM
+        async function fetchContacts() {
+            try {
+                const res = await fetch('/api/contacts');
+                allContacts = await res.json();
+                renderContacts();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function renderContacts() {
+            const list = document.getElementById('contacts-list');
+            list.innerHTML = '';
+
+            let filtered = allContacts;
+            if (activeFilter === 'agri') filtered = filtered.filter(c => !c.mode || c.mode === 'agri');
+            if (activeFilter === 'general') filtered = filtered.filter(c => c.mode === 'general');
+            if (activeFilter === 'admin') filtered = filtered.filter(c => c.isAdmin);
+
+            const q = document.getElementById('search-input').value.toLowerCase();
+            if (q) {
+                filtered = filtered.filter(c => (c.name && c.name.toLowerCase().includes(q)) || (c.phone && c.phone.includes(q)));
+            }
+
+            filtered.forEach(c => {
+                const row = document.createElement('div');
+                row.className = `contact-row ${activeChatJid === c.jid ? 'active' : ''}`;
+                row.onclick = () => selectContact(c.jid);
+
+                const initial = c.name ? c.name.charAt(0).toUpperCase() : 'F';
+                const timeStr = c.lastTime ? new Date(c.lastTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+                const isVoice = c.lastMessage && c.lastMessage.includes('وائس نوٹ');
+
+                row.innerHTML = `
+                    <div class="contact-avatar">
+                        ${initial}
+                        <div class="mode-indicator-dot ${c.mode === 'general' ? 'dot-general' : 'dot-agri'}"></div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-top-line">
+                            <span class="contact-name">${c.name || c.phone}</span>
+                            <span class="contact-time">${timeStr}</span>
+                        </div>
+                        <div class="contact-bottom-line">
+                            <span class="contact-preview">${isVoice ? '🎙️ ' : ''}${c.lastMessage || 'No messages yet'}</span>
+                            ${c.isAdmin ? '<span class="badge-pill badge-gold" style="font-size: 9px;">👑 Admin</span>' : ''}
+                        </div>
+                    </div>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        function setFilter(f) {
+            activeFilter = f;
+            document.querySelectorAll('.filter-chips .chip-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderContacts();
+        }
+
+        function filterContacts() {
+            renderContacts();
+        }
+
+        // Select Contact and load WhatsApp Messages & Backend Telemetry
+        async function selectContact(jid) {
+            activeChatJid = jid;
+            renderContacts();
+
+            try {
+                const res = await fetch('/api/chat/' + encodeURIComponent(jid));
+                const chat = await res.json();
+
+                document.getElementById('chat-header-bar').style.display = 'flex';
+                document.getElementById('chat-input-container').style.display = 'flex';
+
+                document.getElementById('active-avatar').innerText = (chat.name || 'F').charAt(0).toUpperCase();
+                document.getElementById('active-chat-name').innerText = chat.name || chat.phone;
+                document.getElementById('active-chat-phone').innerText = chat.phone;
+
+                // Mode toggle button setup
+                const isGeneral = chat.mode === 'general';
+                document.getElementById('mode-icon').innerText = isGeneral ? '🌐' : '🌿';
+                document.getElementById('mode-label').innerText = isGeneral ? 'General Mode' : 'AgriBot Mode';
+
+                // Render Chat Messages
+                const canvas = document.getElementById('chat-messages-canvas');
+                canvas.innerHTML = '';
+
+                (chat.messages || []).forEach(m => {
+                    const row = document.createElement('div');
+                    row.className = `bubble-row ${m.role === 'user' ? 'user' : 'bot'}`;
+
+                    const timeStr = m.timestamp ? new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+                    let contentHtml = `<div class="urdu" style="font-size: 14px; white-space: pre-wrap;">${escapeHtml(m.text || '')}</div>`;
+
+                    if (m.audioUrl) {
+                        contentHtml += `
+                            <div class="audio-note-card">
+                                <button class="play-btn" onclick="playAudio('${m.audioUrl}', this)">▶</button>
+                                <div class="waveform-mock">
+                                    <div class="wave-bar" style="height: 12px;"></div>
+                                    <div class="wave-bar" style="height: 18px;"></div>
+                                    <div class="wave-bar" style="height: 10px;"></div>
+                                    <div class="wave-bar" style="height: 16px;"></div>
+                                    <div class="wave-bar" style="height: 14px;"></div>
+                                </div>
+                                <span style="font-size: 11px; color: #667781;">Voice Note</span>
+                            </div>
+                        `;
+                    }
+
+                    row.innerHTML = `
+                        <div class="message-bubble">
+                            ${contentHtml}
+                            <span class="bubble-time">${timeStr} ${m.role === 'bot' ? '✓✓' : ''}</span>
+                        </div>
+                    `;
+                    canvas.appendChild(row);
+                });
+
+                canvas.scrollTop = canvas.scrollHeight;
+
+                // Update Backend Telemetry Inspector Panel
+                const t = chat.telemetry || {};
+                document.getElementById('telemetry-model').innerText = t.llmModel || 'Gemini 3.5 Flash Lite';
+                document.getElementById('telemetry-stt').innerText = t.sttEngine || 'Groq Whisper Large-v3';
+                document.getElementById('telemetry-admin').innerText = t.isAdmin ? '👑 GODMODE ACTIVE (No Limits)' : 'Standard User (Subject to Limits)';
+
+                const count = t.limitCount || 0;
+                const max = t.limitMax || 20;
+                document.getElementById('telemetry-limit-num').innerText = `${count} / ${max}`;
+                const pct = Math.min(100, Math.round((count / max) * 100));
+                document.getElementById('telemetry-limit-bar').style.width = pct + '%';
+                document.getElementById('telemetry-limit-bar').style.background = count >= max ? '#ef4444' : '#25d366';
+                document.getElementById('telemetry-limit-text').innerText = `${Math.max(0, max - count)} messages remaining in 12h window`;
+
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        let currentAudio = null;
+        function playAudio(url, btn) {
+            if (currentAudio) {
+                currentAudio.pause();
+                document.querySelectorAll('.play-btn').forEach(b => b.innerText = '▶');
+                if (currentAudio.src.includes(url)) {
+                    currentAudio = null;
+                    return;
+                }
+            }
+            currentAudio = new Audio(url);
+            btn.innerText = '⏸';
+            currentAudio.play();
+            currentAudio.onended = () => {
+                btn.innerText = '▶';
+                currentAudio = null;
+            };
+        }
+
+        // Send manual WhatsApp text from dashboard
+        async function sendManualMessage() {
+            const input = document.getElementById('manual-msg-input');
+            const text = input.value.trim();
+            if (!text || !activeChatJid) return;
+
+            input.value = '';
+            try {
+                await fetch('/api/send', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ jid: activeChatJid, text })
+                });
+                selectContact(activeChatJid);
+            } catch (e) {
+                alert('Send failed: ' + e.message);
+            }
+        }
+
+        function insertPrompt(p) {
+            document.getElementById('manual-msg-input').value = p;
+            document.getElementById('manual-msg-input').focus();
+        }
+
+        // Toggle active chat between @AgriBot and @General
+        async function toggleActiveChatMode() {
+            if (!activeChatJid) return;
+            const current = document.getElementById('mode-label').innerText.includes('Agri') ? 'agri' : 'general';
+            const next = current === 'agri' ? 'general' : 'agri';
+
+            await fetch(`/api/chat/${encodeURIComponent(activeChatJid)}/mode`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mode: next })
+            });
+            selectContact(activeChatJid);
+            fetchContacts();
+        }
+
+        async function toggleActiveAdmin() {
+            if (!activeChatJid) return;
+            await fetch(`/api/chat/${encodeURIComponent(activeChatJid)}/admin`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isAdmin: true })
+            });
+            alert('👑 Godmode activated for this contact! All limits bypassed.');
+            selectContact(activeChatJid);
+        }
+
+        async function resetActiveLimit() {
+            if (!activeChatJid) return;
+            await fetch(`/api/chat/${encodeURIComponent(activeChatJid)}/reset-limit`, { method: 'POST' });
+            alert('✅ Rate limits reset successfully for this contact!');
+            selectContact(activeChatJid);
+        }
+
+        // WAHA Status & Pairing Code Request
+        async function checkWahaStatus() {
+            try {
+                const res = await fetch('/api/waha/status');
+                const data = await res.json();
+                const badge = document.getElementById('gateway-status-text');
+                if (data.connected) {
+                    badge.innerText = `Cloud WAHA: Connected (${data.pushName || data.phone || 'Active'})`;
+                    document.getElementById('global-status-badge').style.borderColor = '#25d366';
+                } else {
+                    badge.innerText = `Cloud WAHA: ${data.status || 'Action Required'} (Pairing Needed)`;
+                    document.getElementById('global-status-badge').style.borderColor = '#f59e0b';
+                }
+            } catch (e) {}
+        }
+
+        async function requestPairingCode() {
+            const phone = document.getElementById('pair-phone-input').value.trim();
+            if (!phone) return alert('Enter phone number');
+
+            try {
+                const res = await fetch('/api/waha/pair-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phoneNumber: phone })
+                });
+                const data = await res.json();
+                if (data.code) {
+                    document.getElementById('pair-code-result').style.display = 'block';
+                    document.getElementById('pair-code-display').innerText = data.code;
+                } else {
+                    alert('Pairing response: ' + JSON.stringify(data));
+                }
+            } catch (e) {
+                alert('Failed to request pairing code: ' + e.message);
+            }
+        }
+
+        function refreshQrCode() {
+            const img = document.getElementById('gateway-qr-img');
+            img.src = '/api/waha/qr-image?t=' + Date.now();
+        }
+
+        // Bot Factory
+        async function loadCompanies() {
+            try {
+                const res = await fetch('/api/companies');
+                const list = await res.json();
+                const container = document.getElementById('companies-container');
+                container.innerHTML = '';
+
+                // Default Syngenta Basheer card
+                const baseCard = document.createElement('div');
+                baseCard.className = 'company-card';
+                baseCard.innerHTML = `
+                    <h3>Syngenta Pakistan (بشیر - Basheer)</h3>
+                    <p>Official Agricultural Agronomist & Farmer CRM Bot</p>
+                    <div class="card-spec-row"><span>Status:</span> <span class="badge-pill badge-green">LIVE PRODUCTION</span></div>
+                    <div class="card-spec-row"><span>Voice STT:</span> <b>Groq Whisper Large-v3</b></div>
+                    <div class="card-spec-row"><span>Voice TTS:</span> <b>Edge Neural (ur-PK-AsadNeural)</b></div>
+                    <div class="card-spec-row"><span>LLM Brain:</span> <b>Gemini 3.5 Flash Lite</b></div>
+                    <div class="card-spec-row"><span>Catalog:</span> <b>50 Verified Products</b></div>
+                `;
+                container.appendChild(baseCard);
+
+                list.forEach(co => {
+                    const card = document.createElement('div');
+                    card.className = 'company-card';
+                    card.innerHTML = `
+                        <h3>${co.companyName} (${co.botName})</h3>
+                        <p>Enterprise AgriBot</p>
+                        <div class="card-spec-row"><span>Status:</span> <span class="badge-pill badge-blue">Ready to Deploy</span></div>
+                        <div class="card-spec-row"><span>Voice STT:</span> <b>${co.voiceProvider === 'gemini' ? 'Google Gemini Voice' : 'Groq Whisper Large-v3'}</b></div>
+                        <div class="card-spec-row"><span>Voice TTS:</span> <b>${co.ttsProvider || 'Edge Neural (Asad)'}</b></div>
+                        <div class="card-spec-row"><span>LLM Brain:</span> <b>${co.llmProvider === 'groq' ? 'Groq Llama 3.3 70B' : 'Gemini 3.5 Flash Lite'}</b></div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (e) {}
+        }
+
+        function openCreateBotModal() { document.getElementById('create-bot-modal').style.display = 'flex'; }
+        function closeCreateBotModal() { document.getElementById('create-bot-modal').style.display = 'none'; }
+
+        async function submitCreateBot() {
+            const companyName = document.getElementById('new-company-name').value.trim();
+            const botName = document.getElementById('new-bot-name').value.trim();
+            const voiceProvider = document.getElementById('new-voice-provider').value;
+            const ttsProvider = document.getElementById('new-tts-provider').value;
+            const llmProvider = document.getElementById('new-llm-provider').value;
+
+            if (!companyName || !botName) return alert('Enter company and bot name');
+
+            await fetch('/api/companies', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ companyName, botName, voiceProvider, ttsProvider, llmProvider })
+            });
+
+            closeCreateBotModal();
+            loadCompanies();
+            alert(`🎉 AgriBot for ${companyName} created with ${voiceProvider.toUpperCase()} Voice engine!`);
+        }
+
+        // Syngenta Catalog
+        async function loadCatalog() {
+            try {
+                const res = await fetch('/api/syngenta/products');
+                allProducts = await res.json();
+                renderCatalog();
+            } catch (e) {}
+        }
+
+        function renderCatalog() {
+            const container = document.getElementById('catalog-container');
+            container.innerHTML = '';
+            const q = document.getElementById('catalog-search').value.toLowerCase();
+
+            let filtered = allProducts;
+            if (q) {
+                filtered = filtered.filter(p => 
+                    (p.name && p.name.toLowerCase().includes(q)) ||
+                    (p.attributes?.Composition && p.attributes.Composition.toLowerCase().includes(q)) ||
+                    (p.attributes?.Targets && p.attributes.Targets.toLowerCase().includes(q))
+                );
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'company-card';
+                card.innerHTML = `
+                    <div style="font-size: 11px; font-weight: 700; color: #15803d; text-transform: uppercase;">${p.attributes?.Category || 'Crop Protection'}</div>
+                    <h3 style="margin-top: 4px;">${p.name}</h3>
+                    <p style="font-size: 12px; margin-bottom: 8px;"><b>Active Ingredient:</b> ${p.attributes?.Composition || 'Formulated Product'}</p>
+                    <div class="card-spec-row"><span>Crops:</span> <b>${p.attributes?.['Applicable Crops'] || 'Wheat, Cotton, Rice'}</b></div>
+                    <div class="card-spec-row"><span>Targets:</span> <b>${p.attributes?.Targets || 'Major pests/diseases'}</b></div>
+                    <div class="card-spec-row"><span>Approved Dosage:</span> <b style="color: #0284c7;">${p.usage?.[0]?.['Dosage per Acre'] || 'As per official label'}</b></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterCatalog() { renderCatalog(); }
+
+        // Initial setup
+        fetchContacts();
+        checkWahaStatus();
+        setInterval(fetchContacts, 5000);
+        setInterval(checkWahaStatus, 15000);
+    </script>
+</body>
+</html>
