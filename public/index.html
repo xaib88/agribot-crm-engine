@@ -990,15 +990,18 @@
         </section>
 
         <!-- ======================================================== -->
-        <!-- TAB 4: SYNGENTA 50 PRODUCTS CATALOG                      -->
+        <!-- TAB 4: SYNGENTA & FUNCTION STORAGE RAG CATALOG            -->
         <!-- ======================================================== -->
         <section id="tab-catalog">
-            <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
                 <div>
-                    <h2 style="font-size: 20px; font-weight: 800;">Syngenta Pakistan Verified Product Catalog</h2>
-                    <p style="font-size: 13px; color: #64748b;">50 verified chemical and biological agricultural products loaded in RAG.</p>
+                    <h2 style="font-size: 20px; font-weight: 800;">Agricultural RAG Knowledge & Products Explorer</h2>
+                    <p style="font-size: 13px; color: #64748b;">50+ verified Syngenta products + Dynamic Vercel Function Storage RAG documents.</p>
                 </div>
-                <input type="text" id="catalog-search" placeholder="Search by crop, pest, or product..." oninput="filterCatalog()" style="width: 300px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" id="catalog-search" placeholder="Search by crop, pest, or product..." oninput="filterCatalog()" style="width: 260px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <button class="btn-send-wa" onclick="openAddRagModal()" style="padding: 8px 14px; font-size: 12px;">+ Add Custom RAG Data</button>
+                </div>
             </div>
 
             <div class="companies-grid" id="catalog-container">
@@ -1007,6 +1010,38 @@
         </section>
 
     </main>
+
+    <!-- ADD CUSTOM RAG KNOWLEDGE MODAL (FUNCTION STORAGE) -->
+    <div class="modal-overlay" id="add-rag-modal">
+        <div class="modal-card" style="max-width: 550px;">
+            <div class="modal-header">
+                <span>📚 Add Knowledge to Vercel Function Storage</span>
+                <button onclick="closeAddRagModal()" style="background: transparent; border: none; color: #ffffff; font-size: 18px; cursor: pointer;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Product / Topic Title:</label>
+                    <input type="text" id="rag-title" placeholder="e.g. Belt 480 SC, Organic Compost Guide, Rice Blast Solution">
+                </div>
+                <div class="form-group">
+                    <label>Applicable Crops:</label>
+                    <input type="text" id="rag-crops" placeholder="e.g. Cotton, Wheat, Rice, Chili, Tomato">
+                </div>
+                <div class="form-group">
+                    <label>Approved Dosage / Application Rate:</label>
+                    <input type="text" id="rag-dosage" placeholder="e.g. 100 ml per acre in 100 Liters of water">
+                </div>
+                <div class="form-group">
+                    <label>Full Agronomic Advisory & Content:</label>
+                    <textarea id="rag-content" rows="4" placeholder="Enter detailed treatment steps, active ingredients, target pests, and timing guidelines..." style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-family: inherit;"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="chip-btn" onclick="closeAddRagModal()">Cancel</button>
+                <button class="btn-send-wa" onclick="submitAddRag()">Save to Function Storage</button>
+            </div>
+        </div>
+    </div>
 
     <!-- CREATE BOT MODAL WITH RICH KNOWLEDGE & VOICE OPTIONS -->
     <div class="modal-overlay" id="create-bot-modal">
@@ -1497,16 +1532,66 @@
             }
         }
 
-        // Syngenta Catalog
+        function openAddRagModal() { document.getElementById('add-rag-modal').style.display = 'flex'; }
+        function closeAddRagModal() { document.getElementById('add-rag-modal').style.display = 'none'; }
+
+        async function submitAddRag() {
+            const title = document.getElementById('rag-title').value.trim();
+            const crops = document.getElementById('rag-crops').value.trim();
+            const dosage = document.getElementById('rag-dosage').value.trim();
+            const content = document.getElementById('rag-content').value.trim();
+
+            if (!title || !content) return alert('Enter product title and content');
+
+            try {
+                const res = await fetch('/api/rag/knowledge', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, crops, dosage, content })
+                });
+
+                if (res.ok) {
+                    closeAddRagModal();
+                    document.getElementById('rag-title').value = '';
+                    document.getElementById('rag-crops').value = '';
+                    document.getElementById('rag-dosage').value = '';
+                    document.getElementById('rag-content').value = '';
+                    allProducts = [];
+                    loadCatalog();
+                    alert(`✅ Custom RAG Knowledge "${title}" saved to Vercel Function Storage!`);
+                } else {
+                    alert('Error saving RAG data: HTTP ' + res.status);
+                }
+            } catch (err) {
+                alert('Failed to save RAG data: ' + err.message);
+            }
+        }
+
+        // RAG Catalog Explorer (Syngenta + Function Storage)
         async function loadCatalog() {
             const container = document.getElementById('catalog-container');
             if (container && allProducts.length === 0) {
-                container.innerHTML = '<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #64748b; font-size: 14px;">⏳ Loading 50+ Syngenta Verified Agricultural Products...</div>';
+                container.innerHTML = '<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #64748b; font-size: 14px;">⏳ Loading Agricultural RAG Products & Function Storage...</div>';
             }
             try {
-                const res = await fetch('/api/syngenta/products');
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                allProducts = await res.json();
+                const [syngentaRes, customRes] = await Promise.all([
+                    fetch('/api/syngenta/products').then(r => r.json()).catch(() => []),
+                    fetch('/api/rag/knowledge').then(r => r.json()).catch(() => ({ entries: [] }))
+                ]);
+
+                const customFormatted = (customRes.entries || []).map(c => ({
+                    name: c.title,
+                    isCustom: true,
+                    attributes: {
+                        Category: 'Vercel Function Storage (Custom RAG)',
+                        Composition: c.content,
+                        'Applicable Crops': c.crops || 'All Crops',
+                        Targets: c.content.slice(0, 60) + '...'
+                    },
+                    usage: [{ 'Dosage per Acre': c.dosage || 'As specified' }]
+                }));
+
+                allProducts = [...customFormatted, ...(Array.isArray(syngentaRes) ? syngentaRes : [])];
                 renderCatalog();
             } catch (e) {
                 if (container) {
@@ -1540,9 +1625,12 @@
                 const card = document.createElement('div');
                 card.className = 'company-card';
                 card.innerHTML = `
-                    <div style="font-size: 11px; font-weight: 700; color: #15803d; text-transform: uppercase;">${p.attributes?.Category || 'Crop Protection'}</div>
-                    <h3 style="margin-top: 4px; font-size: 16px; font-weight: 700;">${p.name}</h3>
-                    <p style="font-size: 12px; margin-bottom: 8px; color: #475569;"><b>Active Ingredient:</b> ${p.attributes?.Composition || 'Formulated Product'}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 11px; font-weight: 700; color: ${p.isCustom ? '#0284c7' : '#15803d'}; text-transform: uppercase;">${p.attributes?.Category || 'Crop Protection'}</span>
+                        ${p.isCustom ? '<span class="badge-pill badge-blue" style="font-size: 10px;">Function Storage</span>' : '<span class="badge-pill badge-green" style="font-size: 10px;">Verified RAG</span>'}
+                    </div>
+                    <h3 style="margin-top: 6px; font-size: 16px; font-weight: 700;">${p.name}</h3>
+                    <p style="font-size: 12px; margin-bottom: 8px; color: #475569;"><b>${p.isCustom ? 'Agronomic Detail:' : 'Active Ingredient:'}</b> ${p.attributes?.Composition || 'Formulated Product'}</p>
                     <div class="card-spec-row"><span>Crops:</span> <b>${p.attributes?.['Applicable Crops'] || 'Wheat, Cotton, Rice'}</b></div>
                     <div class="card-spec-row"><span>Targets:</span> <b>${p.attributes?.Targets || 'Major pests/diseases'}</b></div>
                     <div class="card-spec-row"><span>Approved Dosage:</span> <b style="color: #0284c7;">${p.usage?.[0]?.['Dosage per Acre'] || 'As per official label'}</b></div>

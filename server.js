@@ -291,6 +291,44 @@ app.post('/api/companies', (req, res) => {
     }
 });
 
+// Function Storage: Dynamic RAG Knowledge API
+app.get('/api/rag/knowledge', (req, res) => {
+    try {
+        const knowledgeModule = require('./knowledge');
+        const customRag = knowledgeModule.loadCustomRag();
+        res.json({
+            count: customRag.length,
+            entries: customRag
+        });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
+app.post('/api/rag/knowledge', (req, res) => {
+    try {
+        const { title, crops, content, dosage } = req.body;
+        if (!title || !content) {
+            return res.status(400).json({ error: 'Title and content are required' });
+        }
+        const knowledgeModule = require('./knowledge');
+        const customRag = knowledgeModule.loadCustomRag();
+        const newEntry = {
+            id: 'rag_' + Date.now(),
+            title,
+            crops: crops || 'All Crops',
+            content,
+            dosage: dosage || 'As per official label',
+            createdAt: new Date().toISOString()
+        };
+        customRag.push(newEntry);
+        knowledgeModule.saveCustomRag(customRag);
+        res.json({ success: true, entry: newEntry });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 // Simulator chat endpoint
 app.post('/api/simulator', async (req, res) => {
     try {

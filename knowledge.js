@@ -1,7 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 
+const DATA_DIR = process.env.VERCEL ? path.join('/tmp', 'data') : path.join(__dirname, 'data');
 const PRODUCTS_FILE = path.join(__dirname, 'data', 'syngenta_products.json');
+const CUSTOM_RAG_FILE = path.join(DATA_DIR, 'custom_rag.json');
+const COMPANIES_FILE = path.join(DATA_DIR, 'companies.json');
+
+try {
+    if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+} catch (e) {}
 
 let productsList = [];
 try {
@@ -10,6 +19,41 @@ try {
     }
 } catch (e) {
     console.error('Error loading products JSON:', e.message);
+}
+
+// Function Storage: Load dynamic custom RAG data
+function loadCustomRag() {
+    try {
+        if (fs.existsSync(CUSTOM_RAG_FILE)) {
+            return JSON.parse(fs.readFileSync(CUSTOM_RAG_FILE, 'utf-8'));
+        }
+    } catch (e) {}
+    return [];
+}
+
+// Function Storage: Save dynamic custom RAG data
+function saveCustomRag(entries) {
+    try {
+        fs.writeFileSync(CUSTOM_RAG_FILE, JSON.stringify(entries, null, 2), 'utf-8');
+        return true;
+    } catch (e) {
+        console.error('Error saving custom RAG:', e.message);
+        return false;
+    }
+}
+
+// Function Storage: Load companies knowledge
+function loadCompaniesKnowledge() {
+    try {
+        if (fs.existsSync(COMPANIES_FILE)) {
+            return JSON.parse(fs.readFileSync(COMPANIES_FILE, 'utf-8'));
+        }
+        const seed = path.join(__dirname, 'data', 'companies.json');
+        if (fs.existsSync(seed)) {
+            return JSON.parse(fs.readFileSync(seed, 'utf-8'));
+        }
+    } catch (e) {}
+    return [];
 }
 
 // Built-in Pakistani Agricultural Knowledge Base (Syngenta + Naya Savera + NARC / Agri Dept Pakistan)
@@ -137,9 +181,33 @@ function searchKnowledge(query) {
         }
     }
 
+    // 3. Search Function Storage Custom RAG data
+    const customEntries = loadCustomRag();
+    for (const item of customEntries) {
+        const itemText = (item.title + ' ' + (item.crops || '') + ' ' + (item.content || '')).toLowerCase();
+        if (q.split(' ').some(w => w.length > 2 && itemText.includes(w))) {
+            hits.push(`[مصدقہ اضافی ڈیٹا]: ${item.title}\n${item.content}\nڈوز/ہدایات: ${item.dosage || 'لیبل کے مطابق'}`);
+            if (hits.length >= 4) break;
+        }
+    }
+
+    // 4. Search Company Knowledge (e.g. FMC, Bayer, Syngenta)
+    const companies = loadCompaniesKnowledge();
+    for (const co of companies) {
+        if (co.productsKnowledge) {
+            const coText = (co.companyName + ' ' + (co.focusCrops || '') + ' ' + co.productsKnowledge).toLowerCase();
+            if (q.split(' ').some(w => w.length > 3 && coText.includes(w))) {
+                hits.push(`[کمپنی پروڈکٹ ڈیٹا (${co.companyName})]:\n${co.productsKnowledge}`);
+                if (hits.length >= 4) break;
+            }
+        }
+    }
+
     return hits.join('\n---\n');
 }
 
 module.exports = {
-    searchKnowledge
+    searchKnowledge,
+    loadCustomRag,
+    saveCustomRag
 };
