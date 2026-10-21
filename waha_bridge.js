@@ -156,23 +156,39 @@ async function sendTextMessage(session, chatId, text) {
     });
 }
 
-// Send Voice Note (Gemini Charon Studio Audio)
+// Send Voice Note (Gemini Charon / Edge Studio Audio)
 async function sendVoiceNote(session, chatId, audioPath) {
     try {
         if (!fs.existsSync(audioPath)) return;
         const audioBuffer = fs.readFileSync(audioPath);
         const base64Data = audioBuffer.toString('base64');
-        const isWav = audioPath.toLowerCase().endsWith('.wav');
+        const lower = audioPath.toLowerCase();
+        const isMp3 = lower.endsWith('.mp3');
+        const isWav = lower.endsWith('.wav');
+
+        let mimetype = 'audio/ogg; codecs=opus';
+        let filename = 'voice-note.ogg';
+        let convert = false;
+
+        if (isMp3) {
+            mimetype = 'audio/mp3';
+            filename = 'voice-note.mp3';
+            convert = true; // WAHA converts MP3 to WhatsApp PTT on server!
+        } else if (isWav) {
+            mimetype = 'audio/wav';
+            filename = 'voice-note.wav';
+            convert = true; // WAHA converts WAV to WhatsApp PTT on server!
+        }
 
         return await wahaRequest('POST', '/api/sendVoice', {
             session,
             chatId,
             file: {
-                mimetype: isWav ? 'audio/wav' : 'audio/ogg; codecs=opus',
-                filename: isWav ? 'voice-note.wav' : 'voice-note.ogg',
+                mimetype,
+                filename,
                 data: base64Data
             },
-            convert: isWav ? true : false
+            convert
         });
     } catch (e) {
         console.error('Error sending voice note:', e.message);
@@ -436,7 +452,7 @@ async function processWahaEvent(event) {
                     console.log(`🎙️ Synthesizing Urdu voice note for ${chatId}...`);
                     const oggPath = await Promise.race([
                         agent.generateUrduVoice(replyText),
-                        new Promise((_, reject) => setTimeout(() => reject(new Error('Voice synthesis timeout (7s)')), 7000))
+                        new Promise((_, reject) => setTimeout(() => reject(new Error('Voice synthesis timeout (20s)')), 20000))
                     ]);
                     if (oggPath && fs.existsSync(oggPath)) {
                         console.log(`🎙️ Delivering native voice note to ${chatId}...`);

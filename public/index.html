@@ -758,10 +758,10 @@
         </div>
 
         <nav class="nav-tabs-wrapper">
-            <button class="nav-tab active" onclick="switchTab('crm')">💬 WhatsApp Web CRM</button>
-            <button class="nav-tab" onclick="switchTab('factory')">🏭 Bot Factory (Create AgriBot)</button>
-            <button class="nav-tab" onclick="switchTab('gateway')">📡 WAHA Cloud & Link Phone</button>
-            <button class="nav-tab" onclick="switchTab('catalog')">📚 Syngenta 50 Products</button>
+            <button class="nav-tab active" onclick="switchTab('crm', this)">💬 WhatsApp Web CRM</button>
+            <button class="nav-tab" onclick="switchTab('factory', this)">🏭 Bot Factory (Create AgriBot)</button>
+            <button class="nav-tab" onclick="switchTab('gateway', this)">📡 WAHA Cloud & Link Phone</button>
+            <button class="nav-tab" onclick="switchTab('catalog', this)">📚 Syngenta 50 Products</button>
         </nav>
 
         <div class="system-status-pill" id="global-status-badge">
@@ -1080,9 +1080,13 @@
         let allProducts = [];
 
         // Tab Navigation
-        function switchTab(tabId) {
+        function switchTab(tabId, el) {
             document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
+            if (el) {
+                el.classList.add('active');
+            } else if (typeof event !== 'undefined' && event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
 
             document.getElementById('tab-crm').style.display = tabId === 'crm' ? 'flex' : 'none';
             document.getElementById('tab-factory').style.display = tabId === 'factory' ? 'block' : 'none';
@@ -1090,7 +1094,10 @@
             document.getElementById('tab-catalog').style.display = tabId === 'catalog' ? 'block' : 'none';
 
             if (tabId === 'factory') loadCompanies();
-            if (tabId === 'catalog') loadCatalog();
+            if (tabId === 'catalog') {
+                if (allProducts.length === 0) loadCatalog();
+                else renderCatalog();
+            }
             if (tabId === 'gateway') checkWahaStatus();
         }
 
@@ -1433,25 +1440,41 @@
 
         // Syngenta Catalog
         async function loadCatalog() {
+            const container = document.getElementById('catalog-container');
+            if (container && allProducts.length === 0) {
+                container.innerHTML = '<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #64748b; font-size: 14px;">⏳ Loading 50+ Syngenta Verified Agricultural Products...</div>';
+            }
             try {
                 const res = await fetch('/api/syngenta/products');
+                if (!res.ok) throw new Error('HTTP ' + res.status);
                 allProducts = await res.json();
                 renderCatalog();
-            } catch (e) {}
+            } catch (e) {
+                if (container) {
+                    container.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #ef4444; font-size: 14px;">❌ Error loading catalog: ${e.message}</div>`;
+                }
+            }
         }
 
         function renderCatalog() {
             const container = document.getElementById('catalog-container');
+            if (!container) return;
             container.innerHTML = '';
-            const q = document.getElementById('catalog-search').value.toLowerCase();
+            const q = (document.getElementById('catalog-search')?.value || '').toLowerCase();
 
             let filtered = allProducts;
             if (q) {
                 filtered = filtered.filter(p => 
                     (p.name && p.name.toLowerCase().includes(q)) ||
                     (p.attributes?.Composition && p.attributes.Composition.toLowerCase().includes(q)) ||
-                    (p.attributes?.Targets && p.attributes.Targets.toLowerCase().includes(q))
+                    (p.attributes?.Targets && p.attributes.Targets.toLowerCase().includes(q)) ||
+                    (p.attributes?.['Applicable Crops'] && p.attributes['Applicable Crops'].toLowerCase().includes(q))
                 );
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: #64748b; font-size: 14px;">🔍 No products match your search query. Try another crop or pesticide name.</div>';
+                return;
             }
 
             filtered.forEach(p => {
@@ -1459,8 +1482,8 @@
                 card.className = 'company-card';
                 card.innerHTML = `
                     <div style="font-size: 11px; font-weight: 700; color: #15803d; text-transform: uppercase;">${p.attributes?.Category || 'Crop Protection'}</div>
-                    <h3 style="margin-top: 4px;">${p.name}</h3>
-                    <p style="font-size: 12px; margin-bottom: 8px;"><b>Active Ingredient:</b> ${p.attributes?.Composition || 'Formulated Product'}</p>
+                    <h3 style="margin-top: 4px; font-size: 16px; font-weight: 700;">${p.name}</h3>
+                    <p style="font-size: 12px; margin-bottom: 8px; color: #475569;"><b>Active Ingredient:</b> ${p.attributes?.Composition || 'Formulated Product'}</p>
                     <div class="card-spec-row"><span>Crops:</span> <b>${p.attributes?.['Applicable Crops'] || 'Wheat, Cotton, Rice'}</b></div>
                     <div class="card-spec-row"><span>Targets:</span> <b>${p.attributes?.Targets || 'Major pests/diseases'}</b></div>
                     <div class="card-spec-row"><span>Approved Dosage:</span> <b style="color: #0284c7;">${p.usage?.[0]?.['Dosage per Acre'] || 'As per official label'}</b></div>
@@ -1474,6 +1497,7 @@
         // Initial setup
         fetchContacts();
         checkWahaStatus();
+        loadCatalog();
         setInterval(fetchContacts, 5000);
         setInterval(checkWahaStatus, 15000);
     </script>

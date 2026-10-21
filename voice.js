@@ -111,17 +111,23 @@ async function generateEdgeTTS(cleanText, voiceName = 'ur-PK-AsadNeural') {
         return null;
     }
 
-    execSync(`${ffmpegPath} -y -i "${tempMp3Path}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
-        stdio: 'ignore',
-        timeout: 20000
-    });
-
-    if (fs.existsSync(tempMp3Path)) {
-        try { fs.unlinkSync(tempMp3Path); } catch (e) {}
+    // Try FFmpeg transcode if available locally
+    try {
+        execSync(`${ffmpegPath} -y -i "${tempMp3Path}" -c:a libopus -b:a 32k -vbr on "${finalOggPath}"`, {
+            stdio: 'ignore',
+            timeout: 10000
+        });
+        if (fs.existsSync(finalOggPath) && fs.statSync(finalOggPath).size > 0) {
+            try { fs.unlinkSync(tempMp3Path); } catch (e) {}
+            return finalOggPath;
+        }
+    } catch (ffmpegErr) {
+        console.log('Local FFmpeg transcode skipped, returning direct MP3 for WAHA server-side conversion');
     }
 
-    if (fs.existsSync(finalOggPath) && fs.statSync(finalOggPath).size > 0) {
-        return finalOggPath;
+    // If FFmpeg is not installed (e.g. on Vercel), return MP3 directly! WAHA will convert it to Opus PTT on the server
+    if (fs.existsSync(tempMp3Path) && fs.statSync(tempMp3Path).size > 0) {
+        return tempMp3Path;
     }
     return null;
 }
