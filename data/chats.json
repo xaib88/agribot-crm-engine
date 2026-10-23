@@ -2273,5 +2273,14 @@
     "ytLinkSent": true,
     "lastYtSentTimestamp": 1792765535690,
     "messages": []
+  },
+  "923285247115@c.us": {
+    "jid": "923285247115@c.us",
+    "phone": "+92 328 5247115",
+    "name": "Master Admin (03285247115)",
+    "lastMessage": "Registered as Master Admin for Global Bot Control",
+    "lastTime": "2026-10-23T14:48:22.359Z",
+    "isAdmin": true,
+    "messages": []
   }
 }

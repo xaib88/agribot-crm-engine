@@ -309,8 +309,8 @@ async function processWahaEvent(event) {
             // NEVER reply to messages sent by the bot itself (Eliminates self-reply infinite loop)
             if (payload.fromMe) return;
 
-            // Blocked / Silenced number check (e.g. 03317824038)
-            if (chatId && chatId.includes('923317824038')) {
+            // Silenced numbers (except admin commands)
+            if (chatId && chatId.includes('923317824038') && !/stop|start|pause|resume|@admin/i.test(userQuery)) {
                 console.log(`🛑 [SILENCED] Message from ${chatId} ignored.`);
                 return;
             }
@@ -328,16 +328,25 @@ async function processWahaEvent(event) {
 
             console.log(`\n📩 Incoming WhatsApp from ${chatId} (${pushName}): ${isAudio ? '[🎙️ Voice Note]' : `"${userQuery}"`}`);
 
-            // 0. Master Killswitch / Standby Commands
+            // 0. Master Admin & Global Killswitch Controller (Primary Admin: 03285247115)
             const rawText = userQuery.toLowerCase().trim();
-            const isAdminNumber = chatId && (chatId.includes('923317824038') || db.getChat(chatId)?.isAdmin);
-            const isStopCmd = /^(@stop|@pause|@admin\s*stop|@admin\s*pause)$/i.test(rawText) || (isAdminNumber && /^(stop|pause)$/i.test(rawText));
-            const isStartCmd = /^(@start|@resume|@admin\s*start|@admin\s*resume)$/i.test(rawText) || (isAdminNumber && /^(start|resume)$/i.test(rawText));
+            const MASTER_ADMIN_NUMBERS = ['923285247115', '03285247115', '923317824038', '03317824038'];
+            const isMasterAdmin = chatId && MASTER_ADMIN_NUMBERS.some(num => chatId.includes(num));
+
+            if (isMasterAdmin) {
+                db.setAdmin(chatId, true);
+            }
+
+            const isStopCmd = (isMasterAdmin && /^(stop|pause|band|بند|روکو)$/i.test(rawText)) ||
+                              /^(@stop|@pause|@admin\s*stop|@admin\s*pause)$/i.test(rawText);
+
+            const isStartCmd = (isMasterAdmin && /^(start|resume|on|شروع|چلاؤ)$/i.test(rawText)) ||
+                               /^(@start|@resume|@admin\s*start|@admin\s*resume)$/i.test(rawText);
 
             if (isStopCmd) {
                 db.setBotActive(false);
-                console.log(`🛑 [KILLSWITCH ACTIVATED] Bot paused by ${chatId}`);
-                const stopReply = "🛑 [بوٹ کامیابی سے اسٹینڈ بائی (Stop) کر دیا گیا ہے]\n\nسرور، رینڈر گیٹ وے اور واٹس ایپ نمبر 24/7 کنیکٹڈ رہے گا، لیکن اب بوٹ کسانوں کے میسجز کا خودکار جواب نہیں دے گا۔\n\nدوبارہ شروع کرنے کے لیے @start یا @resume بھیجیں، یا ویب ڈیش بورڈ سے بٹن آن کریں۔ 🌾";
+                console.log(`🛑 [GLOBAL KILLSWITCH ACTIVATED] Bot paused for ALL users by Admin ${chatId}`);
+                const stopReply = "🛑 [بوٹ تمام کسانوں کے لیے بند (STOP) کر دیا گیا ہے]\n\nسرور، رینڈر گیٹ وے اور واٹس ایپ نمبر 24/7 کنیکٹڈ رہے گا، لیکن اب بوٹ کسی بھی کسان کے میسج کا خودکار جواب نہیں دے گا۔\n\nدوبارہ شروع کرنے کے لیے اسی نمبر سے 'start' لکھ کر بھیجیں، یا ویب ڈیش بورڈ سے بٹن آن کریں۔ 🌾";
                 await sendTextMessage(session, chatId, stopReply);
                 db.saveMessage({ jid: chatId, role: 'bot', text: stopReply, pushName, msgId: 'bot_' + Date.now() });
                 return;
@@ -345,8 +354,8 @@ async function processWahaEvent(event) {
 
             if (isStartCmd) {
                 db.setBotActive(true);
-                console.log(`✅ [KILLSWITCH DEACTIVATED] Bot resumed by ${chatId}`);
-                const startReply = "✅ [بوٹ دوبارہ فعال (Active) کر دیا گیا ہے]\n\nاب کسانوں کے سوالات، وائس نوٹس اور زرعی رہنمائی کے خودکار جوابات دوبارہ شروع ہو چکے ہیں۔ 🚜🌾";
+                console.log(`✅ [GLOBAL KILLSWITCH DEACTIVATED] Bot resumed for ALL users by Admin ${chatId}`);
+                const startReply = "✅ [بوٹ تمام کسانوں کے لیے دوبارہ فعال (ACTIVE) کر دیا گیا ہے]\n\nاب کسانوں کے سوالات، وائس نوٹس اور زرعی رہنمائی کے خودکار جوابات دوبارہ شروع ہو چکے ہیں۔ 🚜🌾";
                 await sendTextMessage(session, chatId, startReply);
                 db.saveMessage({ jid: chatId, role: 'bot', text: startReply, pushName, msgId: 'bot_' + Date.now() });
                 return;
