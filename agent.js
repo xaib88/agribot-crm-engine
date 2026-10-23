@@ -1,3 +1,4 @@
+try { process.loadEnvFile(); } catch (e) {}
 const fs = require('fs');
 const path = require('path');
 const weatherModule = require('./weather');
@@ -63,7 +64,14 @@ const AGRI_MASTER_PROMPT = `آپ 'بشیر' (Basheer) ہیں۔ آپ پاکستا
 - رومن اردو کے کسی لفظ (جیسے Chawal) کو کبھی بھی موسم (Hawa) نہ سمجھیں!
 12. منڈی ریٹس اور مصدقہ ذریعہ (Mandi Rates & Source Rule):
 - جب بھی کسی فصل کے منڈی ریٹس (Mandi Rates) یا اجناس کی قیمتیں بتائیں، تو آخر میں تاریخ اور مصدقہ ذریعہ لازمی درج کریں:
-  📡 ذریعہ (Source): ایگریکلچر مارکیٹنگ انفارمیشن سروس (AMIS) پنجاب / مارکیٹ کمیٹی غلہ منڈی (amis.pk)`;
+  📡 ذریعہ (Source): ایگریکلچر مارکیٹنگ انفارمیشن سروس (AMIS) پنجاب / مارکیٹ کمیٹی غلہ منڈی (amis.pk)
+13. گندم کی بوائی اور گرم درجہ حرارت کی تفصیلی رہنمائی کا لازمی اصول (Wheat Sowing & High Temperature Rule):
+- اگر کوئی بھی کسان گندم کی اگیتی کاشت، اکتوبر میں بوائی، یا گرم موسم/درجہ حرارت (30 سے 35 ڈگری) میں گندم کی بجائی کے بارے میں پوچھے، تو اسے سرسری دو لائنوں میں نہیں بلکہ مکمل تفصیلی، جامع، مدلل اور سائنسی رہنمائی فراہم کریں!
+- واضح سائنسی وجوہات بیان کریں:
+  1) 30 سے 35 ڈگری سینٹی گریڈ میں بیج کا اگاؤ (Germination) سخت متاثر ہوتا ہے اور گرم زمین میں بیج خراب ہو جاتا ہے۔
+  2) گندم ٹھنڈی آب و ہوا کی فصل ہے۔ زیادہ گرمی میں شگوفے (Tillers) نہیں بنتے اور پودا وقت سے پہلے نالی پر آ جاتا ہے۔
+  3) وقت سے پہلے سٹا نکلنے سے سٹے چھوٹے رہ جاتے ہیں، دانے پچک جاتے ہیں، اور پیداوار میں 30 سے 40 فیصد تک کمی واقع ہوتی ہے۔
+- کسان کو پرزور مشورہ دیں کہ وہ 10 سے 15 نومبر تک موسم کے ٹھنڈا ہونے کا لازمی انتظار کرے (جب درجہ حرارت 20 سے 25 ڈگری پر آ جائے)۔ یکم سے 20 نومبر گندم کی کاشت کا سنہری اور بہترین وقت ہے۔`;
 
 // Master System Prompt for General Mode (@General)
 const GENERAL_MASTER_PROMPT = `آپ 'بشیر' (Basheer) ہیں۔ 
@@ -122,9 +130,9 @@ function buildGeminiContents(chatId, currentQueryText, inlineAudio = null) {
     return contents;
 }
 
-// Unified Gemini Flash Caller with strict 6s timeout & anti-hang protection
-async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3.8-flash', maxTokens = 350) {
-    const modelsToTry = [modelName, 'gemini-3.5-flash-lite'];
+// Unified Gemini Flash Caller with strict 10s timeout & anti-hang protection
+async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3.5-flash-lite', maxTokens = 350) {
+    const modelsToTry = ['gemini-3.5-flash-lite', 'gemini-3.8-flash'];
     
     for (const model of modelsToTry) {
         try {
@@ -132,7 +140,7 @@ async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3.
             const response = await fetch(url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                signal: AbortSignal.timeout(6000), // 6-second strict timeout
+                signal: AbortSignal.timeout(10000), // 10-second resilient timeout
                 body: JSON.stringify({
                     system_instruction: { parts: [{ text: systemPrompt }] },
                     contents: contents,
@@ -238,8 +246,9 @@ function bossQualityGate(userQuery, botReply, chatId, currentMode) {
     // 3. LINK & PROMOTIONAL QUARANTINE
     text = text.replace(/https?:\/\/[^\s]+/gi, '').replace(/^زراعت\s*گائیڈنس\s*[:\-]\s*/gi, '').trim();
 
-    // 4. LENGTH & CONCISENESS POLICE
-    const isDetailRequested = /تفصیل|ڈیٹیل|تفصیلی|وضاحت|لمبا|detail|detailed|in depth|explain fully/i.test(userQuery);
+    // 4. LENGTH & CONCISENESS POLICE (Thorough guidance allowed for detailed requests and wheat sowing)
+    const isWheatSowing = /گندم.*(بوائی|کاشت|بجائی|وقت|درجہ حرارت|35|گرمی|موسم)|(بوائی|کاشت|بجائی).*(گندم)|wheat.*(sow|sowing|temperature|35|time)/i.test(userQuery);
+    const isDetailRequested = isWheatSowing || /تفصیل|ڈیٹیل|تفصیلی|وضاحت|لمبا|detail|detailed|in depth|explain fully/i.test(userQuery);
     if (!isDetailRequested && currentMode === 'agri') {
         const lines = text.split('\n').filter(l => l.trim().length > 0);
         if (lines.length > 5) {
@@ -273,9 +282,9 @@ async function dispatchLLM(systemPrompt, contents, config, maxTokens = 350) {
     );
     if (geminiReply) return geminiReply;
 
-    // Instant fallback to Groq (<1s) if Gemini hits 20/day limit or spikes
+    // Instant fallback to Groq (<1s) if Gemini hits limit or spikes
     if (config.groqApiKey) {
-        console.log("⚡ Gemini rate limit / spike. Switching instantly to Groq Qwen 3.8-27B (<1s)...");
+        console.log("⚡ Gemini rate limit / spike. Switching instantly to Groq Qwen (<1s)...");
         const groqFallback = await callGroq(systemPrompt, contents, config.groqApiKey, 'qwen/qwen3.8-27b', maxTokens);
         if (groqFallback) return groqFallback;
     }
@@ -310,9 +319,10 @@ async function getQuickTextAnswer(userText, chatId = null) {
         }
     }
 
-    // Check if user is asking for a detailed/longer answer
-    const isDetailRequested = /تفصیل|ڈیٹیل|تفصیلی|وضاحت|لمبا|detail|detailed|in depth|explain fully/i.test(query);
-    const maxTokens = isDetailRequested ? 1000 : 350;
+    // Check if user is asking for a detailed/longer answer OR asking about wheat sowing timing/temperature
+    const isWheatSowingQuery = /گندم.*(بوائی|کاشت|بجائی|وقت|درجہ حرارت|35|گرمی|موسم)|(بوائی|کاشت|بجائی).*(گندم)|wheat.*(sow|sowing|temperature|35|time)/i.test(query);
+    const isDetailRequested = isWheatSowingQuery || /تفصیل|ڈیٹیل|تفصیلی|وضاحت|لمبا|detail|detailed|in depth|explain fully/i.test(query);
+    const maxTokens = isDetailRequested ? 850 : 350;
 
     // Smart Intent Router: If in General Mode but user asks about Agriculture, Crops, Weather, Creator, or Training
     const isAgriOrIdentityQuery = /گندم|کپاس|چاول|دھان|مکئی|کماد|گنا|سپرے|کھاد|یوریا|ڈی اے پی|پوٹاش|کیڑا|تیلا|سنڈی|مکھی|بیماری|زنگ|فصل|کسان|ایکڑ|ڈوز|شاہزیب|شہزے برشاد|بشیر|ٹریننگ|تربیت|کون ہو|کس نے بنایا|زراعت|موسم|بارش/i.test(query);
@@ -349,7 +359,9 @@ async function getQuickTextAnswer(userText, chatId = null) {
     console.log(`🌿 Processing in AGRIBOT MODE via Gemini: "${query}" (Detailed: ${isDetailRequested})`);
 
     let dynamicSystemPrompt = AGRI_MASTER_PROMPT;
-    if (isDetailRequested) {
+    if (isWheatSowingQuery) {
+        dynamicSystemPrompt += `\n\n[خصوصی سائنسی ہدایت برائے گندم بوائی و درجہ حرارت]: کسان نے گندم کی بوائی، وقت، یا گرم درجہ حرارت (30 تا 35 ڈگری) کے متعلق پوچھا ہے۔ اسے سرسری نہیں بلکہ مکمل تفصیلی، جامع اور سائنسی رہنمائی فراہم کریں۔ زیادہ درجہ حرارت کے نقصانات (بیج کا اگاؤ خراب ہونا، شگوفے نہ بننا، وقت سے پہلے نالی پر آنا، پیداوار 30 تا 40 فیصد گرنا) واضح کریں اور 10 سے 15 نومبر تک موسم کے ٹھنڈا ہونے کا انتظار کرنے کی تاکید کریں۔`;
+    } else if (isDetailRequested) {
         dynamicSystemPrompt += `\n\n[خصوصی ہدایت]: کسان نے تفصیلی اور مفصل جواب کا تقاضا کیا ہے۔ اس لیے اب آپ نے تفصیلی انداز میں وجوہات، طریقہ استعمال، وقت، کھاد/زہر کی ڈوز، اور تمام احتیاطیں مکمل کھول کر بیان کرنی ہیں۔`;
     }
 
@@ -360,12 +372,12 @@ async function getQuickTextAnswer(userText, chatId = null) {
         return mandiModule.getMandiRatesReport(query, mandiCity?.name);
     }
 
-    // 2. Check Weather Intent (Strictly when weather is asked or city alone is entered)
+    // 2. Check Weather Intent (Strictly when weather is asked or city alone is entered, unless it is a wheat sowing/crop decision query)
     const isWeather = weatherModule.isWeatherQuery(query);
     const isCityOnly = weatherModule.isCityOnlyQuery(query);
     const detectedCity = weatherModule.detectCity(query);
 
-    if (isWeather || isCityOnly) {
+    if ((isWeather || isCityOnly) && !isWheatSowingQuery) {
         if (detectedCity) {
             console.log(`🌤️ Live weather lookup for: ${detectedCity.name} (${detectedCity.en})...`);
             const rawWeather = await weatherModule.getLiveWeather(detectedCity.en, detectedCity.name, detectedCity.coords);
@@ -377,6 +389,16 @@ async function getQuickTextAnswer(userText, chatId = null) {
             // Weather asked without a city -> Prompt user for city to avoid hallucination!
             return "کاشتکار بھائی! درست اور تازہ ترین موسم بتانے کے لیے براہِ کرم اپنے شہر یا ضلع کا نام بتائیں (مثلاً ملتان، ساہیوال، وہاڑی، بہاولپور وغیرہ) تاکہ میں وہاں کا درجہ حرارت، نمی، ہوا کی رفتار اور بارش کی پیش گوئی بتا سکوں۔ 🌧️";
         }
+    }
+
+    // If wheat sowing query has a city, inject hyper-local live weather for contextual guidance
+    if (isWheatSowingQuery && detectedCity) {
+        try {
+            const areaWeather = await weatherModule.getLiveWeather(detectedCity.en, detectedCity.name, detectedCity.coords);
+            if (areaWeather) {
+                dynamicSystemPrompt += `\n\n[صارف کے علاقے (${detectedCity.name}) کا لائیو موسمی احوال]:\n${areaWeather}\n[ہدایت]: کسان کے علاقے کے اس لائیو موسم اور درجہ حرارت کا ذکر کرتے ہوئے گندم کی بوائی کے متعلق تفصیلی رہنمائی فراہم کریں۔`;
+            }
+        } catch (e) {}
     }
 
     // RAG Knowledge Base Grounding (Syngenta, NARC, approved dosages)

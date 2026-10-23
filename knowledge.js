@@ -93,6 +93,12 @@ const MAJOR_CROPS_KB = {
     },
     wheat: {
         names: ['گندم', 'wheat', 'gandum', 'kanak', 'gandham'],
+        sowing_and_temperature: {
+            title: 'گندم کی بوائی اور درجہ حرارت کی سائنسی رہنمائی',
+            optimal_temp: 'گندم کے بہترین اگاؤ اور شگوفہ سازی کے لیے مثالی درجہ حرارت 20 سے 25 ڈگری سینٹی گریڈ ہے۔',
+            high_temp_risks: '30 سے 35 ڈگری سینٹی گریڈ یا زائد گرم درجہ حرارت میں گندم کی بوائی کے شدید نقصانات: 1) بیج کا اگاؤ (Germination) بری طرح متاثر ہوتا ہے اور گرم زمین میں بیج سڑ جاتا ہے۔ 2) گندم ٹھنڈے موسم کی فصل ہے؛ گرمی کے دباؤ میں پودے شگوفے (Tillers) نہیں بناتے اور پودا وقت سے پہلے نالی (Early heading / piping) پر آ جاتا ہے۔ 3) وقت سے پہلے سٹا نکلنے کی وجہ سے سٹے چھوٹے اور دانے پچکے ہوئے بنتے ہیں، جس سے فی ایکڑ پیداوار 30 سے 40 فیصد تک گر جاتی ہے۔',
+            recommendation: 'پنجاب، سندھ اور خیبر پختونخوا کے تمام کاشتکار 10 سے 15 نومبر تک موسم کے ٹھنڈا ہونے کا لازمی انتظار کریں۔ یکم نومبر سے 20 نومبر گندم کی کاشت کا بہترین اور سنہری وقت ہے جب درجہ حرارت معتدل ہو جاتا ہے۔'
+        },
         weeds: [
             'چوڑی پتے کی جڑی بوٹیاں (باتھو، لیہلی، شاہترہ): بروموکسینل + ایم سی پی اے (Bromoxynil+MCPA) یا ایلی میکس (Ally Max) 16 گرام فی ایکڑ۔',
             'باریک پتے (دمبی سٹی، جنگلی جئی): ایکسیل (Axial 050 EC) 330 ملی لیٹر فی ایکڑ۔'
@@ -162,6 +168,9 @@ function searchKnowledge(query) {
     for (const [key, cropData] of Object.entries(MAJOR_CROPS_KB)) {
         if (cropData.names.some(n => q.includes(n))) {
             let cropInfo = `فصل/شعبہ: ${cropData.names[0]}\n`;
+            if (cropData.sowing_and_temperature) {
+                cropInfo += `بوائی اور درجہ حرارت کی سائنسی رہنمائی:\n- ${cropData.sowing_and_temperature.optimal_temp}\n- زیادہ درجہ حرارت (30 تا 35 ڈگری) کے خطرات: ${cropData.sowing_and_temperature.high_temp_risks}\n- بوائی کا وقت: ${cropData.sowing_and_temperature.recommendation}\n`;
+            }
             if (cropData.pests) {
                 cropInfo += `کیڑے اور تدارک:\n` + cropData.pests.map(p => typeof p === 'string' ? `- ${p}` : `- ${p.name}: ${p.solutions ? p.solutions.join('، ') : ''}`).join('\n') + `\n`;
             }
