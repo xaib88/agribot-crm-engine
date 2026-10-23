@@ -2231,7 +2231,7 @@
     "lastMessage": "",
     "lastTime": "2026-10-23T14:21:13.742Z",
     "ytLinkSent": true,
-    "lastYtSentTimestamp": 1792765273743,
+    "lastYtSentTimestamp": 1792768045541,
     "messages": []
   },
   "test_user_2": {
@@ -2282,5 +2282,50 @@
     "lastTime": "2026-10-23T14:48:22.359Z",
     "isAdmin": true,
     "messages": []
+  },
+  "test_rust_user": {
+    "jid": "test_rust_user",
+    "phone": "+test_rust_user",
+    "name": "+test_rust_user",
+    "lastMessage": "",
+    "lastTime": "2026-10-23T14:58:49.420Z",
+    "ytLinkSent": true,
+    "lastYtSentTimestamp": 1792767529421,
+    "messages": []
+  },
+  "test_weed_user": {
+    "jid": "test_weed_user",
+    "phone": "+test_weed_user",
+    "name": "+test_weed_user",
+    "lastMessage": "",
+    "lastTime": "2026-10-23T14:58:57.563Z",
+    "ytLinkSent": true,
+    "lastYtSentTimestamp": 1792767537563,
+    "messages": []
+  },
+  "test_farmer_multiturn_1792767557079": {
+    "jid": "test_farmer_multiturn_1792767557079",
+    "phone": "+test_farmer_multiturn_1792767557079",
+    "name": "+test_farmer_multiturn_1792767557079",
+    "lastMessage": "کاشتکار بھائی! درست اور تازہ ترین موسم بتانے کے لیے براہِ کرم اپنے شہر یا ضلع کا نام بتائیں (مثلاً ملتان، ساہیوال، وہاڑی، بہاولپور وغیرہ) تاکہ میں وہاں کا درجہ حرارت، نمی، ہوا کی رفتار اور بارش کی پیش گوئی بتا سکوں۔ 🌧️",
+    "lastTime": "2026-10-23T14:59:17.090Z",
+    "messages": [
+      {
+        "id": "1792767557086",
+        "role": "user",
+        "text": "گندم میں زنگ کی بیماری ہے، کیا سپرے کروں؟",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T14:59:17.086Z"
+      },
+      {
+        "id": "1792767557090",
+        "role": "bot",
+        "text": "کاشتکار بھائی! درست اور تازہ ترین موسم بتانے کے لیے براہِ کرم اپنے شہر یا ضلع کا نام بتائیں (مثلاً ملتان، ساہیوال، وہاڑی، بہاولپور وغیرہ) تاکہ میں وہاں کا درجہ حرارت، نمی، ہوا کی رفتار اور بارش کی پیش گوئی بتا سکوں۔ 🌧️",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T14:59:17.090Z"
+      }
+    ],
+    "ytLinkSent": true,
+    "lastYtSentTimestamp": 1792767564650
   }
 }
