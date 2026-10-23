@@ -306,9 +306,14 @@ async function processWahaEvent(event) {
                 return;
             }
 
-            // Self-Chat Testing
-            const isSelfChat = (chatId && (chatId.includes('923317824038') || (activeSessionPhone && chatId === activeSessionPhone)));
-            if (payload.fromMe && !isSelfChat) return;
+            // NEVER reply to messages sent by the bot itself (Eliminates self-reply infinite loop)
+            if (payload.fromMe) return;
+
+            // Blocked / Silenced number check (e.g. 03317824038)
+            if (chatId && chatId.includes('923317824038')) {
+                console.log(`🛑 [SILENCED] Message from ${chatId} ignored.`);
+                return;
+            }
 
             // WhatsApp Group Handling: Silenced unless mentioned
             if (chatId.endsWith('@g.us')) {
