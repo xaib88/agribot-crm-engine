@@ -19,8 +19,26 @@ const PAKISTANI_CITIES = [
     { name: "چنیوٹ", en: "Chiniot", aliases: ["chiniot", "چنیوٹ"] },
     { name: "شیخوپورہ", en: "Sheikhupura", aliases: ["sheikhupura", "شیخوپورہ"] },
     { name: "ننکانہ صاحب", en: "Nankana Sahib", aliases: ["nankana", "ننکانہ"] },
-    { name: "قصور", en: "Kasur", aliases: ["kasur", "قصور", "چونیاں", "chunian", "پتوکی", "pattoki"] },
-    { name: "لاہور", en: "Lahore", aliases: ["lahore", "لاہور", "lhr"] },
+    { name: "قصور", en: "Kasur", aliases: ["kasur", "قصور", "چونیاں", "chunian", "پتوکی", "pattoki", "کوٹ رادھا کشن", "kot radha kishan", "کھڈیاں", "khudian", "راجہ جنگ", "raja jang", "بھائی پھیرو", "bhai pheru", "پھول نگر", "phool nagar"] },
+    { 
+        name: "کاہنہ کچا (لاہور)", 
+        en: "Kahna Nau", 
+        coords: { lat: 31.3671, lon: 74.3690 },
+        aliases: ["کاہنہ کچا", "کاہنہ نو", "کاہنہ", "کاہنا کچا", "کاہنا", "کاہنا نو", "kana kacha", "kahna kacha", "kahna nau", "kahna", "kahnah", "kahna kachha", "kana kachha", "kahna kacha lahore", "kana kacha lahore"] 
+    },
+    { 
+        name: "رائے ونڈ (لاہور)", 
+        en: "Raiwind", 
+        coords: { lat: 31.2500, lon: 74.2167 },
+        aliases: ["رائے ونڈ", "رائیونڈ", "raiwind"] 
+    },
+    { 
+        name: "مانگا منڈی (لاہور)", 
+        en: "Manga Mandi", 
+        coords: { lat: 31.3060, lon: 74.0620 },
+        aliases: ["مانگا منڈی", "مانگا", "manga mandi", "manga"] 
+    },
+    { name: "لاہور", en: "Lahore", aliases: ["lahore", "لاہور", "lhr", "شاہدرہ", "shahdara", "برکی", "barki", "واہگہ", "wahga", "چوہنگ", "chuhng", "ٹھوکر", "thokar", "گجو متہ", "gajju matah"] },
     { name: "گوجرانوالہ", en: "Gujranwala", aliases: ["gujranwala", "گوجرانوالہ", "کامونکی", "kamonki"] },
     { name: "سیالکوٹ", en: "Sialkot", aliases: ["sialkot", "سیالکوٹ", "ڈسکہ", "daska"] },
     { name: "حافظ آباد", en: "Hafizabad", aliases: ["hafizabad", "حافظ آباد"] },
@@ -114,18 +132,35 @@ function isCityOnlyQuery(text) {
     return null;
 }
 
-async function getLiveWeather(cityNameEn, cityNameUrdu) {
+async function getLiveWeather(cityNameEn, cityNameUrdu, coords = null) {
     try {
-        // 1. Geocode via Open-Meteo
-        const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityNameEn)}&count=1`;
-        const geoRes = await fetch(geoUrl);
-        const geoData = await geoRes.json();
+        let latitude, longitude, name;
 
-        if (!geoData.results || geoData.results.length === 0) {
-            return null;
+        if (coords && coords.lat && coords.lon) {
+            latitude = coords.lat;
+            longitude = coords.lon;
+            name = cityNameEn;
+        } else {
+            // 1. Geocode via Open-Meteo with PK country filter
+            let geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityNameEn)}&country_code=PK&count=1`;
+            let geoRes = await fetch(geoUrl);
+            let geoData = await geoRes.json();
+
+            if (!geoData.results || geoData.results.length === 0) {
+                // Fallback without country filter
+                geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityNameEn)}&count=1`;
+                geoRes = await fetch(geoUrl);
+                geoData = await geoRes.json();
+            }
+
+            if (!geoData.results || geoData.results.length === 0) {
+                return null;
+            }
+
+            latitude = geoData.results[0].latitude;
+            longitude = geoData.results[0].longitude;
+            name = geoData.results[0].name;
         }
-
-        const { latitude, longitude, name } = geoData.results[0];
 
         // 2. Fetch High-Res Weather Forecast
         const wUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto`;

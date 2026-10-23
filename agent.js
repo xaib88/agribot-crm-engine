@@ -368,7 +368,7 @@ async function getQuickTextAnswer(userText, chatId = null) {
     if (isWeather || isCityOnly) {
         if (detectedCity) {
             console.log(`🌤️ Live weather lookup for: ${detectedCity.name} (${detectedCity.en})...`);
-            const rawWeather = await weatherModule.getLiveWeather(detectedCity.en, detectedCity.name);
+            const rawWeather = await weatherModule.getLiveWeather(detectedCity.en, detectedCity.name, detectedCity.coords);
             if (rawWeather) {
                 // Return verified weather directly with Source: IBM Weather
                 return rawWeather;
