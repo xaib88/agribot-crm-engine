@@ -77,7 +77,8 @@ const AGRI_MASTER_PROMPT = `آپ 'بشیر' (Basheer) ہیں۔ آپ پاکستا
 - سلام کا اصول: جب تک کسان خود سلام نہ کرے، خود سے 'وعلیکم السلام' نہ کہیں۔
 - یوٹیوب لنک: کسان کے کسی بھی سوال کے جواب میں کوئی یوٹیوب لنک مت لگائیں (لنک صرف ویلکم یا خاص پوچھنے پر جاتا ہے)۔
 - نو کالز: واضح بتائیں کہ اس نمبر پر کال ممکن نہیں، صرف واٹس ایپ میسج یا وائس نوٹ پر رہنمائی حاصل کریں۔
-- جواب کا حجم: عام سوالات پر 2 سے 3 ٹو دی پوائنٹ لائنیں۔ لمبا اور مفصل جواب صرف تب دیں جب کسان خود تفصیل مانگے۔`;
+- جواب کا حجم: عام سوالات پر 2 سے 3 ٹو دی پوائنٹ لائنیں۔ لمبا اور مفصل جواب صرف تب دیں جب کسان خود تفصیل مانگے۔
+- خالص پاکستانی اردو زبان (Zero Hindi Words Policy): تمام جوابات سلیس، شائستہ اور خالص پاکستانی اردو میں دیں۔ ہندی الفاظ (مثلاً نمستے، دھنیواد، کرپیا، پرنام، سندیش، سہایتا، پرشن، اتر، سوچنا، سمے وغیرہ) کا استعمال سختی سے منع ہے! صرف معیاری پاکستانی اردو الفاظ (السلام علیکم، شکریہ، براہِ کرم، سلام، پیغام، مدد/رہنمائی، سوال، جواب، وقت) استعمال کریں۔`;
 
 // Master System Prompt for General Mode (@General)
 const GENERAL_MASTER_PROMPT = `آپ 'بشیر' (Basheer) ہیں۔ 
@@ -89,7 +90,8 @@ const GENERAL_MASTER_PROMPT = `آپ 'بشیر' (Basheer) ہیں۔
 3. صیغہ: آپ مرد (Male) ہیں، ہمیشہ مذکر صیغہ استعمال کریں (مثلاً: 'کر سکتا ہوں'، 'بتاتا ہوں')۔
 4. جواب کا حجم: عام طور پر 2 سے 3 لائنوں میں ٹو دی پوائنٹ جواب دیں! اگر صارف 'تفصیل سے بتاؤ' کہے تو تفصیلی جواب دیں۔
 5. سلام کا اصول: جب تک صارف خود سلام نہ کرے، خود سے 'وعلیکم السلام' ہرگز نہ کہیں۔
-6. لنکس کی ممانعت: کوئی یوٹیوب یا بیرونی لنک مت لکھیں۔`;
+6. لنکس کی ممانعت: کوئی یوٹیوب یا بیرونی لنک مت لکھیں۔
+7. خالص پاکستانی اردو (Zero Hindi Words): ہندی الفاظ ہرگز استعمال نہ کریں۔ ہمیشہ فصیح اور باوقار پاکستانی اردو میں جواب دیں۔`;
 
 // Multi-turn context builder for Gemini API
 function buildGeminiContents(chatId, currentQueryText, inlineAudio = null) {
@@ -259,6 +261,18 @@ function bossQualityGate(userQuery, botReply, chatId, currentMode) {
                .replace(/دیکھتی ہوں/g, 'دیکھتا ہوں')
                .replace(/سمجھتی ہوں/g, 'سمجھتا ہوں');
 
+    // 2.5. ZERO HINDI VOCABULARY ENFORCEMENT: Cleanse any accidental Hindi words into pure Pakistani Urdu
+    text = text.replace(/دھنیواد/gi, 'شکریہ')
+               .replace(/نمستے/gi, 'السلام علیکم')
+               .replace(/کرپیا/gi, 'براہِ کرم')
+               .replace(/پرنام/gi, 'سلام')
+               .replace(/سہایتا/gi, 'مدد')
+               .replace(/پرشن/gi, 'سوال')
+               .replace(/اتر/gi, 'جواب')
+               .replace(/سندیش/gi, 'پیغام')
+               .replace(/سمے/gi, 'وقت')
+               .replace(/سوچنا/gi, 'معلومات');
+
     // 3. LINK & PROMOTIONAL QUARANTINE
     text = text.replace(/https?:\/\/[^\s]+/gi, '').replace(/^زراعت\s*گائیڈنس\s*[:\-]\s*/gi, '').trim();
 
@@ -364,6 +378,47 @@ function classifyAgriQuery(query) {
     };
 }
 
+// =========================================================================
+// 🎙️ VOICE NOTE DELIVERY PREFERENCE DETECTION (User Override vs Default)
+// =========================================================================
+const DISABLE_VOICE_REGEX = /(?:وائس\s*نوٹ|آڈیو|آواز|وائس|voice\s*notes?|audio|voice|वॉइस\s*नोट|ऑडियो|आवाज)\s*(?:مت|نہ|نہں|نہیں|بند|روکو|stop|disable|dont|don't|no|نکو|mat|na|band|rok|मत|बंद|रोको)|(?:صرف|only|just|sirf|सिर्फ|فقط)\s*(?:ٹیکسٹ|تحریر|میسج|لکھ\s*کر|text|msg|message|likh\s*kar|टेक्स्ट|मैसेज|लिख\s*کر|लिख\s*कर)|(?:no|stop|don't\s*send|dont\s*send|do\s*not\s*send|disable)\s*(?:voice|audio|voice\s*notes?)|i\s*(?:don'?t|do\s*not)\s*(?:need|want)\s*audio|text\s*only|mujhe\s*(?:voice|audio)\s*(?:nahi|mat)|मुझे\s*(?:वॉइस|ऑडियो)\s*(?:मत|नहीं)/i;
+
+const ENABLE_VOICE_REGEX = /(?:وائس\s*نوٹ|آڈیو|آواز|وائس|voice\s*notes?|audio|voice|वॉइस\s*नोट|ऑडियो)\s*(?:بھیجو|بھیجیں|آن|شروع|chahiye|bhejo|bhejna|on|start|karo|batao|भेजो|ऑन|शुरू)|(?:بول\s*کر|آواز\s*میں|bol\s*kar|bolke|बोल\s*कर)\s*(?:بتاؤ|بتائیں|کہو|سمجھاؤ|batao|batayein|bataen|बताओ|बताएं)|(?:send|enable|resume|start|play)\s*(?:voice|audio|voice\s*notes?)|voice\s*notes?\s*please|i\s*want\s*audio/i;
+
+function detectVoicePreference(text) {
+    if (!text || typeof text !== 'string') return null;
+    const clean = text.trim();
+    if (DISABLE_VOICE_REGEX.test(clean)) return 'disable';
+    if (ENABLE_VOICE_REGEX.test(clean)) return 'enable';
+    return null;
+}
+
+function checkVoicePreferenceMessage(text) {
+    if (!text || typeof text !== 'string') return null;
+    const pref = detectVoicePreference(text);
+    if (!pref) return null;
+
+    const stripped = text
+        .replace(/i\s*(?:don'?t|do\s*not)\s*(?:need|want)\s*(?:audio|voice)?/gi, '')
+        .replace(/(?:وائس\s*نوٹ|آڈیو|آواز|وائس|voice\s*notes?|audio|voice|वॉइस\s*नोट|ऑडियो|آواز)/gi, '')
+        .replace(/(?:مت\s*بھیجو|مت\s*بھیجیں|نہ\s*بھیجو|نہ\s*بھیجیں|نہں\s*بھیجو|نہیں\s*بھیجو|بند\s*کرو|بند\s*کر\s*دیں|روکو|मत\s*भेजो|बंद\s*کرو|मत)/gi, '')
+        .replace(/(?:صرف\s*ٹیکسٹ|صرف\s*تحریر|صرف\s*میسج|صرف\s*لکھ\s*کر|صرف\s*لکھ\s*کر\s*بتائیں|صرف\s*لکھ\s*کر\s*بتاؤ|सिर्फ\s*टेक्स्ट\s*भेजें|सिर्फ\s*टेक्स्ट|टेक्स्ट\s*भेजें)/gi, '')
+        .replace(/(?:بھیجو|بھیجیں|آن\s*کرو|آن\s*کر\s*دیں|شروع\s*کرو|شروع\s*کر\s*دیں|بول\s*کر\s*بتاؤ|بول\s*کر\s*بتائیں)/gi, '')
+        .replace(/(?:no\s*voice|no\s*audio|don't\s*send|dont\s*send|do\s*not\s*send|text\s*only|send\s*voice|send\s*audio|enable\s*voice|disable\s*voice|please|chahiye)/gi, '')
+        .replace(/(?:mujhe|nahi|sirf|bhejo|bhejna|bol\s*kar|batao|batayein|मुझे|सिर्फ)/gi, '')
+        .replace(/(?:مجھے|نہیں|چاہیے|فرمائیں|مہربانی)/gi, '')
+        .replace(/[^\w\u0600-\u06FF\u0900-\u097F]/g, ' ')
+        .trim();
+
+    const hasOtherContent = stripped.length > 3 && /[a-zA-Z\u0600-\u06FF\u0900-\u097F]{3,}/.test(stripped);
+
+    return {
+        preference: pref,
+        isPure: !hasOtherContent,
+        cleanQuery: hasOtherContent ? stripped : ''
+    };
+}
+
 // Main Text Responder: 100% Routed through LLM with RAG and Anti-Hallucination
 async function getQuickTextAnswer(userText, chatId = null) {
     const config = loadConfig();
@@ -388,6 +443,30 @@ async function getQuickTextAnswer(userText, chatId = null) {
 
         if (!query) {
             return "🌿 ایگری بوٹ موڈ فعال ہو گیا ہے!\n\nمیں بشیر ہوں، آپ کا زرعی ماہر۔ اب آپ اپنی فصلوں، کھادوں، کیڑے مار ادویات، مویشی پالن اور موسم کے متعلق سوالات پوچھ سکتے ہیں۔";
+        }
+    }
+
+    // 1.5. User Preference Override: Text-Only Mode vs Voice Note Delivery
+    const voicePref = checkVoicePreferenceMessage(query);
+    if (voicePref) {
+        if (voicePref.preference === 'disable') {
+            if (chatId) db.setVoiceDisabled(chatId, true);
+            console.log(`🔇 [Voice Preference] User ${chatId} requested TEXT-ONLY mode (voice notes disabled).`);
+            if (voicePref.isPure) {
+                return "جی بالکل کاشتکار بھائی! آپ کی پسند کے مطابق اب آپ کو صرف تحریری (ٹیکسٹ) میسج موصول ہو گا، وائس نوٹ نہیں بھیجا جائے گا۔ اگر دوبارہ وائس نوٹ چاہیے ہوں تو کسی بھی وقت 'وائس نوٹ بھیجو' لکھ کر بتا سکتے ہیں۔ فرمائیں میں آپ کی کیا زرعی خدمت کر سکتا ہوں؟ 🌿";
+            }
+            if (voicePref.cleanQuery) {
+                query = voicePref.cleanQuery;
+            }
+        } else if (voicePref.preference === 'enable') {
+            if (chatId) db.setVoiceDisabled(chatId, false);
+            console.log(`🔊 [Voice Preference] User ${chatId} RESUMED voice notes (audio enabled).`);
+            if (voicePref.isPure) {
+                return "جی بہتر کاشتکار بھائی! آپ کے لیے وائس نوٹس دوبارہ شروع کر دیے گئے ہیں۔ اب آپ کو ہر رہنمائی کے ساتھ تفصیلی آڈیو بھی موصول ہوا کرے گی۔ فرمائیں میں آپ کی کیا زرعی مدد کر سکتا ہوں؟ 🌿";
+            }
+            if (voicePref.cleanQuery) {
+                query = voicePref.cleanQuery;
+            }
         }
     }
 
@@ -582,5 +661,7 @@ module.exports = {
     loadConfig,
     callGroq,
     dispatchLLM,
-    bossQualityGate
+    bossQualityGate,
+    detectVoicePreference,
+    checkVoicePreferenceMessage
 };

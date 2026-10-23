@@ -413,6 +413,39 @@ async function processWahaEvent(event) {
                 }
             }
 
+            // 2.8. User Voice Delivery Preference Override (Pure Toggle Fast Path)
+            if (!isAudio && userQuery) {
+                const voicePref = agent.checkVoicePreferenceMessage(userQuery);
+                if (voicePref && voicePref.isPure) {
+                    let prefReply = '';
+                    if (voicePref.preference === 'disable') {
+                        db.setVoiceDisabled(chatId, true);
+                        console.log(`🔇 [Voice Preference] User ${chatId} requested TEXT-ONLY mode.`);
+                        prefReply = "جی بالکل کاشتکار بھائی! آپ کی پسند کے مطابق اب آپ کو صرف تحریری (ٹیکسٹ) میسج موصول ہو گا، وائس نوٹ نہیں بھیجا جائے گا۔ اگر دوبارہ وائس نوٹ چاہیے ہوں تو کسی بھی وقت 'وائس نوٹ بھیجو' لکھ کر بتا سکتے ہیں۔ فرمائیں میں آپ کی کیا زرعی خدمت کر سکتا ہوں؟ 🌿";
+                    } else {
+                        db.setVoiceDisabled(chatId, false);
+                        console.log(`🔊 [Voice Preference] User ${chatId} RESUMED voice notes (audio enabled).`);
+                        prefReply = "جی بہتر کاشتکار بھائی! آپ کے لیے وائس نوٹس دوبارہ شروع کر دیے گئے ہیں۔ اب آپ کو ہر رہنمائی کے ساتھ تفصیلی آڈیو بھی موصول ہوا کرے گی۔ فرمائیں میں آپ کی کیا زرعی مدد کر سکتا ہوں؟ 🌿";
+                    }
+
+                    await sendTextMessage(session, chatId, prefReply);
+                    await reactToMessage(session, msgId, '✅');
+                    db.saveMessage({ jid: chatId, role: 'user', text: userQuery, pushName, msgId });
+                    db.saveMessage({ jid: chatId, role: 'bot', text: prefReply, pushName, msgId: 'bot_' + Date.now() });
+
+                    // If resumed, deliver audio note for this confirmation as well
+                    if (voicePref.preference === 'enable') {
+                        try {
+                            const oggPath = await agent.generateUrduVoice(prefReply);
+                            if (oggPath && fs.existsSync(oggPath)) {
+                                await sendVoiceNote(session, chatId, oggPath);
+                            }
+                        } catch (e) {}
+                    }
+                    return;
+                }
+            }
+
             // 3. Daily Rate Limiter Check (Strictly 20 msgs per user per day in BOTH Agri and General modes)
             const limitCheck = db.checkDailyLimit(chatId, 20);
             if (!limitCheck.allowed) {
@@ -440,7 +473,8 @@ async function processWahaEvent(event) {
                 });
 
                 const config = agent.loadConfig();
-                if (config.features?.voiceNotes !== false) {
+                const isVoiceOff = chatId ? db.isVoiceDisabled(chatId) : false;
+                if (config.features?.voiceNotes !== false && !isVoiceOff) {
                     try {
                         const oggPath = await agent.generateUrduVoice(limitReply);
                         if (oggPath && fs.existsSync(oggPath)) {
@@ -512,9 +546,10 @@ async function processWahaEvent(event) {
                 msgId: 'bot_' + Date.now()
             });
 
-            // 7. Synthesize & Send Voice Note (Charon Voice)
+            // 7. Synthesize & Send Voice Note (Respecting User Preference Override)
             const config = agent.loadConfig();
-            if (config.features?.voiceNotes !== false) {
+            const isVoiceOff = chatId ? db.isVoiceDisabled(chatId) : false;
+            if (config.features?.voiceNotes !== false && !isVoiceOff) {
                 try {
                     console.log(`🎙️ Synthesizing Urdu voice note for ${chatId}...`);
                     const oggPath = await Promise.race([
@@ -538,6 +573,8 @@ async function processWahaEvent(event) {
                 } catch (voiceErr) {
                     console.error('Voice note error:', voiceErr.message);
                 }
+            } else if (isVoiceOff) {
+                console.log(`🔇 Voice note skipped for ${chatId} (User requested Text-Only mode).`);
             }
         }
     } catch (err) {

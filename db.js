@@ -247,6 +247,30 @@ function markWelcomeSent(jid) {
     persist();
 }
 
+// Voice Note Delivery Preference: Text-Only Mode vs Default (Text + Audio)
+function isVoiceDisabled(jid) {
+    if (!jid) return false;
+    return !!chatsData[jid]?.voiceDisabled;
+}
+
+function setVoiceDisabled(jid, disabled = true) {
+    if (!jid) return;
+    if (!chatsData[jid]) {
+        chatsData[jid] = {
+            jid,
+            phone: cleanPhone(jid),
+            name: cleanPhone(jid),
+            lastMessage: '',
+            lastTime: new Date().toISOString(),
+            voiceDisabled: !!disabled,
+            messages: []
+        };
+    } else {
+        chatsData[jid].voiceDisabled = !!disabled;
+    }
+    persist();
+}
+
 // Daily Rate Limiter: 20 messages per user per day (24-hour window), across both Agri and General modes
 function checkDailyLimit(jid, maxLimit = 20) {
     if (!jid) return { allowed: true, count: 0, remaining: maxLimit };
@@ -341,6 +365,8 @@ module.exports = {
     markYtLinkSent,
     shouldSendWelcome,
     markWelcomeSent,
+    isVoiceDisabled,
+    setVoiceDisabled,
     checkDailyLimit,
     setAdmin,
     hasMessage,
