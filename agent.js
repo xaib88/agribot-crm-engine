@@ -40,8 +40,9 @@ const AGRI_MASTER_PROMPT = `آپ 'بشیر' (Basheer) ہیں۔ آپ پاکستا
 3. خالق کا نام بتانے کا اصول:
    - جب کوئی کسان یا صارف پوچھے کہ: 'تمہیں کس نے بنایا ہے؟'، 'تمہارا بانی یا ڈویلپر کون ہے؟'، 'Who created you?' یا 'شاہزیب ارشاد کون ہے؟'، تو فخر اور احترام سے واضح بتائیں:
      'مجھے معروف زرعی ماہر شاہزیب ارشاد (بانی زراعت گائیڈنس) نے کاشتکاروں کی بروقت، سائنسی اور مفت رہنمائی کے لیے تیار کیا ہے۔ 🌿'
-   - عام تعارف اور سلام کے جواب میں ہمیشہ اپنا نام 'بشیر' بتائیں:
-     'خوش آمدید کاشتکار بھائی! میں بشیر ہوں۔ 🚜\nگندم، کپاس، چاول، مکئی یا کماد کی دیکھ بھال میں کوئی بھی پریشانی ہو، آپ بول کر وائس نوٹ بھیجیں یا لکھ کر بتائیں۔ میں فوری رہنمائی کے لیے حاضر ہوں۔'
+   - خوش آمدید اور تعارف کا سخت اصول (Zero Repeated Welcome Rule):
+     کسان کو بار بار "خوش آمدید" ہرگز مت کہیں! خوش آمدید پورے دن میں صرف اور صرف ایک بار ابتدائی رابطے پر کہا جاتا ہے۔ جب گفتگو شروع ہو چکی ہو یا کسان سوال پوچھے تو "خوش آمدید" کہنا سختی سے منع ہے! بغیر کسی تمہید کے سیدھا اور ٹو دی پوائنٹ تکنیکی جواب دیں۔
+   - عام تعارف میں اپنا نام 'بشیر' بتائیں: 'میں بشیر ہوں، آپ کا زرعی مشیر۔'
 
 # Uplift AI کی طرز پر سوالات کی 6 کیٹیگریز (Query Classification & Operational Workflow):
 آپ ہر آنے والے سوال کو درج ذیل 6 کیٹیگریز میں سے ایک میں پرکھ کر سائنسی انداز میں رسپانس دیتے ہیں:
@@ -242,6 +243,15 @@ function bossQualityGate(userQuery, botReply, chatId, currentMode) {
         text = text.replace(/^(وعلیکم السلام ورحمۃ اللہ وبرکاتہ[!،.]*)/gi, '').trim();
     }
 
+    // 1.5. WELCOME POLICE: "خوش آمدید" strictly allowed ONLY ONCE PER DAY per farmer
+    const canWelcome = chatId ? db.shouldSendWelcome(chatId) : false;
+    if (!canWelcome) {
+        // Strip any repeated "خوش آمدید" from response
+        text = text.replace(/^(خوش\s*آمدید\s*کاشتکار\s*بھائی[!،.,:؛-]*|خوش\s*آمدید\s*بھائی[!،.,:؛-]*|خوش\s*آمدید[!،.,:؛-]*)/gi, '').trim();
+        text = text.replace(/خوش\s*آمدید\s*کاشتکار\s*بھائی[!،.]*/gi, '').trim();
+        text = text.replace(/خوش\s*آمدید[!،.]*/gi, '').trim();
+    }
+
     // 2. MALE PERSONA ENFORCEMENT (Strictly مذکر)
     text = text.replace(/کر سکتی ہوں/g, 'کر سکتا ہوں')
                .replace(/سکتی ہوں/g, 'سکتا ہوں')
@@ -394,14 +404,24 @@ async function getQuickTextAnswer(userText, chatId = null) {
         if (chatId) db.setChatMode(chatId, 'agri');
     }
 
-    // Pure Greeting / Intro Fast Path (Exact user intro, YouTube link sent ONLY ONCE here)
+    // Pure Greeting / Intro Fast Path (Welcome & Intro sent strictly ONCE per day)
     const normalizedGreeting = query.replace(/[!؟?،.\s]/g, '');
     const isPureGreeting = /^(سلام|السلامعلیکم|اسلامعلیکم|وعلیکمالسلام|ہیلو|hello|hi|aoa|salam|کونہو|تمکونہو|تعارف|اپناتعارف)$/i.test(normalizedGreeting);
     if (isPureGreeting) {
         const userSaidSalam = /سلام|اسلام|السلام|aoa|salam/i.test(query);
         const prefix = userSaidSalam ? "وعلیکم السلام! " : "";
-        if (chatId) db.markYtLinkSent(chatId);
-        return `${prefix}خوش آمدید کاشتکار بھائی! میں بشیر ہوں۔ 🚜\n\nگندم، کپاس، چاول، مکئی یا کماد کی دیکھ بھال میں کوئی بھی پریشانی ہو، آپ بول کر وائس نوٹ بھیجیں یا لکھ کر بتائیں۔ میں فوری رہنمائی کے لیے حاضر ہوں۔\n\nرہنمائی ویڈیوز کے لیے یوٹیوب چینل:\nhttps://www.youtube.com/@AgricultureGuidance/`;
+        const canWelcome = chatId ? db.shouldSendWelcome(chatId) : true;
+
+        if (canWelcome) {
+            if (chatId) {
+                db.markWelcomeSent(chatId);
+                db.markYtLinkSent(chatId);
+            }
+            return `${prefix}خوش آمدید کاشتکار بھائی! میں بشیر ہوں۔ 🚜\n\nگندم، کپاس، چاول، مکئی یا کماد کی دیکھ بھال میں کوئی بھی پریشانی ہو، آپ بول کر وائس نوٹ بھیجیں یا لکھ کر بتائیں۔ میں فوری رہنمائی کے لیے حاضر ہوں۔\n\nرہنمائی ویڈیوز کے لیے یوٹیوب چینل:\nhttps://www.youtube.com/@AgricultureGuidance/`;
+        } else {
+            // Already welcomed today: ZERO "خوش آمدید", ZERO repetitive intro, ZERO YouTube spam!
+            return `${prefix}جی کاشتکار بھائی، فرمائیں میں آپ کی کیا مدد کر سکتا ہوں؟ 🌿`;
+        }
     }
 
     // Explicit YouTube inquiry (User directly asks for videos or channel)
@@ -561,5 +581,6 @@ module.exports = {
     generateUrduVoice: voiceModule.generateUrduVoice,
     loadConfig,
     callGroq,
-    dispatchLLM
+    dispatchLLM,
+    bossQualityGate
 };

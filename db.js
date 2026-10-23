@@ -196,6 +196,57 @@ function markYtLinkSent(jid) {
     persist();
 }
 
+// Welcome Gate: STRICTLY ONCE PER DAY (24 Hours) PER FARMER
+function shouldSendWelcome(jid) {
+    if (!jid) return false;
+    const chat = chatsData[jid];
+    if (!chat) return true;
+    
+    // 1. Check if welcomed in the last 24 hours
+    if (chat.lastWelcomeTimestamp) {
+        const diff = Date.now() - chat.lastWelcomeTimestamp;
+        if (diff < 24 * 60 * 60 * 1000) {
+            return false;
+        }
+    }
+
+    // 2. Check if any message in chat history within last 24 hours already contained خوش آمدید
+    if (Array.isArray(chat.messages)) {
+        const ONE_DAY = 24 * 60 * 60 * 1000;
+        const now = Date.now();
+        const welcomedRecently = chat.messages.some(m => {
+            if (m.role !== 'bot' || !m.text) return false;
+            const isWelcome = m.text.includes('خوش آمدید');
+            const msgTime = new Date(m.timestamp).getTime();
+            return isWelcome && (now - msgTime) < ONE_DAY;
+        });
+        if (welcomedRecently) {
+            chat.lastWelcomeTimestamp = Date.now();
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function markWelcomeSent(jid) {
+    if (!jid) return;
+    if (!chatsData[jid]) {
+        chatsData[jid] = {
+            jid,
+            phone: cleanPhone(jid),
+            name: cleanPhone(jid),
+            lastMessage: '',
+            lastTime: new Date().toISOString(),
+            lastWelcomeTimestamp: Date.now(),
+            messages: []
+        };
+    } else {
+        chatsData[jid].lastWelcomeTimestamp = Date.now();
+    }
+    persist();
+}
+
 // Daily Rate Limiter: 20 messages per user per day (24-hour window), across both Agri and General modes
 function checkDailyLimit(jid, maxLimit = 20) {
     if (!jid) return { allowed: true, count: 0, remaining: maxLimit };
@@ -288,6 +339,8 @@ module.exports = {
     getChatMode,
     shouldSendYtLink,
     markYtLinkSent,
+    shouldSendWelcome,
+    markWelcomeSent,
     checkDailyLimit,
     setAdmin,
     hasMessage,
