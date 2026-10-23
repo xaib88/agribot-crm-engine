@@ -63,7 +63,7 @@ const AGRI_MASTER_PROMPT = `آپ 'بشیر' (Basheer) ہیں۔ آپ پاکستا
 
 4. [کیٹیگری 4: موسمیاتی رہنمائی و سپرے شیڈول - Weather & Spray Advisory]:
 - کسان کے شہر/ضلع کے مطابق لائیو موسم بتائیں (درجہ حرارت، ہوا کی رفتار، نمی اور بارش کا امکان)۔
-- ویدر ایڈوائزری میں الگ سے 'زرعی مشورہ' کی ہیڈنگ لگا کر غیر متعلقہ مشورے شامل مت کریں۔ صرف موسم کا درست ڈیٹا اور ضرورت پڑنے پر مختصر موسمی تنبیہ بتائیں۔
+- زرعی مشورہ کا سخت اصول (Zero Unsolicited Advice): جب کسان صرف موسم یا شہر پوچھے تو صرف موسم کی رپورٹ دیں۔ 'زرعی مشورہ' یا سپرے کا مشورہ صرف اور صرف تب دیں جب کسان خود صراحت سے پوچھے کہ 'زرعی مشورہ دو' یا 'سپرے کا مشورہ دو'۔
 - گندم کی 35 ڈگری پر بوائی کا سوال آئے تو سائنسی نقصانات بتاتے ہوئے 10 سے 15 نومبر تک موسم کے ٹھنڈا ہونے کا لازمی انتظار کرنے کی مدلل تاکید کریں۔
 
 5. [کیٹیگری 5: منڈی ریٹس اور قیمتیں - Mandi Rates]:
@@ -542,17 +542,18 @@ async function getQuickTextAnswer(userText, chatId = null) {
         return mandiModule.getMandiRatesReport(query, mandiCity?.name);
     }
 
-    // 2. Check Weather Intent (Strictly when weather is asked or city alone is entered, unless it is a wheat sowing/crop decision query)
+    // 2. Check Weather Intent (Strictly when weather is asked or city alone is entered, unless it is a wheat sowing/crop decision query or explicit agricultural advice is asked)
     const isWeather = weatherModule.isWeatherQuery(query);
     const isCityOnly = weatherModule.isCityOnlyQuery(query);
     const detectedCity = weatherModule.detectCity(query);
+    const isExplicitAdviceAsked = /زرعی\s*مشورہ|سپرے\s*کا\s*مشورہ|مشورہ\s*دو|مشورہ\s*دیں|مشورہ\s*چاہیے|کیا\s*سپرے\s*کروں|سپرے\s*کر\s*سکتے|advise|advice/i.test(query);
 
-    if ((isWeather || isCityOnly) && !isWheatSowingQuery) {
+    if ((isWeather || isCityOnly) && !isWheatSowingQuery && !isExplicitAdviceAsked) {
         if (detectedCity) {
             console.log(`🌤️ Live weather lookup for: ${detectedCity.name} (${detectedCity.en})...`);
             const rawWeather = await weatherModule.getLiveWeather(detectedCity.en, detectedCity.name, detectedCity.coords);
             if (rawWeather) {
-                // Return verified weather directly with Source: IBM Weather
+                // Return verified weather directly with Source: IBM Weather (WITHOUT unsolicited zarai mashwara)
                 return rawWeather;
             }
         } else {
@@ -561,12 +562,12 @@ async function getQuickTextAnswer(userText, chatId = null) {
         }
     }
 
-    // If wheat sowing query has a city, inject hyper-local live weather for contextual guidance
-    if (isWheatSowingQuery && detectedCity) {
+    // If explicit weather advice or wheat sowing query has a city, inject hyper-local live weather for contextual guidance
+    if ((isWheatSowingQuery || isExplicitAdviceAsked) && detectedCity) {
         try {
             const areaWeather = await weatherModule.getLiveWeather(detectedCity.en, detectedCity.name, detectedCity.coords);
             if (areaWeather) {
-                dynamicSystemPrompt += `\n\n[صارف کے علاقے (${detectedCity.name}) کا لائیو موسمی احوال]:\n${areaWeather}\n[ہدایت]: کسان کے علاقے کے اس لائیو موسم اور درجہ حرارت کا ذکر کرتے ہوئے گندم کی بوائی کے متعلق تفصیلی رہنمائی فراہم کریں۔`;
+                dynamicSystemPrompt += `\n\n[صارف کے علاقے (${detectedCity.name}) کا لائیو موسمی ڈیٹا]:\n${areaWeather}\n[ہدایت]: کسان نے لائیو موسم کو مدنظر رکھتے ہوئے زرعی مشورہ مانگا ہے۔ اس لائیو موسم، درجہ حرارت اور ہوا کی رفتار کی روشنی میں سائنسی اور واضح زرعی مشورہ فراہم کریں۔`;
             }
         } catch (e) {}
     }

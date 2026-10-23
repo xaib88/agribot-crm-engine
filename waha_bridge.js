@@ -324,6 +324,7 @@ async function processWahaEvent(event) {
 
             const pushName = payload._data?.pushName || payload._data?.notifyName || 'Farmer';
             const isAudio = payload.hasMedia && (payload.media?.mimetype?.includes('audio') || payload.type === 'ptt');
+            const isImage = payload.hasMedia && (payload.media?.mimetype?.includes('image') || payload.type === 'image' || payload._data?.type === 'image');
             const hasMedia = payload.hasMedia;
 
             console.log(`\n📩 Incoming WhatsApp from ${chatId} (${pushName}): ${isAudio ? '[🎙️ Voice Note]' : `"${userQuery}"`}`);
@@ -509,9 +510,19 @@ async function processWahaEvent(event) {
                         userMessageText = '[🎙️ وائس نوٹ]: (آواز واضح نہیں تھی)';
                         replyText = 'کاشتکار بھائی! آپ کی آواز صاف نہیں مل سکی۔ براہِ کرم اپنا سوال دوبارہ ریکارڈ کر کے بھیجیں یا لکھ کر بتائیں۔ 🌾';
                     }
+                } else if (isImage) {
+                    const hasMeaningfulText = cleanUserQuery && cleanUserQuery.length > 4 && !/^(یہ|دیکھیں|تصویر|فوٹو|image|photo|pic|check|this)$/i.test(cleanUserQuery.trim());
+                    userMessageText = cleanUserQuery ? `[📷 تصویر]: ${cleanUserQuery}` : '[📷 تصویر / فوٹو]';
+                    if (hasMeaningfulText) {
+                        console.log(`🧠 Calling AI LLM for image caption query: "${cleanUserQuery}" [ChatId: ${chatId}]...`);
+                        const textAdvice = await agent.getQuickTextAnswer(cleanUserQuery, chatId);
+                        replyText = `محترم کاشتکار بھائی! آپ نے جو تصویر بھیجی ہے، میں ابھی تصویر کو دیکھ نہیں سکتا، میں صرف وائس اور ٹیکسٹ پہ جواب دے سکتا ہوں۔ 🌾\n\nالبتہ آپ کے بتائے گئے مسئلے کے مطابق:\n${textAdvice}`;
+                    } else {
+                        replyText = "محترم کاشتکار بھائی! آپ نے جو تصویر بھیجی ہے، میں ابھی تصویر کو دیکھ نہیں سکتا، میں صرف وائس اور ٹیکسٹ پہ جواب دے سکتا ہوں۔ 🌾\n\nبراہِ کرم اپنی فصل کا نام اور جو بھی مسئلہ ہے، وہ بول کر وائس نوٹ بھیج دیں یا لکھ کر بتا دیں تاکہ میں فوری رہنمائی کر سکوں۔ 🌿";
+                    }
                 } else if (hasMedia && !cleanUserQuery) {
-                    userMessageText = '[📷 تصویر / فوٹو]';
-                    replyText = 'محترم کاشتکار بھائی! میں نے آپ کی فصل کی تصویر موصول کر لی ہے۔ براہِ کرم اس کے ساتھ اپنی فصل کا نام اور مسئلہ (مثلاً پتے پیلے ہو رہے ہیں، سوراخ ہیں یا کیڑے کا حملہ ہے) بھی لکھ کر یا بول کر بتائیں تاکہ میں فوری اور درست حل تجویز کر سکوں۔ 🌿';
+                    userMessageText = '[📁 میڈیا فائل]';
+                    replyText = "محترم کاشتکار بھائی! آپ نے جو فائل بھیجی ہے، میں ابھی اسے دیکھ نہیں سکتا، میں صرف وائس اور ٹیکسٹ پہ جواب دے سکتا ہوں۔ براہِ کرم اپنا سوال بول کر یا لکھ کر بتا دیں۔ 🌿";
                 } else {
                     console.log(`🧠 Calling AI LLM for query: "${cleanUserQuery}" [ChatId: ${chatId}]...`);
                     replyText = await agent.getQuickTextAnswer(cleanUserQuery, chatId);
