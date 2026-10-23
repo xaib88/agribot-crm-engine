@@ -132,8 +132,14 @@ async function generateEdgeTTS(cleanText, voiceName = 'ur-PK-AsadNeural') {
     return null;
 }
 
-// Main Dispatcher: Always try Gemini 3.8 Flash TTS first, fallback to Edge TTS
-async function generateUrduVoice(text, voiceName = 'ur-PK-AsadNeural') {
+// =========================================================================
+// 🎙️ SINGLE FIXED VOICE POLICY: ur-PK-AsadNeural (Authentic Pakistani Male)
+// Every chat and every voice note uses this exact same voice permanently.
+// =========================================================================
+const FIXED_VOICE = 'ur-PK-AsadNeural';
+
+// Main Dispatcher: Strictly uses FIXED_VOICE (Asad Neural) across all chats
+async function generateUrduVoice(text) {
     try {
         let cleanText = text
             .replace(/\*\*/g, '')
@@ -145,17 +151,16 @@ async function generateUrduVoice(text, voiceName = 'ur-PK-AsadNeural') {
 
         if (!cleanText) return null;
 
-        // Try Gemini 3.8 Flash TTS first
-        try {
-            console.log('🎙️ Generating studio voice via Gemini 3.8 Flash TTS...');
-            const ogg = await generateGeminiTTS(cleanText);
-            if (ogg) return ogg;
-        } catch (geminiErr) {
-            console.warn('Gemini 3.8 Flash TTS error, trying Edge TTS fallback:', geminiErr.message);
+        console.log(`🎙️ Generating single fixed voice (${FIXED_VOICE})...`);
+        const voicePath = await generateEdgeTTS(cleanText, FIXED_VOICE);
+        if (voicePath) {
+            console.log(`✅ Voice note delivered in single fixed voice: ${FIXED_VOICE}`);
+            return voicePath;
         }
 
-        // Fallback to Edge TTS
-        return await generateEdgeTTS(cleanText, voiceName);
+        // Resilient fallback if Edge-TTS socket temporarily disconnects
+        console.warn('Edge TTS temporary hiccup, falling back to Gemini TTS...');
+        return await generateGeminiTTS(cleanText);
     } catch (err) {
         console.error('All TTS engines failed:', err.message);
         return null;

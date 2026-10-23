@@ -18,5 +18,11 @@
     "nayasaveraKnowledge": true,
     "livestock": true,
     "thinkingReaction": true
+  },
+  "voiceSettings": {
+    "voiceName": "ur-PK-AsadNeural",
+    "voiceDescription": "خالص پاکستانی باوقار مردانہ لہجہ (Asad)",
+    "speed": "+0%",
+    "pitch": "+0Hz"
   }
 }
