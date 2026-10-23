@@ -406,7 +406,7 @@ async function processWahaEvent(event) {
                 console.log(`🌾 User ${chatId} switched to AgriBot Mode.`);
                 const stripped = userQuery.replace(/@agribot/i, '').replace(/@agri/i, '').trim();
                 if (!stripped) {
-                    const modeReply = "🌿 زرعی رہنمائی موڈ (AgriBot) فعال ہے!\n\nمیں بشیر ہوں، آپ کا زرعی ماہر۔ اب آپ اپنی فصلوں، کھادوں، کیڑے مار ادویات، مویشی پالن اور موسم کے متعلق سوالات پوچھ سکتے ہیں۔\n\n(یومیہ حد: 20 سوالات روزانہ)۔";
+                    const modeReply = "🌿 زرعی رہنمائی موڈ (AgriBot) فعال ہے!\n\nمیں زرعی رہنمائی سے بشیر ہوں، آپ کا زرعی ماہر۔ اب آپ اپنی فصلوں، کھادوں، کیڑے مار ادویات، مویشی پالن اور موسم کے متعلق سوالات پوچھ سکتے ہیں۔\n\n(یومیہ حد: 20 سوالات روزانہ)۔";
                     await sendTextMessage(session, chatId, modeReply);
                     db.saveMessage({ jid: chatId, role: 'bot', text: modeReply, pushName, msgId: 'bot_' + Date.now() });
                     return;

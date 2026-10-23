@@ -176,15 +176,6 @@ async function getLiveWeather(cityNameEn, cityNameUrdu, coords = null) {
         const day3Rain = wData.daily.precipitation_probability_max?.[2] || 0;
         const maxRainChance = Math.max(day1Rain, day2Rain, day3Rain);
 
-        let sprayAdvice = "";
-        if (windSpeed > 15) {
-            sprayAdvice = `ہوا کی رفتار ${windSpeed} کلومیٹر فی گھنٹہ ہے جو کہ تیز ہے۔ اس وقت فصل پر سپرے کرنے سے گریز کریں تاکہ زہر ضائع نہ ہو۔ ⚠️💨`;
-        } else if (maxRainChance > 40) {
-            sprayAdvice = `اگلے دو سے تین دنوں میں بارش کا امکان (${maxRainChance} فیصد) ہے۔ اس لیے کسی بھی قسم کا سپرے یا کھاد کا استعمال بارش گزرنے تک موخر کر دیں۔ 🌧️🛑`;
-        } else {
-            sprayAdvice = `موسم سپرے اور عام زرعی سرگرمیوں کے لیے سازگار ہے۔ آپ صبح یا شام کے ٹھنڈے اوقات میں سپرے کر سکتے ہیں۔ 🌾✅`;
-        }
-
         let report = `محترم کسان بھائی! ${cityNameUrdu || name} کا تازہ ترین موسمی احوال یہ ہے: 🌤️\n\n`;
         report += `🌡️ موجودہ درجہ حرارت: ${curTemp} ڈگری سینٹی گریڈ\n`;
         report += `💧 ہوا میں نمی کا تناسب: ${curHumidity} فیصد\n`;
@@ -192,7 +183,6 @@ async function getLiveWeather(cityNameEn, cityNameUrdu, coords = null) {
         report += `🌧️ بارش کی پیش گوئی:\n`;
         report += `• کل بارش کا امکان: ${day1Rain}%\n`;
         report += `• پرسوں بارش کا امکان: ${day2Rain}%\n\n`;
-        report += `🌾 زرعی مشورہ (شاہزیب ارشاد کی رہنمائی):\n${sprayAdvice}\n\n`;
         report += `📡 ذریعہ (Source): IBM Weather`;
 
         return report;
