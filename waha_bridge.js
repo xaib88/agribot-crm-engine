@@ -328,11 +328,40 @@ async function processWahaEvent(event) {
 
             console.log(`\n📩 Incoming WhatsApp from ${chatId} (${pushName}): ${isAudio ? '[🎙️ Voice Note]' : `"${userQuery}"`}`);
 
+            // 0. Master Killswitch / Standby Commands
+            const rawText = userQuery.toLowerCase().trim();
+            const isAdminNumber = chatId && (chatId.includes('923317824038') || db.getChat(chatId)?.isAdmin);
+            const isStopCmd = /^(@stop|@pause|@admin\s*stop|@admin\s*pause)$/i.test(rawText) || (isAdminNumber && /^(stop|pause)$/i.test(rawText));
+            const isStartCmd = /^(@start|@resume|@admin\s*start|@admin\s*resume)$/i.test(rawText) || (isAdminNumber && /^(start|resume)$/i.test(rawText));
+
+            if (isStopCmd) {
+                db.setBotActive(false);
+                console.log(`🛑 [KILLSWITCH ACTIVATED] Bot paused by ${chatId}`);
+                const stopReply = "🛑 [بوٹ کامیابی سے اسٹینڈ بائی (Stop) کر دیا گیا ہے]\n\nسرور، رینڈر گیٹ وے اور واٹس ایپ نمبر 24/7 کنیکٹڈ رہے گا، لیکن اب بوٹ کسانوں کے میسجز کا خودکار جواب نہیں دے گا۔\n\nدوبارہ شروع کرنے کے لیے @start یا @resume بھیجیں، یا ویب ڈیش بورڈ سے بٹن آن کریں۔ 🌾";
+                await sendTextMessage(session, chatId, stopReply);
+                db.saveMessage({ jid: chatId, role: 'bot', text: stopReply, pushName, msgId: 'bot_' + Date.now() });
+                return;
+            }
+
+            if (isStartCmd) {
+                db.setBotActive(true);
+                console.log(`✅ [KILLSWITCH DEACTIVATED] Bot resumed by ${chatId}`);
+                const startReply = "✅ [بوٹ دوبارہ فعال (Active) کر دیا گیا ہے]\n\nاب کسانوں کے سوالات، وائس نوٹس اور زرعی رہنمائی کے خودکار جوابات دوبارہ شروع ہو چکے ہیں۔ 🚜🌾";
+                await sendTextMessage(session, chatId, startReply);
+                db.saveMessage({ jid: chatId, role: 'bot', text: startReply, pushName, msgId: 'bot_' + Date.now() });
+                return;
+            }
+
+            // Check Master Power State: If stopped, do not reply, do not process
+            if (!db.isBotActive()) {
+                console.log(`⏸️ [BOT STANDBY] WhatsApp connected, but auto-replies are paused. Ignoring incoming message from ${chatId}.`);
+                return;
+            }
+
             // 1. Thinking Reaction
             await reactToMessage(session, msgId, '💭');
 
             // 2. Passkey check
-            const rawText = userQuery.toLowerCase();
             if (rawText.includes('@adminzeb') || rawText.includes('ایڈمن زیب')) {
                 db.setAdmin(chatId, true);
                 console.log(`👑 Admin godmode activated for ${chatId}!`);

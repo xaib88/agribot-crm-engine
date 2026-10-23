@@ -250,6 +250,33 @@ function setAdmin(jid, isAdmin = true) {
     persist();
 }
 
+// Master Bot Power State (Active vs Paused/Standby)
+const STATE_FILE = path.join(DATA_DIR, 'bot_state.json');
+let botState = { active: true };
+try {
+    const seedState = path.join(__dirname, 'data', 'bot_state.json');
+    if (!fs.existsSync(STATE_FILE) && fs.existsSync(seedState)) {
+        try { fs.copyFileSync(seedState, STATE_FILE); } catch (e) {}
+    }
+    if (fs.existsSync(STATE_FILE)) {
+        botState = JSON.parse(fs.readFileSync(STATE_FILE, 'utf-8'));
+    }
+} catch (e) {
+    botState = { active: true };
+}
+
+function isBotActive() {
+    return botState.active !== false;
+}
+
+function setBotActive(active) {
+    botState.active = Boolean(active);
+    try {
+        fs.writeFileSync(STATE_FILE, JSON.stringify(botState, null, 2), 'utf-8');
+    } catch (e) {}
+    return botState.active;
+}
+
 module.exports = {
     saveMessage,
     getContacts,
@@ -262,5 +289,7 @@ module.exports = {
     markYtLinkSent,
     checkDailyLimit,
     setAdmin,
-    hasMessage
+    hasMessage,
+    isBotActive,
+    setBotActive
 };

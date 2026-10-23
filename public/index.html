@@ -764,9 +764,15 @@
             <button class="nav-tab" onclick="switchTab('catalog', this)">📚 Syngenta 50 Products</button>
         </nav>
 
-        <div class="system-status-pill" id="global-status-badge">
-            <div class="status-dot"></div>
-            <span id="gateway-status-text">Cloud WAHA: Connected (+92 302 6964085)</span>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button id="bot-power-btn" onclick="toggleBotPower()" style="display: flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer; border: 1px solid #25d366; background: rgba(37,211,102,0.15); color: #25d366; transition: all 0.2s;" title="Click to Stop / Pause Bot auto-replies while keeping WhatsApp connected 24/7">
+                <span id="bot-power-icon">🟢</span>
+                <span id="bot-power-text">Bot: ACTIVE</span>
+            </button>
+            <div class="system-status-pill" id="global-status-badge">
+                <div class="status-dot"></div>
+                <span id="gateway-status-text">Cloud WAHA: Connected (+92 302 6964085)</span>
+            </div>
         </div>
     </header>
 
@@ -1641,12 +1647,68 @@
 
         function filterCatalog() { renderCatalog(); }
 
+        // ========================================================
+        // Master Bot Killswitch (Active vs Paused / Standby)
+        // ========================================================
+        async function fetchBotPowerStatus() {
+            try {
+                const res = await fetch('/api/bot/status');
+                const data = await res.json();
+                renderBotPowerButton(data.active);
+            } catch (e) {}
+        }
+
+        function renderBotPowerButton(isActive) {
+            const btn = document.getElementById('bot-power-btn');
+            const icon = document.getElementById('bot-power-icon');
+            const text = document.getElementById('bot-power-text');
+            if (!btn || !icon || !text) return;
+
+            if (isActive) {
+                btn.style.borderColor = '#25d366';
+                btn.style.background = 'rgba(37,211,102,0.15)';
+                btn.style.color = '#25d366';
+                icon.innerText = '🟢';
+                text.innerText = 'Bot: ACTIVE';
+                btn.title = 'Click to STOP/PAUSE bot auto-replies while keeping WhatsApp connected 24/7';
+            } else {
+                btn.style.borderColor = '#ef4444';
+                btn.style.background = 'rgba(239,68,68,0.2)';
+                btn.style.color = '#ef4444';
+                icon.innerText = '🛑';
+                text.innerText = 'Bot: STOPPED (Standby)';
+                btn.title = 'Click to RESUME automated AI replies & voice notes';
+            }
+        }
+
+        async function toggleBotPower() {
+            try {
+                const btn = document.getElementById('bot-power-btn');
+                btn.disabled = true;
+                const res = await fetch('/api/bot/toggle', { method: 'POST' });
+                const data = await res.json();
+                renderBotPowerButton(data.active);
+                btn.disabled = false;
+                
+                if (!data.active) {
+                    alert('🛑 Bot is now in STANDBY (STOPPED).\n\n• WAHA WhatsApp server and phone line remain 100% connected.\n• Automated AI replies and voice notes are paused.\n• You can safely use this number for manual replies or connect another bot anytime!');
+                } else {
+                    alert('✅ Bot is now ACTIVE.\n\nAutomated AI replies, voice notes, and agricultural guidance have been resumed.');
+                }
+            } catch (e) {
+                alert('Error toggling bot power: ' + e.message);
+                document.getElementById('bot-power-btn').disabled = false;
+            }
+        }
+
         // Initial setup
         fetchContacts();
         checkWahaStatus();
         loadCatalog();
+        fetchBotPowerStatus();
         setInterval(fetchContacts, 5000);
         setInterval(checkWahaStatus, 15000);
+        setInterval(fetchBotPowerStatus, 10000);
     </script>
 </body>
 </html>

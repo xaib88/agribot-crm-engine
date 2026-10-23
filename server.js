@@ -60,6 +60,18 @@ app.get('/api/stats', (req, res) => {
     res.json(db.getStats());
 });
 
+// Master Bot Power Switch API (Standby / Resume without disconnecting WhatsApp)
+app.get('/api/bot/status', (req, res) => {
+    res.json({ active: db.isBotActive() });
+});
+
+app.post('/api/bot/toggle', (req, res) => {
+    const requested = req.body && req.body.active !== undefined ? Boolean(req.body.active) : !db.isBotActive();
+    const newStatus = db.setBotActive(requested);
+    console.log(`🔌 [DASHBOARD TOGGLE] Bot active state changed to: ${newStatus}`);
+    res.json({ success: true, active: newStatus });
+});
+
 // WAHA Cloud Status Endpoint
 app.get('/api/waha/status', async (req, res) => {
     try {
