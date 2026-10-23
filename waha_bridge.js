@@ -380,19 +380,43 @@ async function processWahaEvent(event) {
                 return;
             }
 
-            if (rawText.includes('@general')) {
+            // Revoke Admin Passkey
+            if (rawText.includes('@revokeadmin') || rawText.includes('@unadmin')) {
                 db.setAdmin(chatId, false);
-                console.log(`👥 Reset user ${chatId} to general farmer tier.`);
-                const unlockReply = "آپ کا اسٹیٹس جنرل کسان پر ری سیٹ کر دیا گیا ہے۔ اب روزانہ 20 سوالات کی حد لاگو ہے۔ 🌾";
+                console.log(`👥 Revoked admin status for ${chatId}.`);
+                const unlockReply = "ایڈمن اسٹیٹس ختم کر دیا گیا ہے۔ اب روزانہ 20 سوالات کی حد لاگو ہے۔ 🌾";
                 await sendTextMessage(session, chatId, unlockReply);
                 db.saveMessage({ jid: chatId, role: 'bot', text: unlockReply, pushName, msgId: 'bot_' + Date.now() });
                 return;
             }
 
-            // 3. Daily Rate Limiter Check (20 msgs per user)
+            // Mode Switching Triggers (@General vs Default AgriBot Mode)
+            if (rawText.startsWith('@general')) {
+                db.setChatMode(chatId, 'general');
+                console.log(`🌐 User ${chatId} switched to General AI Mode.`);
+                const stripped = userQuery.replace(/@general/i, '').trim();
+                if (!stripped) {
+                    const modeReply = "🌐 جنرل AI موڈ فعال ہو گیا ہے!\n\nاب آپ مجھ سے دنیا کے کسی بھی موضوع (تعلیم، سائنس، ٹیکنالوجی، تاریخ، روزمرہ معلومات وغیرہ) پر سوال پوچھ سکتے ہیں۔\n\n(یومیہ حد: 20 سوالات روزانہ۔ واپس زرعی رہنمائی پر جانے کے لیے کسی بھی وقت @AgriBot لکھیں)۔";
+                    await sendTextMessage(session, chatId, modeReply);
+                    db.saveMessage({ jid: chatId, role: 'bot', text: modeReply, pushName, msgId: 'bot_' + Date.now() });
+                    return;
+                }
+            } else if (rawText.startsWith('@agribot') || rawText.startsWith('@agri')) {
+                db.setChatMode(chatId, 'agri');
+                console.log(`🌾 User ${chatId} switched to AgriBot Mode.`);
+                const stripped = userQuery.replace(/@agribot/i, '').replace(/@agri/i, '').trim();
+                if (!stripped) {
+                    const modeReply = "🌿 زرعی رہنمائی موڈ (AgriBot) فعال ہے!\n\nمیں بشیر ہوں، آپ کا زرعی ماہر۔ اب آپ اپنی فصلوں، کھادوں، کیڑے مار ادویات، مویشی پالن اور موسم کے متعلق سوالات پوچھ سکتے ہیں۔\n\n(یومیہ حد: 20 سوالات روزانہ)۔";
+                    await sendTextMessage(session, chatId, modeReply);
+                    db.saveMessage({ jid: chatId, role: 'bot', text: modeReply, pushName, msgId: 'bot_' + Date.now() });
+                    return;
+                }
+            }
+
+            // 3. Daily Rate Limiter Check (Strictly 20 msgs per user per day in BOTH Agri and General modes)
             const limitCheck = db.checkDailyLimit(chatId, 20);
             if (!limitCheck.allowed) {
-                console.log(`⏳ Daily message limit reached for ${chatId} (${limitCheck.count}/20 msgs).`);
+                console.log(`⏳ Daily message limit reached for ${chatId} (${limitCheck.count}/20 msgs/day in ${db.getChatMode(chatId)} mode).`);
                 const limitReply = limitCheck.message;
 
                 await reactToMessage(session, msgId, '⏳');

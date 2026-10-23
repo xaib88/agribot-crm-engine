@@ -2327,5 +2327,155 @@
     ],
     "ytLinkSent": true,
     "lastYtSentTimestamp": 1792767564650
+  },
+  "test_rate_limit_user_1792780653716@c.us": {
+    "jid": "test_rate_limit_user_1792780653716@c.us",
+    "phone": "+test_rate_limit_user_1792780653716",
+    "name": "+test_rate_limit_user_1792780653716",
+    "lastMessage": "Test msg 20",
+    "lastTime": "2026-10-23T18:37:33.767Z",
+    "messages": [
+      {
+        "id": "1792780653723",
+        "role": "user",
+        "text": "Test msg 0",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.723Z"
+      },
+      {
+        "id": "1792780653726",
+        "role": "user",
+        "text": "Test msg 1",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.726Z"
+      },
+      {
+        "id": "1792780653728",
+        "role": "user",
+        "text": "Test msg 2",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.728Z"
+      },
+      {
+        "id": "1792780653730",
+        "role": "user",
+        "text": "Test msg 3",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.730Z"
+      },
+      {
+        "id": "1792780653733",
+        "role": "user",
+        "text": "Test msg 4",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.733Z"
+      },
+      {
+        "id": "1792780653735",
+        "role": "user",
+        "text": "Test msg 5",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.735Z"
+      },
+      {
+        "id": "1792780653738",
+        "role": "user",
+        "text": "Test msg 6",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.738Z"
+      },
+      {
+        "id": "1792780653740",
+        "role": "user",
+        "text": "Test msg 7",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.740Z"
+      },
+      {
+        "id": "1792780653743",
+        "role": "user",
+        "text": "Test msg 8",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.743Z"
+      },
+      {
+        "id": "1792780653746",
+        "role": "user",
+        "text": "Test msg 9",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.746Z"
+      },
+      {
+        "id": "1792780653748",
+        "role": "user",
+        "text": "Test msg 10",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.748Z"
+      },
+      {
+        "id": "1792780653750",
+        "role": "user",
+        "text": "Test msg 11",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.750Z"
+      },
+      {
+        "id": "1792780653752",
+        "role": "user",
+        "text": "Test msg 12",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.752Z"
+      },
+      {
+        "id": "1792780653754",
+        "role": "user",
+        "text": "Test msg 13",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.754Z"
+      },
+      {
+        "id": "1792780653755",
+        "role": "user",
+        "text": "Test msg 14",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.756Z"
+      },
+      {
+        "id": "1792780653758",
+        "role": "user",
+        "text": "Test msg 15",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.758Z"
+      },
+      {
+        "id": "1792780653760",
+        "role": "user",
+        "text": "Test msg 16",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.760Z"
+      },
+      {
+        "id": "1792780653762",
+        "role": "user",
+        "text": "Test msg 17",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.762Z"
+      },
+      {
+        "id": "1792780653764",
+        "role": "user",
+        "text": "Test msg 18",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.764Z"
+      },
+      {
+        "id": "1792780653768",
+        "role": "user",
+        "text": "Test msg 20",
+        "audioUrl": null,
+        "timestamp": "2026-10-23T18:37:33.768Z"
+      }
+    ],
+    "isAdmin": true
   }
 }

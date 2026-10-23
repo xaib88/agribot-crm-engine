@@ -196,28 +196,28 @@ function markYtLinkSent(jid) {
     persist();
 }
 
-// Daily Rate Limiter: 20 messages per user, 12-hour cool-off
+// Daily Rate Limiter: 20 messages per user per day (24-hour window), across both Agri and General modes
 function checkDailyLimit(jid, maxLimit = 20) {
-    if (!jid) return { allowed: true, count: 0 };
+    if (!jid) return { allowed: true, count: 0, remaining: maxLimit };
     
-    // Admin Godmode Bypass (@adminzeb)
+    // Admin Godmode Bypass (@adminzeb, 03285247115, etc.)
     if (chatsData[jid]?.isAdmin) {
-        return { allowed: true, count: 0, isAdmin: true };
+        return { allowed: true, count: 0, isAdmin: true, remaining: 9999 };
     }
 
     const now = Date.now();
-    const TWELVE_HOURS = 12 * 60 * 60 * 1000;
+    const ONE_DAY = 24 * 60 * 60 * 1000; // 24-hour rolling daily window
 
     const chat = chatsData[jid];
     if (!chat || !Array.isArray(chat.messages)) {
         return { allowed: true, count: 0, remaining: maxLimit };
     }
 
-    // Count user messages within the 12-hour window
+    // Count user messages within the 24-hour window (regardless of mode)
     const recentUserMsgs = chat.messages.filter(m => {
         if (m.role !== 'user') return false;
         const msgTime = new Date(m.timestamp).getTime();
-        return (now - msgTime) <= TWELVE_HOURS;
+        return (now - msgTime) <= ONE_DAY;
     });
 
     const count = recentUserMsgs.length;
@@ -225,7 +225,8 @@ function checkDailyLimit(jid, maxLimit = 20) {
         return {
             allowed: false,
             count,
-            message: "آپ کی لمٹ پوری ہو گئی ہے، براہِ کرم 12 گھنٹے بعد میسج کریں۔ 🌾"
+            remaining: 0,
+            message: "محترم صارف! آپ کے آج کے 20 سوالات کی یومیہ حد (Daily Limit: 20 messages per day) مکمل ہو چکی ہے۔\n\nآپ کا نیا کوٹہ 24 گھنٹے بعد خودکار طور پر ری سیٹ ہو جائے گا۔ شکریہ! 🌾"
         };
     }
 
