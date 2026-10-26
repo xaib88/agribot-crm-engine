@@ -3,16 +3,9 @@
     "jid": "173632709984503@lid",
     "phone": "+173632709984503",
     "name": "Shahzaib Irshad",
-    "lastMessage": "[🎙️ وائس نوٹ بھیجا گیا]",
-    "lastTime": "2026-10-21T10:12:47.293Z",
+    "lastMessage": "Salli Town extention kafi dooor hy or it is better k 65 ka agr flat e mil jy wo dakh lain app. abi time hy ap mazeed or search kr lain",
+    "lastTime": "2026-10-26T07:53:40.114Z",
     "messages": [
-      {
-        "id": "false_173632709984503@lid_AC5F09199FFBA02AB5599BC9FCD0F64D",
-        "role": "user",
-        "text": "[🎙️ وائس نوٹ]",
-        "audioUrl": null,
-        "timestamp": "2026-10-20T20:52:30.080Z"
-      },
       {
         "id": "bot_1792529556473",
         "role": "bot",
@@ -1405,6 +1398,13 @@
         "text": "[🎙️ وائس نوٹ بھیجا گیا]",
         "audioUrl": "/audio/voice_1792577557320_qu2qm8.ogg",
         "timestamp": "2026-10-21T10:12:47.293Z"
+      },
+      {
+        "id": "3EB01BC0A25AFCDF881834",
+        "role": "bot",
+        "text": "Salli Town extention kafi dooor hy or it is better k 65 ka agr flat e mil jy wo dakh lain app. abi time hy ap mazeed or search kr lain",
+        "audioUrl": null,
+        "timestamp": "2026-10-26T07:53:40.114Z"
       }
     ],
     "mode": "autonomous",
@@ -2481,11 +2481,19 @@
   "923317824038@c.us": {
     "jid": "923317824038@c.us",
     "phone": "+92 331 7824038",
-    "name": "+92 331 7824038",
-    "lastMessage": "",
-    "lastTime": "2026-10-26T05:30:47.699Z",
+    "name": "Admin (03317824038)",
+    "lastMessage": "Salli Town extention kafi dooor hy or it is better k 65 ka agr flat e mil jy wo dakh lain app. abi time hy ap mazeed or search kr lain",
+    "lastTime": "2026-10-26T07:53:40.108Z",
     "mode": "autonomous",
-    "messages": [],
+    "messages": [
+      {
+        "id": "3EB069DE4B7A17456C1CE0",
+        "role": "bot",
+        "text": "Salli Town extention kafi dooor hy or it is better k 65 ka agr flat e mil jy wo dakh lain app. abi time hy ap mazeed or search kr lain",
+        "audioUrl": null,
+        "timestamp": "2026-10-26T07:53:40.109Z"
+      }
+    ],
     "isAdmin": true
   },
   "923001112233@c.us": {
