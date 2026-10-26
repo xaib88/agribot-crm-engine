@@ -154,8 +154,11 @@ function hasMessage(msgId) {
 }
 
 function getChatMode(jid) {
-    if (!jid || !chatsData[jid]) return 'agri';
-    return chatsData[jid].mode || 'agri';
+    if (!jid) return 'agri';
+    if (isMasterAdmin(jid)) {
+        return chatsData[jid]?.mode || 'autonomous';
+    }
+    return chatsData[jid]?.mode || 'agri';
 }
 
 // YouTube Link Gate: STRICTLY ONCE PER FARMER EVER (Never repeated)

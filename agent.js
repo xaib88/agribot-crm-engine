@@ -306,6 +306,15 @@ function bossQualityGate(userQuery, botReply, chatId, currentMode) {
 
     // 5. YOUTUBE LINK POLICY: Strictly NEVER auto-appended to questions/answers.
     // The YouTube link is restricted to ONLY ONE PLACE: the initial welcome greeting or explicit user request.
+
+    // 6. MASTER ADMIN PERSONA PROTECTION: Never address Master Admin as farmer
+    if (chatId && db.isMasterAdmin(chatId)) {
+        text = text.replace(/کاشتکار\s*بھائی/g, 'باس')
+                   .replace(/کسان\s*بھائی/g, 'باس')
+                   .replace(/محترم\s*کاشتکار/g, 'محترم باس')
+                   .replace(/محترم\s*کسان/g, 'محترم باس');
+    }
+
     return text;
 }
 
@@ -446,7 +455,7 @@ async function getQuickTextAnswer(userText, chatId = null) {
     const lower = query.toLowerCase();
 
     // 0. Autonomous Agent Mode Trigger (Master Admin Only: 03317824038 & 03285247115)
-    const isAutonomousTrigger = /ایکٹ\s*ایز\s*ا[ٹٹ]ونوم[سک]\s*باٹ|ایکٹ\s*ایز\s*آٹونوم[سک]|act\s*as\s*autonomous(\s*bot|\s*agent)?|@autonomous|@agent|ا[ٹٹ]ونوم[سک]\s*باٹ/i.test(query);
+    const isAutonomousTrigger = /autonomous|اٹونوم[سک]|آٹونوم[سک]|ایجنٹ\s*موڈ|باس\s*موڈ|agent\s*mode|executive/i.test(query);
 
     if (isAutonomousTrigger) {
         if (chatId && db.isMasterAdmin(chatId)) {
@@ -459,6 +468,16 @@ async function getQuickTextAnswer(userText, chatId = null) {
             console.log(`🚫 [UNAUTHORIZED] Non-admin user ${chatId} tried to activate Autonomous Agent Mode. Blocked.`);
             return "محترم کاشتکار بھائی! میں زرعی رہنمائی کا ماہر (بشیر) ہوں۔ میں صرف آپ کی فصلوں، کھادوں، کیڑے مار ادویات اور منڈی ریٹس کے متعلق رہنمائی کے لیے حاضر ہوں۔ اپنی فصل سے متعلق اپنا مسئلہ بتائیں۔ 🌾";
         }
+    }
+
+    // Smart Intent for Master Admin: Auto-switch to Autonomous Mode for search/property/google tasks
+    const isAdminSearchOrProperty = (chatId && db.isMasterAdmin(chatId)) && 
+        /گوگل|نیٹ|انٹرنیٹ|سرچ|تلاش|ڈھونڈ|دیکھو|پراپرٹی|پلاٹ|مکان|دکان|زمین|قیمت|ریٹ|ریٹس|فار\s*سیل|خرید|بیچ|اشتہار|zameen|olx|google|search|find|property|plot|house|flat|rate|price/i.test(query);
+
+    if (isAdminSearchOrProperty && currentMode !== 'autonomous') {
+        console.log(`⚡ [AUTO-AUTONOMOUS] Master Admin asked for search/property. Auto-switching to Autonomous Mode!`);
+        currentMode = 'autonomous';
+        if (chatId) db.setChatMode(chatId, 'autonomous');
     }
 
     // 1. Explicit Mode Switch Triggers
@@ -523,6 +542,12 @@ async function getQuickTextAnswer(userText, chatId = null) {
     if (isPureGreeting) {
         const userSaidSalam = /سلام|اسلام|السلام|aoa|salam/i.test(query);
         const prefix = userSaidSalam ? "وعلیکم السلام! " : "";
+
+        // Master Admin or Autonomous Mode: Never address as farmer!
+        if (currentMode === 'autonomous' || (chatId && db.isMasterAdmin(chatId))) {
+            return `${prefix}خوش آمدید باس! میں آپ کا خودکار اے آئی ایگزیکٹو اسسٹنٹ ہوں۔ انٹرنیٹ سرچ، پراپرٹی ریسرچ یا کوئی بھی کام ہو، حکم فرمائیں۔ ⚡`;
+        }
+
         const canWelcome = chatId ? db.shouldSendWelcome(chatId) : true;
 
         if (canWelcome) {

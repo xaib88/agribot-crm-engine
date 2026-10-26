@@ -1407,7 +1407,7 @@
         "timestamp": "2026-10-21T10:12:47.293Z"
       }
     ],
-    "mode": "agri",
+    "mode": "autonomous",
     "lastYtSentDate": "2026-10-20",
     "isAdmin": true,
     "lastYtSentTimestamp": 1792558431557
@@ -2477,5 +2477,26 @@
       }
     ],
     "isAdmin": true
+  },
+  "923317824038@c.us": {
+    "jid": "923317824038@c.us",
+    "phone": "+92 331 7824038",
+    "name": "+92 331 7824038",
+    "lastMessage": "",
+    "lastTime": "2026-10-26T05:30:47.699Z",
+    "mode": "autonomous",
+    "messages": [],
+    "isAdmin": true
+  },
+  "923001112233@c.us": {
+    "jid": "923001112233@c.us",
+    "phone": "+92 300 1112233",
+    "name": "+92 300 1112233",
+    "lastMessage": "",
+    "lastTime": "2026-10-26T05:58:05.139Z",
+    "lastWelcomeTimestamp": 1792994285140,
+    "messages": [],
+    "ytLinkSent": true,
+    "lastYtSentTimestamp": 1792994285144
   }
 }
