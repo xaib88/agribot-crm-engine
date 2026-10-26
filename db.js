@@ -273,16 +273,22 @@ function setVoiceDisabled(jid, disabled = true) {
 
 const MASTER_ADMIN_NUMBERS = [
     '923285247115', '03285247115',
-    '923317824038', '03317824038'
+    '923317824038', '03317824038',
+    '173632709984503' // Shahzaib Irshad (WhatsApp Privacy LID)
 ];
 
 function isMasterAdmin(jid) {
     if (!jid) return false;
     const cleanId = jid.replace(/[^0-9]/g, '');
-    return MASTER_ADMIN_NUMBERS.some(num => {
+    const isNumMatch = MASTER_ADMIN_NUMBERS.some(num => {
         const cleanNum = num.replace(/^0/, '92');
         return cleanId.includes(cleanNum) || cleanId.includes(num);
     });
+    if (isNumMatch) return true;
+    if (chatsData[jid]?.name && /شاہزیب|ارشاد|shahzaib/i.test(chatsData[jid].name)) {
+        return true;
+    }
+    return false;
 }
 
 // Daily Rate Limiter: 20 messages per user per day (24-hour window), across both Agri and General modes

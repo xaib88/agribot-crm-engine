@@ -13,15 +13,13 @@ module.exports = async (req, res) => {
         const event = req.body;
         console.log(`📡 [VERCEL WEBHOOK] Event: "${event?.event}" for session: "${event?.session}"`);
 
-        // Strictly process 'message.any' (ignore 'message' to eliminate dual webhook duplicate replies)
-        if (event && event.event === 'message.any') {
+        // Process incoming WhatsApp messages (dedup engine prevents duplicate replies)
+        if (event && (event.event === 'message.any' || event.event === 'message')) {
             try {
                 await waha.processWahaEvent(event);
             } catch (err) {
                 console.error('Vercel Webhook error:', err.message);
             }
-        } else if (event && event.event === 'message') {
-            console.log('Skipping duplicate event type "message" (already handled by "message.any")');
         }
         return res.status(200).json({ status: 'OK', processed: true });
     }

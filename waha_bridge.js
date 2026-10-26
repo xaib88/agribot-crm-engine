@@ -52,7 +52,7 @@ function isDuplicate(id) {
     return false;
 }
 
-// REST helper using modern resilient fetch with 8s strict timeout
+// REST helper using modern resilient fetch with 15s timeout
 async function wahaRequest(method, endpoint, body = null) {
     try {
         const fullUrl = new URL(endpoint, WAHA_BASE_URL).toString();
@@ -62,7 +62,7 @@ async function wahaRequest(method, endpoint, body = null) {
                 'X-Api-Key': WAHA_API_KEY,
                 'Content-Type': 'application/json'
             },
-            signal: AbortSignal.timeout(8000)
+            signal: AbortSignal.timeout(15000)
         };
         if (body && method !== 'GET') {
             options.body = JSON.stringify(body);
