@@ -271,12 +271,26 @@ function setVoiceDisabled(jid, disabled = true) {
     persist();
 }
 
+const MASTER_ADMIN_NUMBERS = [
+    '923285247115', '03285247115',
+    '923317824038', '03317824038'
+];
+
+function isMasterAdmin(jid) {
+    if (!jid) return false;
+    const cleanId = jid.replace(/[^0-9]/g, '');
+    return MASTER_ADMIN_NUMBERS.some(num => {
+        const cleanNum = num.replace(/^0/, '92');
+        return cleanId.includes(cleanNum) || cleanId.includes(num);
+    });
+}
+
 // Daily Rate Limiter: 20 messages per user per day (24-hour window), across both Agri and General modes
 function checkDailyLimit(jid, maxLimit = 20) {
     if (!jid) return { allowed: true, count: 0, remaining: maxLimit };
     
-    // Admin Godmode Bypass (@adminzeb, 03285247115, etc.)
-    if (chatsData[jid]?.isAdmin) {
+    // Admin Godmode Bypass (@adminzeb, 03285247115, 03317824038, etc.)
+    if (isMasterAdmin(jid) || chatsData[jid]?.isAdmin) {
         return { allowed: true, count: 0, isAdmin: true, remaining: 9999 };
     }
 
@@ -371,5 +385,6 @@ module.exports = {
     setAdmin,
     hasMessage,
     isBotActive,
-    setBotActive
+    setBotActive,
+    isMasterAdmin
 };

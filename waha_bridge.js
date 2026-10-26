@@ -197,7 +197,7 @@ async function sendVoiceNote(session, chatId, audioPath) {
 
 // Active session cache
 let activeSessionName = 'default';
-let activeSessionPhone = '923317824038@c.us';
+let activeSessionPhone = '923026964085@c.us';
 let activeSessionLid = '';
 
 async function updateActiveSession() {
@@ -207,7 +207,7 @@ async function updateActiveSession() {
             const working = res.data.find(s => s.status === 'WORKING');
             if (working) {
                 activeSessionName = working.name;
-                activeSessionPhone = working.me?.id || '923317824038@c.us';
+                activeSessionPhone = working.me?.id || '923026964085@c.us';
                 activeSessionLid = working.me?.lid || '';
                 console.log(`📡 WAHA Active Working Session: ${activeSessionName} (${working.me?.pushName || activeSessionPhone})`);
             } else {
@@ -309,9 +309,9 @@ async function processWahaEvent(event) {
             // NEVER reply to messages sent by the bot itself (Eliminates self-reply infinite loop)
             if (payload.fromMe) return;
 
-            // Silenced numbers (except admin commands)
-            if (chatId && chatId.includes('923317824038') && !/stop|start|pause|resume|@admin/i.test(userQuery)) {
-                console.log(`🛑 [SILENCED] Message from ${chatId} ignored.`);
+            // Drop message if sent by bot's own session phone (prevent self-loop)
+            if (activeSessionPhone && chatId === activeSessionPhone) {
+                console.log(`🛑 [SELF-DROP] Dropping message sent by bot session phone (${chatId}).`);
                 return;
             }
 
@@ -325,14 +325,18 @@ async function processWahaEvent(event) {
             const pushName = payload._data?.pushName || payload._data?.notifyName || 'Farmer';
             const isAudio = payload.hasMedia && (payload.media?.mimetype?.includes('audio') || payload.type === 'ptt');
             const isImage = payload.hasMedia && (payload.media?.mimetype?.includes('image') || payload.type === 'image' || payload._data?.type === 'image');
+            const isLocation = payload.type === 'location' || 
+                               payload._data?.type === 'location' || 
+                               Boolean(payload.location) ||
+                               (payload.lat !== undefined && payload.lng !== undefined) ||
+                               (payload.latitude !== undefined && payload.longitude !== undefined);
             const hasMedia = payload.hasMedia;
 
-            console.log(`\n📩 Incoming WhatsApp from ${chatId} (${pushName}): ${isAudio ? '[🎙️ Voice Note]' : `"${userQuery}"`}`);
+            console.log(`\n📩 Incoming WhatsApp from ${chatId} (${pushName}): ${isAudio ? '[🎙️ Voice Note]' : isLocation ? '[📍 Location Pin]' : `"${userQuery}"`}`);
 
-            // 0. Master Admin & Global Killswitch Controller (Primary Admin: 03285247115)
+            // 0. Master Admin & Global Killswitch Controller (Primary Admin: 03317824038 & 03285247115)
             const rawText = userQuery.toLowerCase().trim();
-            const MASTER_ADMIN_NUMBERS = ['923285247115', '03285247115', '923317824038', '03317824038'];
-            const isMasterAdmin = chatId && MASTER_ADMIN_NUMBERS.some(num => chatId.includes(num));
+            const isMasterAdmin = db.isMasterAdmin(chatId);
 
             if (isMasterAdmin) {
                 db.setAdmin(chatId, true);
@@ -391,7 +395,28 @@ async function processWahaEvent(event) {
                 return;
             }
 
-            // Mode Switching Triggers (@General vs Default AgriBot Mode)
+            // Mode Switching Triggers (@Autonomous vs @General vs Default AgriBot Mode)
+            const isAutonomousTrigger = /ایکٹ\s*ایز\s*ا[ٹٹ]ونوم[سک]\s*باٹ|ایکٹ\s*ایز\s*آٹونوم[سک]|act\s*as\s*autonomous(\s*bot|\s*agent)?|@autonomous|@agent|ا[ٹٹ]ونوم[سک]\s*باٹ/i.test(rawText);
+            if (isAutonomousTrigger) {
+                if (isMasterAdmin) {
+                    db.setChatMode(chatId, 'autonomous');
+                    console.log(`⚡ [AUTONOMOUS MODE ACTIVATED] Master Admin ${chatId} switched to Autonomous Agent Mode.`);
+                    const stripped = userQuery.replace(/@autonomous|@agent/gi, '').trim();
+                    if (!stripped || /ایکٹ\s*ایز\s*ا[ٹٹ]ونوم[سک]\s*باٹ|act\s*as\s*autonomous/i.test(stripped)) {
+                        const modeReply = "⚡ **اٹونومک ایجنٹ موڈ فعال ہو گیا ہے!** (Autonomous Agent Mode Active)\n\nخوش آمدید باس! میں آپ کے ذاتی احکامات، گوگل سرچ اور پراپرٹی ٹاسکس انجام دینے کے لیے مکمل تیار ہوں۔\n\nاب آپ مجھ سے:\n1. 🔍 **گوگل و ویب سرچ:** انٹرنیٹ سے کوئی بھی لائیو معلومات، خبریں، مارکیٹ ریٹس یا اپڈیٹس تلاش کروا سکتے ہیں۔\n2. 🏢 **پراپرٹی و پلاٹس تلاش:** لاہور، ملتان، اسلام آباد یا کسی بھی علاقے میں Zameen.com اور OLX سے پلاٹس، مکانات یا دکانوں کی لسٹنگ لنکس سمیت نکلوا سکتے ہیں۔\n3. 📍 **لوکیشن پن سرچ:** واٹس ایپ پر لائیو لوکیشن بھیج کر اس کے اردگرد ریئل اسٹیٹ یا پراپرٹیز تلاش کروا سکتے ہیں۔\n4. 💼 **آزادانہ کام:** آپ جو بھی ہدایت دیں گے، میں خودکار طور پر انٹرنیٹ سے تلاش کر کے آپ کو رپورٹ دوں گا کہ 'یہ کام ہو گیا ہے'۔\n\n(نوٹ: باقی تمام کاشتکاروں کے لیے میں بدستور زرعی رہنمائی کا ماہر 'بشیر' کے طور پر کام کر رہا ہوں۔ واپس زرعی موڈ کے لیے کسی بھی وقت @AgriBot لکھیں)۔";
+                        await sendTextMessage(session, chatId, modeReply);
+                        db.saveMessage({ jid: chatId, role: 'bot', text: modeReply, pushName, msgId: 'bot_' + Date.now() });
+                        return;
+                    }
+                } else {
+                    console.log(`🚫 [UNAUTHORIZED] Non-admin ${chatId} attempted autonomous mode switch. Blocked.`);
+                    const blockedReply = "محترم کاشتکار بھائی! میں زرعی رہنمائی کا ماہر (بشیر) ہوں۔ میں صرف آپ کی فصلوں، کھادوں، کیڑے مار ادویات اور منڈی ریٹس کے متعلق رہنمائی کے لیے حاضر ہوں۔ اپنی فصل سے متعلق اپنا مسئلہ بتائیں۔ 🌾";
+                    await sendTextMessage(session, chatId, blockedReply);
+                    db.saveMessage({ jid: chatId, role: 'bot', text: blockedReply, pushName, msgId: 'bot_' + Date.now() });
+                    return;
+                }
+            }
+
             if (rawText.startsWith('@general')) {
                 db.setChatMode(chatId, 'general');
                 console.log(`🌐 User ${chatId} switched to General AI Mode.`);
@@ -509,6 +534,23 @@ async function processWahaEvent(event) {
                     } else {
                         userMessageText = '[🎙️ وائس نوٹ]: (آواز واضح نہیں تھی)';
                         replyText = 'کاشتکار بھائی! آپ کی آواز صاف نہیں مل سکی۔ براہِ کرم اپنا سوال دوبارہ ریکارڈ کر کے بھیجیں یا لکھ کر بتائیں۔ 🌾';
+                    }
+                } else if (isLocation) {
+                    const lat = payload.location?.latitude || payload.lat || payload.latitude || payload._data?.lat;
+                    const lng = payload.location?.longitude || payload.lng || payload.longitude || payload._data?.lng;
+                    const locName = payload.location?.name || payload.location?.description || payload.location?.address || payload.body || '';
+
+                    userMessageText = `[📍 لوکیشن پن]: ${locName || `${lat}, ${lng}`}`;
+                    const currentMode = db.getChatMode(chatId);
+
+                    if (isMasterAdmin && (currentMode === 'autonomous' || /پراپرٹی|پلاٹ|زمین|مکان/i.test(cleanUserQuery))) {
+                        const locQuery = `اس لوکیشن (${locName || `${lat}, ${lng}`}) کے قریب برائے فروخت پراپرٹی، پلاٹس اور مکانات تلاش کرو Zameen OLX`;
+                        console.log(`📍 [AUTONOMOUS LOCATION PIN] Searching properties: "${locQuery}"...`);
+                        replyText = await agent.getQuickTextAnswer(locQuery, chatId);
+                    } else {
+                        const weather = require('./weather');
+                        const locWeather = await weather.getLiveWeather(null, 'آپ کا علاقہ', [lat, lng]);
+                        replyText = locWeather ? `محترم کاشتکار بھائی! آپ کی بھیجی گئی لوکیشن کے مطابق:\n\n${locWeather}` : "محترم کاشتکار بھائی! آپ کی لوکیشن موصول ہوئی ہے۔ براہِ کرم اپنا زرعی سوال بھی ساتھ لکھیں یا وائس نوٹ بھیجیں۔ 🌿";
                     }
                 } else if (isImage) {
                     const hasMeaningfulText = cleanUserQuery && cleanUserQuery.length > 4 && !/^(یہ|دیکھیں|تصویر|فوٹو|image|photo|pic|check|this)$/i.test(cleanUserQuery.trim());

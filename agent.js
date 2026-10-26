@@ -6,6 +6,7 @@ const knowledgeModule = require('./knowledge');
 const voiceModule = require('./voice');
 const mandiModule = require('./mandi');
 const db = require('./db');
+const webSearch = require('./web_search');
 
 const CONFIG_PATH = path.join(__dirname, 'config.json');
 
@@ -92,6 +93,21 @@ const GENERAL_MASTER_PROMPT = `آپ 'بشیر' (Basheer) ہیں۔
 5. سلام کا اصول: جب تک صارف خود سلام نہ کرے، خود سے 'وعلیکم السلام' ہرگز نہ کہیں۔
 6. لنکس کی ممانعت: کوئی یوٹیوب یا بیرونی لنک مت لکھیں۔
 7. خالص پاکستانی اردو (Zero Hindi Words): ہندی الفاظ ہرگز استعمال نہ کریں۔ ہمیشہ فصیح اور باوقار پاکستانی اردو میں جواب دیں۔`;
+
+// Master System Prompt for Autonomous Agent Mode (@Autonomous / Admin Only: 03317824038 & 03285247115)
+const AUTONOMOUS_MASTER_PROMPT = `آپ ایک انتہائی بااختیار، خودکار اور تیز رفتار ایگزیکٹو اے آئی اسسٹنٹ (Autonomous Executive AI Agent) ہیں۔
+آپ اپنے باس (Master Admin) کے ذاتی احکامات، گوگل ریسرچ، ریئل اسٹیٹ پراپرٹی سرچ، لائیو مارکیٹ ریٹس اور انٹرنیٹ ٹاسکس انجام دینے کے لیے مخصوص ہیں۔
+
+اہم اصول و اخلاقیات:
+1. لہجہ: باادب، پیشہ ورانہ، فرمانبردار اور ایگزیکٹو (جیسے ایک وفادار چیف آف اسٹاف اپنے باس سے مخاطب ہوتا ہے)۔
+2. رپورٹنگ فارمیٹ: جب بھی کوئی کام مکمل ہو، واضح، جامع اور منظم انداز میں پیش کریں:
+   - "باس! آپ کے حکم کے مطابق میں نے انٹرنیٹ/گوگل پر تلاش مکمل کر لی ہے:"
+   - اہم معلومات، ریٹس، تفصیلات، لوکیشن، اور فون/رابطہ نمبرز۔
+   - قابلِ کلک لنکس (Clickable Links) جیسے Zameen.com، OLX.com.pk یا سرکاری/معتبر ویب سائٹس کے مکمل لنکس۔
+   - اختتام پر تصدیقی جملہ: "یہ کام مکمل ہو گیا ہے۔"
+3. غیر ضروری تمہید سے گریز: براہِ راست کام کی بات اور خلاصہ پیش کریں۔
+4. زبان: مستند پاکستانی اردو، رومن اردو یا انگریزی (ہندی الفاظ ہرگز استعمال نہ کریں)۔
+5. اختیارات: آپ انٹرنیٹ سرچ، پراپرٹی تجزیہ، گوگل ریسرچ، اور لائیو معلومات فراہم کرنے کے مکمل مجاز ہیں۔`;
 
 // Multi-turn context builder for Gemini API
 function buildGeminiContents(chatId, currentQueryText, inlineAudio = null) {
@@ -245,9 +261,9 @@ function bossQualityGate(userQuery, botReply, chatId, currentMode) {
         text = text.replace(/^(وعلیکم السلام ورحمۃ اللہ وبرکاتہ[!،.]*)/gi, '').trim();
     }
 
-    // 1.5. WELCOME POLICE: "خوش آمدید" strictly allowed ONLY ONCE PER DAY per farmer
+    // 1.5. WELCOME POLICE: "خوش آمدید" strictly allowed ONLY ONCE PER DAY per farmer (bypassed in autonomous mode)
     const canWelcome = chatId ? db.shouldSendWelcome(chatId) : false;
-    if (!canWelcome) {
+    if (!canWelcome && currentMode !== 'autonomous') {
         // Strip any repeated "خوش آمدید" from response
         text = text.replace(/^(خوش\s*آمدید\s*کاشتکار\s*بھائی[!،.,:؛-]*|خوش\s*آمدید\s*بھائی[!،.,:؛-]*|خوش\s*آمدید[!،.,:؛-]*)/gi, '').trim();
         text = text.replace(/خوش\s*آمدید\s*کاشتکار\s*بھائی[!،.]*/gi, '').trim();
@@ -273,8 +289,10 @@ function bossQualityGate(userQuery, botReply, chatId, currentMode) {
                .replace(/سمے/gi, 'وقت')
                .replace(/سوچنا/gi, 'معلومات');
 
-    // 3. LINK & PROMOTIONAL QUARANTINE
-    text = text.replace(/https?:\/\/[^\s]+/gi, '').replace(/^زراعت\s*گائیڈنس\s*[:\-]\s*/gi, '').trim();
+    // 3. LINK & PROMOTIONAL QUARANTINE (Preserved in Autonomous Mode for live listings and links)
+    if (currentMode !== 'autonomous') {
+        text = text.replace(/https?:\/\/[^\s]+/gi, '').replace(/^زراعت\s*گائیڈنس\s*[:\-]\s*/gi, '').trim();
+    }
 
     // 4. LENGTH & CONCISENESS POLICE (Thorough guidance allowed for detailed requests and wheat sowing)
     const isWheatSowing = /گندم.*(بوائی|کاشت|بجائی|وقت|درجہ حرارت|35|گرمی|موسم)|(بوائی|کاشت|بجائی).*(گندم)|wheat.*(sow|sowing|temperature|35|time)/i.test(userQuery);
@@ -427,6 +445,22 @@ async function getQuickTextAnswer(userText, chatId = null) {
     let currentMode = chatId ? db.getChatMode(chatId) : 'agri';
     const lower = query.toLowerCase();
 
+    // 0. Autonomous Agent Mode Trigger (Master Admin Only: 03317824038 & 03285247115)
+    const isAutonomousTrigger = /ایکٹ\s*ایز\s*ا[ٹٹ]ونوم[سک]\s*باٹ|ایکٹ\s*ایز\s*آٹونوم[سک]|act\s*as\s*autonomous(\s*bot|\s*agent)?|@autonomous|@agent|ا[ٹٹ]ونوم[سک]\s*باٹ/i.test(query);
+
+    if (isAutonomousTrigger) {
+        if (chatId && db.isMasterAdmin(chatId)) {
+            currentMode = 'autonomous';
+            db.setChatMode(chatId, 'autonomous');
+            db.setAdmin(chatId, true);
+            console.log(`⚡ [AUTONOMOUS MODE ACTIVATED] Master Admin ${chatId} activated Autonomous Agent Mode!`);
+            return "⚡ **اٹونومک ایجنٹ موڈ فعال ہو گیا ہے!** (Autonomous Agent Mode Active)\n\nخوش آمدید باس! میں آپ کے ذاتی احکامات، گوگل سرچ اور پراپرٹی ٹاسکس انجام دینے کے لیے مکمل تیار ہوں۔\n\nاب آپ مجھ سے:\n1. 🔍 **گوگل و ویب سرچ:** انٹرنیٹ سے کوئی بھی لائیو معلومات، خبریں، مارکیٹ ریٹس یا اپڈیٹس تلاش کروا سکتے ہیں۔\n2. 🏢 **پراپرٹی و پلاٹس تلاش:** لاہور، ملتان، اسلام آباد یا کسی بھی علاقے میں Zameen.com اور OLX سے پلاٹس، مکانات یا دکانوں کی لسٹنگ لنکس سمیت نکلوا سکتے ہیں۔\n3. 📍 **لوکیشن پن سرچ:** واٹس ایپ پر لائیو لوکیشن بھیج کر اس کے اردگرد ریئل اسٹیٹ یا پراپرٹیز تلاش کروا سکتے ہیں۔\n4. 💼 **آزادانہ کام:** آپ جو بھی ہدایت دیں گے، میں خودکار طور پر انٹرنیٹ سے تلاش کر کے آپ کو رپورٹ دوں گا کہ 'یہ کام ہو گیا ہے'۔\n\n(نوٹ: باقی تمام کاشتکاروں کے لیے میں بدستور زرعی رہنمائی کا ماہر 'بشیر' کے طور پر کام کر رہا ہوں۔ واپس زرعی موڈ کے لیے کسی بھی وقت @AgriBot لکھیں)۔";
+        } else {
+            console.log(`🚫 [UNAUTHORIZED] Non-admin user ${chatId} tried to activate Autonomous Agent Mode. Blocked.`);
+            return "محترم کاشتکار بھائی! میں زرعی رہنمائی کا ماہر (بشیر) ہوں۔ میں صرف آپ کی فصلوں، کھادوں، کیڑے مار ادویات اور منڈی ریٹس کے متعلق رہنمائی کے لیے حاضر ہوں۔ اپنی فصل سے متعلق اپنا مسئلہ بتائیں۔ 🌾";
+        }
+    }
+
     // 1. Explicit Mode Switch Triggers
     if (lower.startsWith('@general')) {
         currentMode = 'general';
@@ -436,10 +470,10 @@ async function getQuickTextAnswer(userText, chatId = null) {
         if (!query) {
             return "🌐 جنرل AI موڈ فعال ہو گیا ہے!\n\nاب آپ مجھ سے دنیا کے کسی بھی موضوع (تعلیم، سائنس، ٹیکنالوجی، تاریخ، روزمرہ معلومات، کاروبار وغیرہ) پر سوال پوچھ سکتے ہیں۔\n\nواپس زرعی رہنمائی پر جانے کے لیے کسی بھی وقت @AgriBot لکھیں۔";
         }
-    } else if (lower.startsWith('@agribot') || lower.startsWith('@agri')) {
+    } else if (lower.startsWith('@agribot') || lower.startsWith('@agri') || /ایکٹ\s*ایز\s*ایگری\s*باٹ|زرعی\s*موڈ/i.test(query)) {
         currentMode = 'agri';
         if (chatId) db.setChatMode(chatId, 'agri');
-        query = query.replace(/@agribot/i, '').replace(/@agri/i, '').trim();
+        query = query.replace(/@agribot/i, '').replace(/@agri/i, '').replace(/ایکٹ\s*ایز\s*ایگری\s*باٹ|زرعی\s*موڈ/gi, '').trim();
 
         if (!query) {
             return "🌿 ایگری بوٹ موڈ فعال ہو گیا ہے!\n\nمیں زرعی رہنمائی سے بشیر ہوں، آپ کا زرعی ماہر۔ اب آپ اپنی فصلوں، کھادوں، کیڑے مار ادویات، مویشی پالن اور موسم کے متعلق سوالات پوچھ سکتے ہیں۔";
@@ -506,6 +540,59 @@ async function getQuickTextAnswer(userText, chatId = null) {
     // Explicit YouTube inquiry (User directly asks for videos or channel)
     if (/یوٹیوب|چینل|ویڈیو|youtube|channel|video/i.test(query)) {
         return "کاشتکار بھائی، تمام فصلوں اور جدید کاشتکاری کی رہنمائی ویڈیوز کے لیے ہمارے آفیشل یوٹیوب چینل کو وزٹ کریں:\nhttps://www.youtube.com/@AgricultureGuidance/";
+    }
+
+    // ========================================================
+    // BRANCH C: AUTONOMOUS AGENT MODE (@Autonomous / Admin Only)
+    // ========================================================
+    if (currentMode === 'autonomous') {
+        console.log(`🤖 [AUTONOMOUS AGENT] Processing admin prompt: "${query}" [ChatId: ${chatId}]`);
+
+        // Check if query involves search, property, web research, or Google
+        const hasSearchKeywords = /گوگل|نیٹ|انٹرنیٹ|سرچ|تلاش|ڈھونڈ|دیکھو|پراپرٹی|پلاٹ|مکان|دکان|فلیٹ|زمین|قیمت|ریٹ|ریٹس|فار\s*سیل|خرید|بیچ|اشتہار|zameen|olx|google|search|find|property|plot|house|flat|rate|price|buy|sell|latest|news|update/i.test(query);
+
+        let liveResults = [];
+        if (hasSearchKeywords || query.length > 5) {
+            let cleanSearchQuery = query
+                .replace(/گوگل\s*(پر|پہ)?\s*(جاؤ|جاکر)?\s*(اور)?/gi, '')
+                .replace(/(تلاش|سرچ|ڈھونڈ|دیکھو|چیک)\s*(کرو|کریں|کر کے لاؤ|کرنا)/gi, '')
+                .replace(/go\s*to\s*google\s*(and)?/gi, '')
+                .replace(/search\s*(for)?/gi, '')
+                .replace(/please/gi, '')
+                .trim();
+
+            if (!cleanSearchQuery || cleanSearchQuery.length < 3) {
+                cleanSearchQuery = query;
+            }
+
+            if (/پراپرٹی|پلاٹ|مکان|دکان|زمین|property|plot|house|flat/i.test(cleanSearchQuery) && !/zameen|olx/i.test(cleanSearchQuery)) {
+                cleanSearchQuery += ' Pakistan Zameen OLX';
+            }
+
+            try {
+                liveResults = await webSearch.searchWeb(cleanSearchQuery, 5);
+            } catch (err) {
+                console.error('Autonomous web search error:', err.message);
+            }
+        }
+
+        let searchContext = '';
+        if (liveResults && liveResults.length > 0) {
+            searchContext = `[انٹرنیٹ و گوگل سے حاصل کردہ لائیو سرچ نتائج]:\n`;
+            liveResults.forEach((res, idx) => {
+                searchContext += `${idx + 1}. عنوان: ${res.title}\n   خلاصہ: ${res.snippet}\n   اصل لنک: ${res.url}\n\n`;
+            });
+        }
+
+        const dynamicAutonomousPrompt = AUTONOMOUS_MASTER_PROMPT + `\n\n[صارف (باس) کا اصل حکم]: "${query}"\n\n` + 
+            (searchContext ? `${searchContext}\n[لازمی ہدایات برائے رپورٹنگ]:\n1. اوپر دیے گئے لائیو ڈیٹا اور لنکس کو مدنظر رکھتے ہوئے تفصیلی، جامع اور مصدقہ ایگزیکٹو جواب تیار کریں۔\n2. پراپرٹیز، قیمتیں، سائز، لوکیشن اور دستیاب لنکس کو بلٹ پوائنٹس میں پیش کریں۔\n3. جواب کے اندر متعلقہ ویب سائٹس اور Zameen/OLX کے اصل لنکس ضرور شامل کریں تاکہ باس براہِ راست وزٹ کر سکیں۔\n4. شروع میں تصدیق کریں کہ "باس! آپ کے حکم کے مطابق میں نے مطلوبہ تلاش مکمل کر لی ہے:" اور اختتام پر "یہ کام مکمل ہو گیا ہے۔" لکھیں۔` : `[ہدایت]: باس کے اس حکم پر ایگزیکٹو اور پیشہ ورانہ انداز میں مکمل عمل کریں اور رپورٹ دیں۔`);
+
+        const contents = buildGeminiContents(chatId, query || 'حکم');
+        let reply = await dispatchLLM(dynamicAutonomousPrompt, contents, config, 850);
+        if (!reply) {
+            reply = "باس! میں نے آپ کے حکم پر انٹرنیٹ پر تلاش کی ہے، تاہم ابھی درست نتائج حاصل نہیں ہو سکے۔ براہِ کرم مطلوبہ شہر یا پراپرٹی کی تفصیل لکھ کر بتائیں تاکہ میں دوبارہ درست نتائج پیش کر سکوں۔";
+        }
+        return bossQualityGate(query, reply, chatId, 'autonomous');
     }
 
     // ========================================================
