@@ -376,6 +376,18 @@ function setBotActive(active) {
     return botState.active;
 }
 
+function clearAllHistory() {
+    for (const jid in chatsData) {
+        chatsData[jid].messages = [];
+        chatsData[jid].lastMessage = '';
+        chatsData[jid].ytLinkSent = false;
+        delete chatsData[jid].lastWelcomeTimestamp;
+        delete chatsData[jid].lastYtSentTimestamp;
+    }
+    persist();
+    return true;
+}
+
 module.exports = {
     saveMessage,
     getContacts,
@@ -395,5 +407,6 @@ module.exports = {
     hasMessage,
     isBotActive,
     setBotActive,
-    isMasterAdmin
+    isMasterAdmin,
+    clearAllHistory
 };

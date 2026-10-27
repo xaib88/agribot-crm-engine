@@ -65,6 +65,17 @@ app.get('/api/bot/status', (req, res) => {
     res.json({ active: db.isBotActive() });
 });
 
+// Clear all chat history endpoint (wipes in-memory & disk history)
+app.all(['/api/clear-history', '/api/admin/clear-history'], (req, res) => {
+    try {
+        db.clearAllHistory();
+        console.log('🧹 [HISTORY PURGE] All chat history cleared successfully.');
+        res.json({ success: true, message: 'All chat history cleared successfully.' });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 app.post('/api/bot/toggle', (req, res) => {
     const requested = req.body && req.body.active !== undefined ? Boolean(req.body.active) : !db.isBotActive();
     const newStatus = db.setBotActive(requested);
