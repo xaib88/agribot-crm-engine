@@ -96,19 +96,21 @@ const GENERAL_MASTER_PROMPT = `آپ 'بشیر' (Basheer) ہیں۔
 7. خالص پاکستانی اردو (Zero Hindi Words): ہندی الفاظ ہرگز استعمال نہ کریں۔ ہمیشہ فصیح اور باوقار پاکستانی اردو میں جواب دیں۔`;
 
 // Master System Prompt for Autonomous Agent Mode (@Autonomous / Admin Only: 03317824038 & 03285247115)
-const AUTONOMOUS_MASTER_PROMPT = `آپ ایک انتہائی بااختیار، خودکار اور تیز رفتار ایگزیکٹو اے آئی اسسٹنٹ (Autonomous Executive AI Agent) ہیں۔
-آپ اپنے باس (Master Admin) کے ذاتی احکامات، گوگل ریسرچ، ریئل اسٹیٹ پراپرٹی سرچ، لائیو مارکیٹ ریٹس اور انٹرنیٹ ٹاسکس انجام دینے کے لیے مخصوص ہیں۔
+const AUTONOMOUS_MASTER_PROMPT = `آپ 'زیب اے آئی ایجنٹ' (Zeb AI Agent) ہیں۔ آپ ایک انتہائی بااختیار، خودکار اور تیز رفتار ایگزیکٹو اے آئی اسسٹنٹ (Autonomous Executive AI Agent) ہیں۔
+آپ اپنے باس شاہزیب ارشاد (Master Admin) کے ذاتی احکامات، گوگل ریسرچ، ریئل اسٹیٹ پراپرٹی سرچ، کیلنڈر شیڈولنگ، میٹنگ ریمائنڈرز اور انٹرنیٹ ٹاسکس انجام دینے کے لیے مخصوص ہیں۔
 
 اہم اصول و اخلاقیات:
-1. لہجہ: باادب، پیشہ ورانہ، فرمانبردار اور ایگزیکٹو (جیسے ایک وفادار چیف آف اسٹاف اپنے باس سے مخاطب ہوتا ہے)۔
-2. رپورٹنگ فارمیٹ: جب بھی کوئی کام مکمل ہو، واضح، جامع اور منظم انداز میں پیش کریں:
-   - "باس! آپ کے حکم کے مطابق میں نے انٹرنیٹ/گوگل پر تلاش مکمل کر لی ہے:"
+1. نام: آپ کا نام سختی سے 'زیب اے آئی ایجنٹ' (Zeb AI Agent) ہے۔
+2. خطاب (Salutation): اپنے باس کو ہمیشہ اور ہر حال میں "باس جی" کہہ کر مخاطب کریں! (مثلاً: "جی باس جی!"، "باس جی! آپ کے حکم کے مطابق...")۔ کبھی بھی کسان، کاشتکار یا صرف 'باس' مت کہیں۔
+3. لہجہ: باادب، پیشہ ورانہ، فرمانبردار اور ایگزیکٹو (جیسے ایک وفادار چیف آف اسٹاف اپنے باس جی سے مخاطب ہوتا ہے)۔
+4. رپورٹنگ فارمیٹ: جب بھی کوئی کام مکمل ہو، واضح، جامع اور منظم انداز میں پیش کریں:
+   - "باس جی! آپ کے حکم کے مطابق میں نے مطلوبہ ریسرچ/تلاش مکمل کر لی ہے:"
    - اہم معلومات، ریٹس، تفصیلات، لوکیشن، اور فون/رابطہ نمبرز۔
    - قابلِ کلک لنکس (Clickable Links) جیسے Zameen.com، OLX.com.pk یا سرکاری/معتبر ویب سائٹس کے مکمل لنکس۔
-   - اختتام پر تصدیقی جملہ: "یہ کام مکمل ہو گیا ہے۔"
-3. غیر ضروری تمہید سے گریز: براہِ راست کام کی بات اور خلاصہ پیش کریں۔
-4. زبان: مستند پاکستانی اردو، رومن اردو یا انگریزی (ہندی الفاظ ہرگز استعمال نہ کریں)۔
-5. اختیارات: آپ انٹرنیٹ سرچ، پراپرٹی تجزیہ، گوگل ریسرچ، اور لائیو معلومات فراہم کرنے کے مکمل مجاز ہیں۔`;
+   - اختتام پر تصدیقی جملہ: "باس جی! یہ کام مکمل ہو گیا ہے۔"
+5. غیر ضروری تمہید سے گریز: براہِ راست کام کی بات اور خلاصہ پیش کریں۔
+6. زبان: مستند پاکستانی اردو، رومن اردو یا انگریزی (ہندی الفاظ ہرگز استعمال نہ کریں)۔
+7. اختیارات: آپ انٹرنیٹ سرچ، پراپرٹی تجزیہ، میٹنگ شیڈولنگ، گوگل کیلنڈر ریمائنڈرز اور لائیو معلومات فراہم کرنے کے مکمل مجاز ہیں۔`;
 
 // Multi-turn context builder for Gemini API
 function buildGeminiContents(chatId, currentQueryText, inlineAudio = null) {
@@ -156,8 +158,8 @@ function buildGeminiContents(chatId, currentQueryText, inlineAudio = null) {
 }
 
 // Unified Gemini Flash Caller with strict 10s timeout & anti-hang protection
-async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3.5-flash', maxTokens = 350) {
-    const modelsToTry = ['gemini-3.5-flash', 'gemini-3-flash-preview', 'gemini-3.5-flash-lite'];
+async function callGemini(systemPrompt, contents, apiKey, modelName = 'gemini-3-flash-preview', maxTokens = 350) {
+    const modelsToTry = [...new Set(['gemini-3-flash-preview', modelName, 'gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-3.5-flash-lite'])];
     
     for (const model of modelsToTry) {
         try {
@@ -308,12 +310,13 @@ function bossQualityGate(userQuery, botReply, chatId, currentMode) {
     // 5. YOUTUBE LINK POLICY: Strictly NEVER auto-appended to questions/answers.
     // The YouTube link is restricted to ONLY ONE PLACE: the initial welcome greeting or explicit user request.
 
-    // 6. MASTER ADMIN PERSONA PROTECTION: Never address Master Admin as farmer
-    if (chatId && db.isMasterAdmin(chatId)) {
-        text = text.replace(/کاشتکار\s*بھائی/g, 'باس')
-                   .replace(/کسان\s*بھائی/g, 'باس')
-                   .replace(/محترم\s*کاشتکار/g, 'محترم باس')
-                   .replace(/محترم\s*کسان/g, 'محترم باس');
+    // 6. MASTER ADMIN PERSONA PROTECTION: Never address Master Admin as farmer, always use "باس جی"
+    if ((chatId && db.isMasterAdmin(chatId)) || currentMode === 'autonomous') {
+        text = text.replace(/کاشتکار\s*بھائی/g, 'باس جی')
+                   .replace(/کسان\s*بھائی/g, 'باس جی')
+                   .replace(/محترم\s*کاشتکار/g, 'محترم باس جی')
+                   .replace(/محترم\s*کسان/g, 'محترم باس جی')
+                   .replace(/(^|[^\u0600-\u06FFA-Za-z0-9])باس(?!\s*جی)(?=[^\u0600-\u06FFA-Za-z0-9]|$)/gu, (match, prefix) => prefix + 'باس جی');
     }
 
     return text;
@@ -471,12 +474,12 @@ async function getQuickTextAnswer(userText, chatId = null) {
         }
     }
 
-    // Smart Intent for Master Admin: Auto-switch to Autonomous Mode for search/property/google tasks
-    const isAdminSearchOrProperty = (chatId && db.isMasterAdmin(chatId)) && 
-        /گوگل|نیٹ|انٹرنیٹ|سرچ|تلاش|ڈھونڈ|دیکھو|پراپرٹی|پلاٹ|مکان|دکان|زمین|قیمت|ریٹ|ریٹس|فار\s*سیل|خرید|بیچ|اشتہار|zameen|olx|google|search|find|property|plot|house|flat|rate|price/i.test(query);
+    // Smart Intent for Master Admin: Auto-switch to Autonomous Mode (Zeb AI Agent) unless explicitly asking for Agri
+    const isMasterAdminUser = chatId ? db.isMasterAdmin(chatId) : false;
+    const isExplicitAgri = /@agribot|@agri|ایکٹ\s*ایز\s*ایگری\s*باٹ|زرعی\s*موڈ/i.test(query);
 
-    if (isAdminSearchOrProperty && currentMode !== 'autonomous') {
-        console.log(`⚡ [AUTO-AUTONOMOUS] Master Admin asked for search/property. Auto-switching to Autonomous Mode!`);
+    if (isMasterAdminUser && !isExplicitAgri && currentMode !== 'autonomous') {
+        console.log(`⚡ [AUTO-AUTONOMOUS] Master Admin ${chatId} active. Auto-switching to Autonomous Agent Mode (Zeb AI Agent)!`);
         currentMode = 'autonomous';
         if (chatId) db.setChatMode(chatId, 'autonomous');
     }
@@ -546,7 +549,7 @@ async function getQuickTextAnswer(userText, chatId = null) {
 
         // Master Admin or Autonomous Mode: Never address as farmer!
         if (currentMode === 'autonomous' || (chatId && db.isMasterAdmin(chatId))) {
-            return `${prefix}خوش آمدید باس! میں آپ کا خودکار اے آئی ایگزیکٹو اسسٹنٹ ہوں۔ انٹرنیٹ سرچ، پراپرٹی ریسرچ یا کوئی بھی کام ہو، حکم فرمائیں۔ ⚡`;
+            return `وعلیکم السلام باس جی! میں آپ کا 'زیب اے آئی ایجنٹ' ہوں۔ حکم فرمائیں، کیا خدمت کروں؟ ⚡`;
         }
 
         const canWelcome = chatId ? db.shouldSendWelcome(chatId) : true;
@@ -574,29 +577,49 @@ async function getQuickTextAnswer(userText, chatId = null) {
     if (currentMode === 'autonomous') {
         console.log(`🤖 [AUTONOMOUS AGENT] Processing admin prompt: "${query}" [ChatId: ${chatId}]`);
 
-        // Check if query is about meeting scheduling / calendar / reminder
-        const isMeetingQuery = /میٹنگ|شیڈول|ریمائنڈر|کیلنڈر|schedule|meeting|reminder|calendar|appointment/i.test(query);
+        // 1. Scenario 1: Near me real estate agents query (Initial inquiry asking for location)
+        const isNearMeAgentsQuery = /(نزدیک|قریب|near\s*me).*(ریئل\s*اسٹیٹ|رئیل\s*اسٹیٹ|پراپرٹی|ایجنٹ|ڈیلر)|(ریئل\s*اسٹیٹ|رئیل\s*اسٹیٹ|پراپرٹی|ایجنٹ|ڈیلر).*(نزدیک|قریب|near\s*me)|(ریئل\s*اسٹیٹ|رئیل\s*اسٹیٹ).*ایجنٹ.*(ڈیٹا|لسٹ)/i.test(query);
+        const hasSpecificLocation = /(لاہور|کراچی|اسلام\s*آباد|راولپنڈی|ملتان|فیصل\s*آباد|پشاور|کوئٹہ|بحریہ|ڈی\s*ایچ\s*اے|جوہر\s*ٹاؤن|گلبرگ|ماڈل\s*ٹاؤن|اقبال\s*ٹاؤن|سمن\s*آباد|کینٹ|\d+\.\d+)/i.test(query);
+
+        if (isNearMeAgentsQuery && !hasSpecificLocation && !query.includes('موصول شدہ لوکیشن')) {
+            const reply = `جی باس جی! آپ کے نزدیک مستند ریئل اسٹیٹ ایجنٹس کا ڈیٹا نکالنے کے لیے، مجھے آپ اپنی لوکیشن (📍) دے دیں یا کوئی مشہور جگہ کا نام بتا دیں تاکہ میں دیکھ سکوں اور وہاں کا مکمل ڈیٹا نکال کر پیش کروں۔ 🗺️`;
+            return bossQualityGate(query, reply, chatId, 'autonomous');
+        }
+
+        // 2. Scenario 2: Meeting / Reminder / Calendar Setup
+        const isMeetingQuery = /میٹنگ|شیڈول|ریمائنڈر|کیلنڈر|schedule|meeting|reminder|calendar|appointment|بتا\s*دینا/i.test(query);
         if (isMeetingQuery) {
             console.log(`📅 [CALENDAR ENGINE] Meeting scheduling detected: "${query}"`);
             const meeting = calendarModule.parseMeetingDetails(query);
-            const reply = `باس! آپ کے حکم کے مطابق میٹنگ شیڈول کر دی گئی ہے:
+            const reply = `جی باس جی! آپ کے حکم کے مطابق میٹنگ و ریمائنڈر شیڈول کر دیا گیا ہے:
 
 📌 **عنوان:** ${meeting.title}
 ⏰ **وقت و تاریخ:** ${meeting.formattedDate}
 📍 **مقام:** ${meeting.location}
-🔔 **ریمائنڈر:** 30 منٹ قبل خودکار الرٹ
+🔔 **ریمائنڈر الرٹ:** 30 منٹ قبل خودکار نوٹیفکیشن
 
 📅 **گوگل کیلنڈر میں ریمائنڈر محفوظ کریں:**
 👉 [کیلنڈر میں شامل کریں (Add to Google Calendar)](${meeting.gcalUrl})
 
 (اوپر دیے گئے لنک پر کلک کر کے آپ اسے براہِ راست اپنے گوگل کیلنڈر میں ریمائنڈر کے ساتھ محفوظ کر سکتے ہیں)۔
 
-یہ کام مکمل ہو گیا ہے۔`;
+باس جی! یہ کام مکمل ہو گیا ہے۔ ⚡`;
+            return bossQualityGate(query, reply, chatId, 'autonomous');
+        }
+
+        // 3. Scenario 3: Topic Research inquiry without topic specified yet
+        const isTopicResearchInquiry = /(ایک\s*ٹاپک\s*ہے|کوئی\s*ٹاپک|موضوع).*(ریسرچ|تحقیق|تلاش)|(ریسرچ|تحقیق).*(کر\s*کے\s*دو|کرنا\s*ہے|کرو)/i.test(query);
+        const hasSpecificTopic = /(پر|پہ|کے\s*بارے\s*میں|متعلق)\s*ریسرچ/i.test(query) && query.length > 35;
+
+        if (isTopicResearchInquiry && !hasSpecificTopic) {
+            const reply = `جی باس جی! آپ کا زیب اے آئی ایجنٹ حاضر ہے۔ 🫡
+
+بتائیں کس ٹاپک پر ریسرچ کرنی ہے؟ آپ صرف موضوع کا نام بتا دیں، میں انٹرنیٹ، گوگل اور تازہ ترین مستند پورٹلز سے مکمل فیکٹس، گہرا تجزیہ اور مستند لنکس کے ساتھ جامع رپورٹ تیار کر دوں گا! 🚀`;
             return bossQualityGate(query, reply, chatId, 'autonomous');
         }
 
         // Check if query involves search, property, web research, or Google
-        const hasSearchKeywords = /گوگل|نیٹ|انٹرنیٹ|سرچ|تلاش|ڈھونڈ|دیکھو|پراپرٹی|پلاٹ|مکان|دکان|فلیٹ|زمین|قیمت|ریٹ|ریٹس|فار\s*سیل|خرید|بیچ|اشتہار|zameen|olx|google|search|find|property|plot|house|flat|rate|price|buy|sell|latest|news|update/i.test(query);
+        const hasSearchKeywords = /گوگل|نیٹ|انٹرنیٹ|سرچ|تلاش|ڈھونڈ|دیکھو|پراپرٹی|پلاٹ|مکان|دکان|فلیٹ|زمین|قیمت|ریٹ|ریٹس|فار\s*سیل|خرید|بیچ|اشتہار|ایجنٹ|ڈیلر|دفتر|zameen|olx|google|search|find|property|plot|house|flat|rate|price|buy|sell|latest|news|update|research|ریسرچ/i.test(query);
 
         let liveResults = [];
         if (hasSearchKeywords || query.length > 5) {
@@ -612,7 +635,11 @@ async function getQuickTextAnswer(userText, chatId = null) {
                 cleanSearchQuery = query;
             }
 
-            if (/پراپرٹی|پلاٹ|مکان|دکان|زمین|property|plot|house|flat/i.test(cleanSearchQuery) && !/zameen|olx/i.test(cleanSearchQuery)) {
+            // If location pin query, extract the location name/coordinates inside parentheses for precision search
+            const locExtractMatch = query.match(/موصول\s*شدہ\s*لوکیشن\s*\(([^)]+)\)/i);
+            if (locExtractMatch && locExtractMatch[1]) {
+                cleanSearchQuery = `Real estate agents dealers ${locExtractMatch[1].trim()} Zameen OLX Pakistan`;
+            } else if (/پراپرٹی|پلاٹ|مکان|دکان|زمین|ایجنٹ|ڈیلر|property|plot|house|flat|agent/i.test(cleanSearchQuery) && !/zameen|olx/i.test(cleanSearchQuery)) {
                 cleanSearchQuery += ' Pakistan Zameen OLX';
             }
 
@@ -631,13 +658,13 @@ async function getQuickTextAnswer(userText, chatId = null) {
             });
         }
 
-        const dynamicAutonomousPrompt = AUTONOMOUS_MASTER_PROMPT + `\n\n[صارف (باس) کا اصل حکم]: "${query}"\n\n` + 
-            (searchContext ? `${searchContext}\n[لازمی ہدایات برائے رپورٹنگ]:\n1. اوپر دیے گئے لائیو ڈیٹا اور لنکس کو مدنظر رکھتے ہوئے تفصیلی، جامع اور مصدقہ ایگزیکٹو جواب تیار کریں۔\n2. پراپرٹیز، قیمتیں، سائز، لوکیشن اور دستیاب لنکس کو بلٹ پوائنٹس میں پیش کریں۔\n3. جواب کے اندر متعلقہ ویب سائٹس اور Zameen/OLX کے اصل لنکس ضرور شامل کریں تاکہ باس براہِ راست وزٹ کر سکیں۔\n4. شروع میں تصدیق کریں کہ "باس! آپ کے حکم کے مطابق میں نے مطلوبہ تلاش مکمل کر لی ہے:" اور اختتام پر "یہ کام مکمل ہو گیا ہے۔" لکھیں۔` : `[ہدایت]: باس کے اس حکم پر ایگزیکٹو اور پیشہ ورانہ انداز میں مکمل عمل کریں اور رپورٹ دیں۔`);
+        const dynamicAutonomousPrompt = AUTONOMOUS_MASTER_PROMPT + `\n\n[صارف (باس جی) کا اصل حکم]: "${query}"\n\n` + 
+            (searchContext ? `${searchContext}\n[لازمی ہدایات برائے رپورٹنگ]:\n1. اوپر دیے گئے لائیو ڈیٹا اور لنکس کو مدنظر رکھتے ہوئے تفصیلی، جامع اور مصدقہ ایگزیکٹو جواب تیار کریں۔\n2. معلومات، پراپرٹیز، ایجنٹس، قیمتیں، سائز، لوکیشن اور دستیاب لنکس کو واضح بلٹ پوائنٹس میں پیش کریں۔\n3. جواب کے اندر متعلقہ ویب سائٹس اور Zameen/OLX کے اصل لنکس ضرور شامل کریں تاکہ باس جی براہِ راست وزٹ کر سکیں۔\n4. شروع میں تصدیق کریں کہ "باس جی! آپ کے حکم کے مطابق میں نے مطلوبہ ریسرچ/تلاش مکمل کر لی ہے:" اور اختتام پر "باس جی! یہ کام مکمل ہو گیا ہے۔" لکھیں۔\n5. خطاب میں صرف اور صرف "باس جی" استعمال کریں۔` : `[ہدایت]: باس جی کے اس حکم پر ایگزیکٹو اور پیشہ ورانہ انداز میں مکمل عمل کریں اور رپورٹ دیں۔ شروع میں "باس جی!" سے مخاطب کریں۔`);
 
         const contents = buildGeminiContents(chatId, query || 'حکم');
         let reply = await dispatchLLM(dynamicAutonomousPrompt, contents, config, 850);
         if (!reply) {
-            reply = "باس! میں نے آپ کے حکم پر انٹرنیٹ پر تلاش کی ہے، تاہم ابھی درست نتائج حاصل نہیں ہو سکے۔ براہِ کرم مطلوبہ شہر یا پراپرٹی کی تفصیل لکھ کر بتائیں تاکہ میں دوبارہ درست نتائج پیش کر سکوں۔";
+            reply = "باس جی! میں نے آپ کے حکم پر انٹرنیٹ پر تلاش کی ہے، تاہم ابھی درست نتائج حاصل نہیں ہو سکے۔ براہِ کرم مطلوبہ شہر یا پراپرٹی کی تفصیل لکھ کر بتائیں تاکہ میں دوبارہ درست نتائج پیش کر سکوں۔";
         }
         return bossQualityGate(query, reply, chatId, 'autonomous');
     }

@@ -543,9 +543,10 @@ async function processWahaEvent(event) {
                     userMessageText = `[📍 لوکیشن پن]: ${locName || `${lat}, ${lng}`}`;
                     const currentMode = db.getChatMode(chatId);
 
-                    if (isMasterAdmin && (currentMode === 'autonomous' || /پراپرٹی|پلاٹ|زمین|مکان/i.test(cleanUserQuery))) {
-                        const locQuery = `اس لوکیشن (${locName || `${lat}, ${lng}`}) کے قریب برائے فروخت پراپرٹی، پلاٹس اور مکانات تلاش کرو Zameen OLX`;
-                        console.log(`📍 [AUTONOMOUS LOCATION PIN] Searching properties: "${locQuery}"...`);
+                    if (isMasterAdmin || currentMode === 'autonomous') {
+                        const locLabel = locName || (lat && lng ? `${lat}, ${lng}` : 'آپ کی موصول شدہ لوکیشن');
+                        const locQuery = `اس موصول شدہ لوکیشن (${locLabel}) کے اردگرد ٹاپ ریئل اسٹیٹ ایجنٹس، پراپرٹی ڈیلرز، دفاتر اور مارکیٹ کا مکمل ڈیٹا Zameen OLX`;
+                        console.log(`📍 [AUTONOMOUS LOCATION PIN] Searching real estate agents near pin: "${locQuery}"...`);
                         replyText = await agent.getQuickTextAnswer(locQuery, chatId);
                     } else {
                         const weather = require('./weather');

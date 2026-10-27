@@ -40,7 +40,17 @@ function parseMeetingDetails(query) {
     let hours = 11; // default 11:00 AM
     let minutes = 0;
 
-    const timeMatch = query.match(/(\d{1,2})(?::(\d{2}))?\s*(بجے|am|pm|صبح|شام|دوپہر|رات)?/i);
+    let cleanQuery = query;
+    const urduNumMap = {
+        'ایک': '1', 'دو': '2', 'تین': '3', 'چار': '4', 'پانچ': '5',
+        'چھ': '6', 'سات': '7', 'آٹھ': '8', 'نو': '9', 'دس': '10',
+        'گیارہ': '11', 'بارہ': '12'
+    };
+    for (const [w, d] of Object.entries(urduNumMap)) {
+        cleanQuery = cleanQuery.replace(new RegExp(w + '\\s*بجے', 'gi'), `${d} بجے`);
+    }
+
+    const timeMatch = cleanQuery.match(/(\d{1,2})(?::(\d{2}))?\s*(بجے|am|pm|صبح|شام|دوپہر|رات)?/i);
     if (timeMatch) {
         let h = parseInt(timeMatch[1], 10);
         let m = timeMatch[2] ? parseInt(timeMatch[2], 10) : 0;
