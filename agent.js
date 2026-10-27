@@ -7,6 +7,7 @@ const voiceModule = require('./voice');
 const mandiModule = require('./mandi');
 const db = require('./db');
 const webSearch = require('./web_search');
+const calendarModule = require('./calendar');
 
 const CONFIG_PATH = path.join(__dirname, 'config.json');
 
@@ -572,6 +573,27 @@ async function getQuickTextAnswer(userText, chatId = null) {
     // ========================================================
     if (currentMode === 'autonomous') {
         console.log(`🤖 [AUTONOMOUS AGENT] Processing admin prompt: "${query}" [ChatId: ${chatId}]`);
+
+        // Check if query is about meeting scheduling / calendar / reminder
+        const isMeetingQuery = /میٹنگ|شیڈول|ریمائنڈر|کیلنڈر|schedule|meeting|reminder|calendar|appointment/i.test(query);
+        if (isMeetingQuery) {
+            console.log(`📅 [CALENDAR ENGINE] Meeting scheduling detected: "${query}"`);
+            const meeting = calendarModule.parseMeetingDetails(query);
+            const reply = `باس! آپ کے حکم کے مطابق میٹنگ شیڈول کر دی گئی ہے:
+
+📌 **عنوان:** ${meeting.title}
+⏰ **وقت و تاریخ:** ${meeting.formattedDate}
+📍 **مقام:** ${meeting.location}
+🔔 **ریمائنڈر:** 30 منٹ قبل خودکار الرٹ
+
+📅 **گوگل کیلنڈر میں ریمائنڈر محفوظ کریں:**
+👉 [کیلنڈر میں شامل کریں (Add to Google Calendar)](${meeting.gcalUrl})
+
+(اوپر دیے گئے لنک پر کلک کر کے آپ اسے براہِ راست اپنے گوگل کیلنڈر میں ریمائنڈر کے ساتھ محفوظ کر سکتے ہیں)۔
+
+یہ کام مکمل ہو گیا ہے۔`;
+            return bossQualityGate(query, reply, chatId, 'autonomous');
+        }
 
         // Check if query involves search, property, web research, or Google
         const hasSearchKeywords = /گوگل|نیٹ|انٹرنیٹ|سرچ|تلاش|ڈھونڈ|دیکھو|پراپرٹی|پلاٹ|مکان|دکان|فلیٹ|زمین|قیمت|ریٹ|ریٹس|فار\s*سیل|خرید|بیچ|اشتہار|zameen|olx|google|search|find|property|plot|house|flat|rate|price|buy|sell|latest|news|update/i.test(query);
